@@ -79,6 +79,49 @@ section { position:relative; z-index:10; }
 .section-kicker::before { content:''; display:block; width:24px; height:1px; background:var(--accent); }
 .section-title { font-family:Impact,sans-serif; font-size:clamp(36px,5vw,72px); text-transform:uppercase; line-height:0.9; letter-spacing:-0.01em; }
 .section-num { font-family:Impact,sans-serif; font-size:80px; color:rgba(17,17,17,0.06); letter-spacing:-0.02em; line-height:1; }
+
+/* Experience badge — credibility block */
+.exp-badge {
+  display:flex; align-items:stretch; gap:0;
+  border:1px solid var(--ink); margin-bottom:48px;
+  position:relative; overflow:hidden;
+}
+.exp-badge::before {
+  content:''; position:absolute; inset:0;
+  background:var(--accent); transform:scaleX(0); transform-origin:left;
+  transition:transform 0.5s ease; z-index:0;
+}
+.exp-badge:hover::before { transform:scaleX(1); }
+.exp-badge-num {
+  font-family:Impact,sans-serif; font-size:clamp(48px,7vw,80px);
+  letter-spacing:-0.02em; line-height:1; padding:24px 28px;
+  border-right:1px solid var(--ink); color:var(--ink);
+  position:relative; z-index:1; transition:color 0.3s;
+  display:flex; align-items:center;
+}
+.exp-badge:hover .exp-badge-num { color:var(--ink); }
+.exp-badge-text {
+  padding:24px 28px; display:flex; flex-direction:column;
+  justify-content:center; position:relative; z-index:1;
+}
+.exp-badge-title {
+  font-family:Impact,sans-serif; font-size:clamp(18px,2.5vw,28px);
+  text-transform:uppercase; letter-spacing:0.04em; color:var(--ink);
+  line-height:1; transition:color 0.3s;
+}
+.exp-badge-sub {
+  font-size:10px; letter-spacing:0.18em; text-transform:uppercase;
+  color:var(--ink2); margin-top:6px; transition:color 0.3s;
+}
+.exp-badge:hover .exp-badge-title, .exp-badge:hover .exp-badge-sub { color:var(--ink); }
+.exp-badge-tag {
+  margin-left:auto; padding:24px 24px;
+  display:flex; align-items:center; flex-direction:column; justify-content:center;
+  border-left:1px solid var(--ink); gap:4px; min-width:100px; position:relative; z-index:1;
+}
+.exp-badge-tag span { font-size:8px; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink2); text-align:center; }
+.exp-badge-tag strong { font-size:9px; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent); font-weight:normal; }
+
 .servicios-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:0; }
 .servicio-item { padding:40px 32px; border-right:1px solid var(--border); border-bottom:1px solid var(--border); position:relative; overflow:hidden; transition:background 0.3s; }
 .servicio-item:nth-child(3n) { border-right:none; }
@@ -89,6 +132,12 @@ section { position:relative; z-index:10; }
 .serv-name { font-family:Impact,sans-serif; font-size:24px; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:16px; line-height:1; }
 .serv-desc { font-size:11px; line-height:1.8; color:var(--ink2); }
 .serv-icon { position:absolute; top:32px; right:32px; width:40px; height:40px; opacity:0.12; }
+
+/* Wide service item (spans full width) */
+.servicio-item.wide { grid-column:1/-1; border-right:none; display:grid; grid-template-columns:auto 1fr; gap:0 40px; align-items:start; }
+.servicio-item.wide .serv-body { }
+.servicio-item.wide .serv-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:14px; }
+.servicio-item.wide .serv-tag { font-size:9px; letter-spacing:0.15em; text-transform:uppercase; border:1px solid var(--border); padding:3px 10px; color:var(--ink2); }
 
 /* PROCESO */
 #proceso { padding:120px 40px; border-top:1px solid var(--border); background:var(--ink); color:var(--bg); }
@@ -113,9 +162,10 @@ section { position:relative; z-index:10; }
 .project-card { position:relative; overflow:hidden; cursor:none; background:#bbb; }
 .project-card:nth-child(1) { grid-column:1/8; height:440px; }
 .project-card:nth-child(2) { grid-column:8/13; height:440px; }
-.project-card:nth-child(3) { grid-column:1/5; height:300px; }
-.project-card:nth-child(4) { grid-column:5/9; height:300px; }
-.project-card:nth-child(5) { grid-column:9/13; height:300px; }
+.project-card:nth-child(3) { grid-column:1/4; height:280px; }
+.project-card:nth-child(4) { grid-column:4/7; height:280px; }
+.project-card:nth-child(5) { grid-column:7/10; height:280px; }
+.project-card:nth-child(6) { grid-column:10/13; height:280px; }
 
 .project-card img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
 .project-card:hover img { transform:scale(1.05); }
@@ -260,10 +310,14 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
   #servicios,#proceso,#portafolio,#materiales,#contacto { padding:80px 20px; }
   .servicios-grid { grid-template-columns:1fr; }
   .servicio-item { border-right:none; }
+  .servicio-item.wide { grid-template-columns:1fr; gap:16px; }
+  .exp-badge { flex-direction:column; }
+  .exp-badge-num { border-right:none; border-bottom:1px solid var(--ink); }
+  .exp-badge-tag { margin-left:0; border-left:none; border-top:1px solid var(--ink); flex-direction:row; gap:12px; }
   .proceso-diagram { grid-template-columns:1fr 1fr; }
   .proceso-diagram::before { display:none; }
   .projects-grid { grid-template-columns:1fr 1fr; }
-  .project-card { grid-column:auto!important; height:260px!important; }
+  .project-card { grid-column:auto!important; height:240px!important; }
   #materiales { grid-template-columns:1fr; gap:40px; }
   #contacto { grid-template-columns:1fr; gap:48px; }
   footer { grid-template-columns:1fr; text-align:center; }
@@ -338,7 +392,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
   </div>
   <div class="hero-panel-2 reveal">
     <span class="p2-tag">MOD / EXEC</span>
-    CNC<br>LÁSER<br>3D-PRINT<br>CARPINTERÍA<br>HERRERÍA<br>IMPRESIÓN
+    PRODUCCIÓN<br>IMPRESIÓN<br>GRÁFICA<br>ENMARCADO<br>TRASLADO<br>MOBILIARIO
   </div>
 
   <div class="hero-tag reveal"><span>MOD/SYS · PROMAX · 2025</span></div>
@@ -376,41 +430,76 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
     <div><div class="section-kicker reveal">SYS/02 · Módulos de servicio</div><h2 class="section-title reveal">SERVICIOS</h2></div>
     <div class="section-num reveal">02</div>
   </div>
+
+  <!-- EXPERIENCE BADGE -->
+  <div class="exp-badge reveal">
+    <div class="exp-badge-num">+10</div>
+    <div class="exp-badge-text">
+      <div class="exp-badge-title">Años de experiencia en<br>manejo y producción de obra</div>
+      <div class="exp-badge-sub">Museografía · Producción técnica · Manejo de obra · Ciudad de México</div>
+    </div>
+    <div class="exp-badge-tag">
+      <strong>ACTIVO</strong>
+      <span>DESDE</span>
+      <span>2014</span>
+    </div>
+  </div>
+
   <div class="servicios-grid">
+    <!-- PX/01 Diseño Museográfico -->
     <div class="servicio-item reveal">
       <svg class="serv-icon" viewBox="0 0 40 40"><rect x="4" y="4" width="32" height="32" stroke="#111" stroke-width="1.5" fill="none"/><line x1="4" y1="20" x2="36" y2="20" stroke="#111" stroke-width="1"/><line x1="20" y1="4" x2="20" y2="36" stroke="#111" stroke-width="1"/></svg>
       <span class="serv-num">PX / 01</span><div class="serv-name">Diseño<br>Museográfico</div>
       <p class="serv-desc">Desarrollo integral de sistemas expositivos. Desde concepto hasta instalación. Coherencia visual y constructiva en cada fase del proyecto.</p>
     </div>
+    <!-- PX/02 Producción -->
     <div class="servicio-item reveal" style="transition-delay:.1s">
       <svg class="serv-icon" viewBox="0 0 40 40"><circle cx="20" cy="20" r="14" stroke="#111" stroke-width="1.5" fill="none"/><line x1="6" y1="20" x2="34" y2="20" stroke="#111" stroke-width="1"/><line x1="20" y1="6" x2="20" y2="34" stroke="#111" stroke-width="1"/></svg>
-      <span class="serv-num">PX / 02</span><div class="serv-name">Fabricación<br>CNC + Láser</div>
-      <p class="serv-desc">Corte y maquinado de precisión en acrílico, madera y metal. Tolerancias técnicas verificadas. Control dimensional en cada pieza.</p>
+      <span class="serv-num">PX / 02</span><div class="serv-name">Producción</div>
+      <p class="serv-desc">Fabricación integral en taller propio: carpintería técnica, herrería, metalurgia, corte CNC y láser. Materiales: madera, metal, acrílico, MDF y materiales compuestos. Control dimensional y calidad verificada en cada pieza.</p>
     </div>
+    <!-- PX/03 Diseño y Producción Gráfica -->
     <div class="servicio-item reveal" style="transition-delay:.2s">
-      <svg class="serv-icon" viewBox="0 0 40 40"><polygon points="20,4 36,34 4,34" stroke="#111" stroke-width="1.5" fill="none"/></svg>
-      <span class="serv-num">PX / 03</span><div class="serv-name">Impresión<br>3D + Prototipo</div>
-      <p class="serv-desc">Prototipado rápido y producción de piezas únicas. Geometrías complejas, materialización directa de diseño digital.</p>
-    </div>
-    <div class="servicio-item reveal" style="transition-delay:.3s">
-      <svg class="serv-icon" viewBox="0 0 40 40"><rect x="8" y="8" width="24" height="24" stroke="#111" stroke-width="1.5" fill="none" transform="rotate(45 20 20)"/></svg>
-      <span class="serv-num">PX / 04</span><div class="serv-name">Carpintería<br>Técnica</div>
-      <p class="serv-desc">Estructuras en madera con acabado de nivel museográfico. Ensambles, pedestales, vitrinas, cajas y módulos de exhibición.</p>
-    </div>
-    <div class="servicio-item reveal" style="transition-delay:.4s">
-      <svg class="serv-icon" viewBox="0 0 40 40"><line x1="4" y1="4" x2="36" y2="36" stroke="#111" stroke-width="1.5"/><line x1="36" y1="4" x2="4" y2="36" stroke="#111" stroke-width="1.5"/><circle cx="20" cy="20" r="6" stroke="#111" stroke-width="1" fill="none"/></svg>
-      <span class="serv-num">PX / 05</span><div class="serv-name">Herrería<br>+ Metal</div>
-      <p class="serv-desc">Estructuras metálicas, soportes, bases y elementos de montaje. Soldadura, doblez y acabados industriales con precisión.</p>
-    </div>
-    <div class="servicio-item reveal" style="transition-delay:.5s">
-      <svg class="serv-icon" viewBox="0 0 40 40"><rect x="4" y="4" width="14" height="14" stroke="#111" stroke-width="1.5" fill="none"/><rect x="22" y="4" width="14" height="14" stroke="#111" stroke-width="1.5" fill="none"/><rect x="4" y="22" width="14" height="14" stroke="#111" stroke-width="1.5" fill="none"/><rect x="22" y="22" width="14" height="14" stroke="#111" stroke-width="1.5" fill="none"/></svg>
-      <span class="serv-num">PX / 06</span><div class="serv-name">Instalación<br>+ Montaje</div>
-      <p class="serv-desc">Coordinación técnica de instalación in situ. Supervisión de montaje, ajuste dimensional y entrega documentada.</p>
-    </div>
-    <div class="servicio-item reveal" style="transition-delay:.6s">
       <svg class="serv-icon" viewBox="0 0 40 40"><rect x="4" y="10" width="32" height="20" stroke="#111" stroke-width="1.5" fill="none"/><line x1="4" y1="18" x2="36" y2="18" stroke="#111" stroke-width="0.8"/><line x1="4" y1="26" x2="36" y2="26" stroke="#111" stroke-width="0.8"/><line x1="12" y1="10" x2="12" y2="30" stroke="#111" stroke-width="0.8"/></svg>
-      <span class="serv-num">PX / 07</span><div class="serv-name">Impresión<br>+ Grabado</div>
-      <p class="serv-desc">Impresión y grabado en vinil y cama plana sobre diversidad de materiales rígidos. Gran formato, señalética y gráficos expositivos.</p>
+      <span class="serv-num">PX / 03</span><div class="serv-name">Diseño y Producción<br>Gráfica</div>
+      <p class="serv-desc">Gigantografías, cédulas, vinil adhesivo, impresión en cama plana sobre materiales rígidos y señalética. Producción gráfica integral para exposiciones y espacios culturales.</p>
+    </div>
+    <!-- PX/04 Impresión 3D -->
+    <div class="servicio-item reveal" style="transition-delay:.3s">
+      <svg class="serv-icon" viewBox="0 0 40 40"><polygon points="20,4 36,34 4,34" stroke="#111" stroke-width="1.5" fill="none"/></svg>
+      <span class="serv-num">PX / 04</span><div class="serv-name">Impresión<br>3D + Prototipo</div>
+      <p class="serv-desc">Prototipado rápido y producción de piezas únicas. Geometrías complejas, materialización directa de diseño digital en 24–48 hrs.</p>
+    </div>
+    <!-- PX/05 Instalación y Montaje -->
+    <div class="servicio-item reveal" style="transition-delay:.4s">
+      <svg class="serv-icon" viewBox="0 0 40 40"><rect x="4" y="4" width="14" height="14" stroke="#111" stroke-width="1.5" fill="none"/><rect x="22" y="4" width="14" height="14" stroke="#111" stroke-width="1.5" fill="none"/><rect x="4" y="22" width="14" height="14" stroke="#111" stroke-width="1.5" fill="none"/><rect x="22" y="22" width="14" height="14" stroke="#111" stroke-width="1.5" fill="none"/></svg>
+      <span class="serv-num">PX / 05</span><div class="serv-name">Instalación<br>+ Montaje</div>
+      <p class="serv-desc">Coordinación técnica de instalación in situ. Supervisión de montaje, ajuste dimensional y entrega documentada con más de 10 años de experiencia en manejo de obra.</p>
+    </div>
+    <!-- PX/06 Enmarcado -->
+    <div class="servicio-item reveal" style="transition-delay:.5s">
+      <svg class="serv-icon" viewBox="0 0 40 40"><rect x="4" y="4" width="32" height="32" stroke="#111" stroke-width="1.5" fill="none"/><rect x="11" y="11" width="18" height="18" stroke="#111" stroke-width="0.8" fill="none"/></svg>
+      <span class="serv-num">PX / 06</span><div class="serv-name">Enmarcado</div>
+      <p class="serv-desc">Producción de marcos y bastidores para obra artística. Materiales seleccionados por proyecto. Acabados de nivel museográfico y manejo profesional de piezas.</p>
+    </div>
+    <!-- PX/07 Traslado de Obra -->
+    <div class="servicio-item reveal" style="transition-delay:.6s">
+      <svg class="serv-icon" viewBox="0 0 40 40"><rect x="2" y="14" width="28" height="18" stroke="#111" stroke-width="1.5" fill="none" rx="1"/><circle cx="10" cy="33" r="4" stroke="#111" stroke-width="1.5" fill="none"/><circle cx="24" cy="33" r="4" stroke="#111" stroke-width="1.5" fill="none"/><line x1="30" y1="22" x2="38" y2="22" stroke="#111" stroke-width="1.5"/><line x1="34" y1="18" x2="38" y2="22" stroke="#111" stroke-width="1"/><line x1="34" y1="26" x2="38" y2="22" stroke="#111" stroke-width="1"/></svg>
+      <span class="serv-num">PX / 07</span><div class="serv-name">Traslado<br>de Obra</div>
+      <p class="serv-desc">Logística y transporte especializado de obra artística. Embalaje técnico, manejo cuidadoso y coordinación de entrega en destino con protocolo de seguridad.</p>
+    </div>
+    <!-- PX/08 Diseño y Producción de Mobiliario — wide -->
+    <div class="servicio-item wide reveal" style="transition-delay:.7s">
+      <div style="min-width:180px">
+        <span class="serv-num">PX / 08</span>
+        <div class="serv-name">Diseño y Producción<br>de Mobiliario</div>
+      </div>
+      <div class="serv-body">
+        <p class="serv-desc">Diseño y fabricación de mobiliario a medida para espacios expositivos, museográficos y culturales. Vitrinas, pedestales, mesas de consulta, anaqueles y sistemas de almacenamiento. Producción en taller propio con control total del proceso constructivo.</p>
+        <div class="serv-tags">
+          <span class="serv-tag">Vitrinas</span><span class="serv-tag">Pedestales</span><span class="serv-tag">Anaqueles</span><span class="serv-tag">Mesas de consulta</span><span class="serv-tag">Mobiliario a medida</span><span class="serv-tag">Madera · Metal · Acrílico</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -488,6 +577,16 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
       </div>
       <div class="project-cta">VER PROYECTO</div>
     </div>
+    <div class="project-card reveal" style="transition-delay:.5s" onclick="openGallery('bcn')">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777705172/WhatsApp_Image_2026-05-02_at_12.55.51_AM_ntey0q.jpg" alt="Biblioteca Colegio Nacional" loading="lazy">
+      <div class="project-overlay">
+        <div class="project-code">PX-06 · 2025</div>
+        <div class="project-name">Biblioteca<br>Colegio Nacional</div>
+        <div class="project-meta">Adecuación · Mobiliario · Museografía</div>
+        <div class="project-count">04 imágenes</div>
+      </div>
+      <div class="project-cta">VER PROYECTO</div>
+    </div>
   </div>
 </section>
 
@@ -523,11 +622,11 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
     <h2 class="section-title reveal" style="margin-bottom:16px">MATERIALES<br><em style="color:var(--accent)">+ PROCESOS</em></h2>
     <p class="reveal" style="font-size:12px;line-height:1.9;color:var(--ink2);max-width:420px;margin-top:16px">Selección material basada en función, durabilidad y estética. Cada proyecto define su propio sistema constructivo. Sin atajos. Sin soluciones genéricas.</p>
     <div class="proc-list reveal">
-      <div class="proc-item"><span class="proc-item-num">MOD/01</span><div><div class="proc-item-name">CNC</div><div class="proc-item-desc">Fresado de alta precisión. Madera, MDF, acrílico y aluminio. Tolerancias hasta 0.1mm.</div></div></div>
-      <div class="proc-item"><span class="proc-item-num">MOD/02</span><div><div class="proc-item-name">Corte Láser</div><div class="proc-item-desc">Corte y grabado vectorial. Acrílico, madera y metal laminado. Bordes limpios, cero rebaba.</div></div></div>
+      <div class="proc-item"><span class="proc-item-num">MOD/01</span><div><div class="proc-item-name">CNC + Corte Láser</div><div class="proc-item-desc">Fresado y corte de alta precisión en madera, MDF, acrílico y aluminio. Tolerancias hasta 0.1mm. Sin rebaba.</div></div></div>
+      <div class="proc-item"><span class="proc-item-num">MOD/02</span><div><div class="proc-item-name">Carpintería + Herrería</div><div class="proc-item-desc">Fabricación estructural en madera y metal. Soldadura TIG, doblez, ensambles y acabados industriales de nivel museográfico.</div></div></div>
       <div class="proc-item"><span class="proc-item-num">MOD/03</span><div><div class="proc-item-name">Impresión 3D</div><div class="proc-item-desc">FDM y resina. Piezas funcionales y decorativas. Prototipado en 24–48 hrs.</div></div></div>
-      <div class="proc-item"><span class="proc-item-num">MOD/04</span><div><div class="proc-item-name">Impresión + Grabado</div><div class="proc-item-desc">Vinil y cama plana sobre materiales rígidos. Gran formato. Control cromático documentado por proyecto.</div></div></div>
-      <div class="proc-item"><span class="proc-item-num">MOD/05</span><div><div class="proc-item-name">Acabados</div><div class="proc-item-desc">Pintura electrostática, vinilado, laminado. Herrería y carpintería de acabado fino.</div></div></div>
+      <div class="proc-item"><span class="proc-item-num">MOD/04</span><div><div class="proc-item-name">Diseño y Producción Gráfica</div><div class="proc-item-desc">Gigantografías, cédulas, vinil y cama plana sobre materiales rígidos. Control cromático documentado por proyecto.</div></div></div>
+      <div class="proc-item"><span class="proc-item-num">MOD/05</span><div><div class="proc-item-name">Enmarcado + Traslado</div><div class="proc-item-desc">Producción de marcos museográficos y logística especializada de obra. Embalaje técnico y protocolo de manejo seguro.</div></div></div>
     </div>
   </div>
   <div>
@@ -681,7 +780,7 @@ ScrollTrigger.create({ trigger:'.projects-grid', start:'top 82%',
 // ===================== GALLERY DATA =====================
 const gData = {
   wpp: {
-    code:'PX-01 · 2024', title:'WORLD PRESS PHOTO',
+    code:'PX-01 · 2025', title:'WORLD PRESS PHOTO',
     meta:'Museografía · Sistema expositivo · Impresión',
     imgs:[
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673832/wpp_1_hyutx4.jpg',
@@ -690,7 +789,7 @@ const gData = {
     layout:['s7','s5']
   },
   fm: {
-    code:'PX-02 · 2024', title:'MUSEO FRANZ MAYER',
+    code:'PX-02 · 2025', title:'MUSEO FRANZ MAYER',
     meta:'Montaje y adecuación de espacio · Herrería · Carpintería',
     imgs:[
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673822/FM_1_ljra8p.jpg',
@@ -702,7 +801,7 @@ const gData = {
     layout:['s12','s4','s4','s4']
   },
   cn: {
-    code:'PX-03 · 2024', title:'MUSEO COLEGIO NACIONAL',
+    code:'PX-03 · 2025', title:'MUSEO COLEGIO NACIONAL',
     meta:'Exposición permanente · Museografía · Sistema modular',
     imgs:[
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673805/jp_1_jwqj46.jpg',
@@ -712,7 +811,7 @@ const gData = {
     layout:['s8','s4']
   },
   casa: {
-    code:'PX-04 · 2023', title:'DE CASA A HOGAR',
+    code:'PX-04 · 2025', title:'DE CASA A HOGAR',
     meta:'Montaje expositivo · Concepto curatorial · Instalación',
     imgs:[
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673794/Unacasa_5_sej4pf.jpg',
@@ -723,7 +822,7 @@ const gData = {
     layout:['s7','s5','s6','s6']
   },
   atl: {
-    code:'PX-05 · 2023', title:'EXPOSICIÓN DR. ATL',
+    code:'PX-05 · 2025', title:'EXPOSICIÓN DR. ATL',
     meta:'Colegio Nacional · Museografía completa · Acrílico · Metal · Madera',
     imgs:[
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673777/Dr.Atl_10_wqxc2l.jpg',
@@ -733,10 +832,21 @@ const gData = {
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673777/Dr.Atl_9_yz83gg.jpg'
     ],
     layout:['s12','s6','s6','s4','s4','s4']
+  },
+  bcn: {
+    code:'PX-06 · 2025', title:'BIBLIOTECA COLEGIO NACIONAL',
+    meta:'Adecuación de espacio · Mobiliario · Museografía · Colegio Nacional',
+    imgs:[
+      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777705172/WhatsApp_Image_2026-05-02_at_12.55.51_AM_ntey0q.jpg',
+      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777705172/WhatsApp_Image_2026-05-02_at_12.55.51_AM_1_fxiseh.jpg',
+      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777705172/WhatsApp_Image_2026-05-02_at_12.55.51_AM_2_hy21v4.jpg',
+      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777705164/WhatsApp_Image_2026-05-02_at_12.55.51_AM_3_upsylo.jpg'
+    ],
+    layout:['s7','s5','s6','s6']
   }
 };
 
-const projectOrder = ['wpp','fm','cn','casa','atl'];
+const projectOrder = ['wpp','fm','cn','casa','atl','bcn'];
 let currentProj = null;
 let viewerImgs = [];
 let viewerIdx  = 0;
