@@ -134,8 +134,17 @@ section { position:relative; z-index:10; }
 .serv-icon { position:absolute; top:32px; right:32px; width:40px; height:40px; opacity:0.12; }
 
 /* Wide service item (spans full width) */
-.servicio-item.wide { grid-column:1/-1; border-right:none; display:grid; grid-template-columns:auto 1fr; gap:0 40px; align-items:start; }
-.servicio-item.wide .serv-body { }
+.servicio-item.wide {
+  grid-column: 1/-1;
+  border-right: none;
+  border-bottom: 1px solid var(--border);
+}
+.servicio-item.wide .serv-inner {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 40px;
+  align-items: start;
+}
 .servicio-item.wide .serv-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:14px; }
 .servicio-item.wide .serv-tag { font-size:9px; letter-spacing:0.15em; text-transform:uppercase; border:1px solid var(--border); padding:3px 10px; color:var(--ink2); }
 
@@ -162,10 +171,9 @@ section { position:relative; z-index:10; }
 .project-card { position:relative; overflow:hidden; cursor:none; background:#bbb; }
 .project-card:nth-child(1) { grid-column:1/8; height:440px; }
 .project-card:nth-child(2) { grid-column:8/13; height:440px; }
-.project-card:nth-child(3) { grid-column:1/4; height:280px; }
-.project-card:nth-child(4) { grid-column:4/7; height:280px; }
-.project-card:nth-child(5) { grid-column:7/10; height:280px; }
-.project-card:nth-child(6) { grid-column:10/13; height:280px; }
+.project-card:nth-child(3) { grid-column:1/5; height:300px; }
+.project-card:nth-child(4) { grid-column:5/9; height:300px; }
+.project-card:nth-child(5) { grid-column:9/13; height:300px; }
 
 .project-card img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
 .project-card:hover img { transform:scale(1.05); }
@@ -310,7 +318,8 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
   #servicios,#proceso,#portafolio,#materiales,#contacto { padding:80px 20px; }
   .servicios-grid { grid-template-columns:1fr; }
   .servicio-item { border-right:none; }
-  .servicio-item.wide { grid-template-columns:1fr; gap:16px; }
+  .servicio-item.wide { grid-template-columns:1fr; }
+  .servicio-item.wide .serv-inner { grid-template-columns:1fr; gap:16px; }
   .exp-badge { flex-direction:column; }
   .exp-badge-num { border-right:none; border-bottom:1px solid var(--ink); }
   .exp-badge-tag { margin-left:0; border-left:none; border-top:1px solid var(--ink); flex-direction:row; gap:12px; }
@@ -490,14 +499,16 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
     </div>
     <!-- PX/08 Diseño y Producción de Mobiliario — wide -->
     <div class="servicio-item wide reveal" style="transition-delay:.7s">
-      <div style="min-width:180px">
-        <span class="serv-num">PX / 08</span>
-        <div class="serv-name">Diseño y Producción<br>de Mobiliario</div>
-      </div>
-      <div class="serv-body">
-        <p class="serv-desc">Diseño y fabricación de mobiliario a medida para espacios expositivos, museográficos y culturales. Vitrinas, pedestales, mesas de consulta, anaqueles y sistemas de almacenamiento. Producción en taller propio con control total del proceso constructivo.</p>
-        <div class="serv-tags">
-          <span class="serv-tag">Vitrinas</span><span class="serv-tag">Pedestales</span><span class="serv-tag">Anaqueles</span><span class="serv-tag">Mesas de consulta</span><span class="serv-tag">Mobiliario a medida</span><span class="serv-tag">Madera · Metal · Acrílico</span>
+      <div class="serv-inner">
+        <div>
+          <span class="serv-num">PX / 08</span>
+          <div class="serv-name">Diseño y Producción<br>de Mobiliario</div>
+        </div>
+        <div class="serv-body">
+          <p class="serv-desc">Diseño y fabricación de mobiliario a medida para espacios expositivos, museográficos y culturales. Vitrinas, pedestales, mesas de consulta, anaqueles y sistemas de almacenamiento. Producción en taller propio con control total del proceso constructivo.</p>
+          <div class="serv-tags">
+            <span class="serv-tag">Vitrinas</span><span class="serv-tag">Pedestales</span><span class="serv-tag">Anaqueles</span><span class="serv-tag">Mesas de consulta</span><span class="serv-tag">Mobiliario a medida</span><span class="serv-tag">Madera · Metal · Acrílico</span>
+          </div>
         </div>
       </div>
     </div>
@@ -552,8 +563,8 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
       <div class="project-overlay">
         <div class="project-code">PX-03 · 2025</div>
         <div class="project-name">Museo Colegio<br>Nacional</div>
-        <div class="project-meta">Exposición permanente · Museografía</div>
-        <div class="project-count">03 imágenes</div>
+        <div class="project-meta">Exposición · Biblioteca · Museografía</div>
+        <div class="project-count">07 imágenes</div>
       </div>
       <div class="project-cta">VER PROYECTO</div>
     </div>
@@ -574,16 +585,6 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
         <div class="project-name">Exposición<br>Dr. Atl</div>
         <div class="project-meta">Colegio Nacional · Museografía completa</div>
         <div class="project-count">05 imágenes</div>
-      </div>
-      <div class="project-cta">VER PROYECTO</div>
-    </div>
-    <div class="project-card reveal" style="transition-delay:.5s" onclick="openGallery('bcn')">
-      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777705172/WhatsApp_Image_2026-05-02_at_12.55.51_AM_ntey0q.jpg" alt="Biblioteca Colegio Nacional" loading="lazy">
-      <div class="project-overlay">
-        <div class="project-code">PX-06 · 2025</div>
-        <div class="project-name">Biblioteca<br>Colegio Nacional</div>
-        <div class="project-meta">Adecuación · Mobiliario · Museografía</div>
-        <div class="project-count">04 imágenes</div>
       </div>
       <div class="project-cta">VER PROYECTO</div>
     </div>
@@ -652,12 +653,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
         <div class="mat-name">PVC Espumado</div>
         <div class="mat-spec">Láminas rígidas y ligeras 3–10mm. Impresión directa, CNC y láser. Paneles y cartelas.</div>
       </div>
-      <div class="mat-block reveal" style="transition-delay:.20s">
-        <div class="mat-icon"><svg width="32" height="32" viewBox="0 0 32 32"><rect x="4" y="6" width="24" height="20" stroke="#111" stroke-width="1.5" fill="none" rx="1"/><line x1="10" y1="6" x2="10" y2="26" stroke="#111" stroke-width="0.8"/><line x1="22" y1="6" x2="22" y2="26" stroke="#111" stroke-width="0.8"/></svg></div>
-        <div class="mat-name">Trovicel</div>
-        <div class="mat-spec">PVC de alta densidad. Superficie uniforme para impresión y acabados. Módulos ligeros y marcos.</div>
-      </div>
-      <div class="mat-block reveal" style="transition-delay:.24s;grid-column:1/-1">
+      <div class="mat-block reveal" style="transition-delay:.20s;grid-column:1/-1">
         <div class="mat-icon"><svg width="32" height="32" viewBox="0 0 32 32"><rect x="2" y="2" width="12" height="12" stroke="#111" stroke-width="1.5" fill="none"/><rect x="18" y="2" width="12" height="12" stroke="#111" stroke-width="1.5" fill="none"/><rect x="2" y="18" width="12" height="12" stroke="#111" stroke-width="1.5" fill="none"/><rect x="18" y="18" width="12" height="12" stroke="#111" stroke-width="1.5" fill="none"/></svg></div>
         <div class="mat-name">Otros Materiales Rígidos</div>
         <div class="mat-spec">Dibond, policarbonato, cartón pluma, forex y materiales compuestos. Selección por proyecto según requerimientos técnicos, estéticos y de durabilidad. Criterio único: función primero, estética siempre.</div>
@@ -674,7 +670,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
     <p class="reveal" style="font-size:12px;line-height:1.9;color:var(--ink2);max-width:360px">Cada proyecto comienza con un brief técnico. Cuéntanos qué necesitas construir.</p>
     <div class="contact-info reveal">
       <div class="contact-info-item"><span class="ci-label">Email</span><span class="ci-val">atencion.promax@gmail.com</span></div>
-      <div class="contact-info-item"><span class="ci-label">WhatsApp</span><span class="ci-val">+52 55 0000 0000</span></div>
+      <div class="contact-info-item"><span class="ci-label">WhatsApp</span><span class="ci-val">+52 56 3858 8892</span></div>
       <div class="contact-info-item"><span class="ci-label">Ciudad</span><span class="ci-val">Ciudad de México, MX</span></div>
       <div class="contact-info-item"><span class="ci-label">Sistema</span><span class="ci-val" style="color:var(--accent)">ACTIVO · RECIBIENDO PROYECTOS</span></div>
     </div>
@@ -699,7 +695,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
   <div class="footer-right"><span>SYS/VERSION · 2025.1</span><br>Ciudad de México<br>Sistemas Museográficos<br><span>PROMAX ©2025</span></div>
 </footer>
 
-<a class="wa-btn" href="https://wa.me/5500000000" target="_blank" title="WhatsApp PROMAX">
+<a class="wa-btn" href="https://wa.me/525638588892" target="_blank" title="WhatsApp PROMAX">
   <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
 
@@ -802,13 +798,17 @@ const gData = {
   },
   cn: {
     code:'PX-03 · 2025', title:'MUSEO COLEGIO NACIONAL',
-    meta:'Exposición permanente · Museografía · Sistema modular',
+    meta:'Exposición permanente · Museografía · Sistema modular · Biblioteca',
     imgs:[
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673805/jp_1_jwqj46.jpg',
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673804/jp_2_p0soy2.jpg',
-      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673805/jp_3_mvnh79.jpg'
+      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673805/jp_3_mvnh79.jpg',
+      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777705172/WhatsApp_Image_2026-05-02_at_12.55.51_AM_ntey0q.jpg',
+      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777705172/WhatsApp_Image_2026-05-02_at_12.55.51_AM_1_fxiseh.jpg',
+      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777705172/WhatsApp_Image_2026-05-02_at_12.55.51_AM_2_hy21v4.jpg',
+      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777705164/WhatsApp_Image_2026-05-02_at_12.55.51_AM_3_upsylo.jpg'
     ],
-    layout:['s8','s4']
+    layout:['s8','s4','s4','s4','s4','s6','s6']
   },
   casa: {
     code:'PX-04 · 2025', title:'DE CASA A HOGAR',
@@ -832,21 +832,10 @@ const gData = {
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673777/Dr.Atl_9_yz83gg.jpg'
     ],
     layout:['s12','s6','s6','s4','s4','s4']
-  },
-  bcn: {
-    code:'PX-06 · 2025', title:'BIBLIOTECA COLEGIO NACIONAL',
-    meta:'Adecuación de espacio · Mobiliario · Museografía · Colegio Nacional',
-    imgs:[
-      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777705172/WhatsApp_Image_2026-05-02_at_12.55.51_AM_ntey0q.jpg',
-      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777705172/WhatsApp_Image_2026-05-02_at_12.55.51_AM_1_fxiseh.jpg',
-      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777705172/WhatsApp_Image_2026-05-02_at_12.55.51_AM_2_hy21v4.jpg',
-      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777705164/WhatsApp_Image_2026-05-02_at_12.55.51_AM_3_upsylo.jpg'
-    ],
-    layout:['s7','s5','s6','s6']
   }
 };
 
-const projectOrder = ['wpp','fm','cn','casa','atl','bcn'];
+const projectOrder = ['wpp','fm','cn','casa','atl'];
 let currentProj = null;
 let viewerImgs = [];
 let viewerIdx  = 0;
