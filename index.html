@@ -356,6 +356,17 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
 }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+  /* onRecaptchaLoad debe existir en window ANTES de que api.js termine de cargar */
+  var recaptchaWidgetId;
+  function onRecaptchaLoad() {
+    recaptchaWidgetId = grecaptcha.render('recaptchaWidget', {
+      sitekey: '6LdD_tksAAAAAP1NwHlAKZYlCAOhnghjcGYmfCfH',
+      theme:   'light',
+      size:    'normal'
+    });
+  }
+</script>
 <script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit" async defer></script>
 </head>
 <body>
@@ -914,17 +925,6 @@ document.addEventListener('keydown', e => {
     if (e.key==='ArrowLeft')   navProject(-1);
   }
 });
-
-// ---- reCAPTCHA EXPLICIT RENDER ----
-// Se renderiza con callback para evitar conflictos con animaciones GSAP (opacity:0 al cargar)
-var recaptchaWidgetId;
-function onRecaptchaLoad() {
-  recaptchaWidgetId = grecaptcha.render('recaptchaWidget', {
-    sitekey: '6LdD_tksAAAAAP1NwHlAKZYlCAOhnghjcGYmfCfH',
-    theme:   'light',
-    size:    'normal'
-  });
-}
 
 // ---- EMAILJS INIT ----
 emailjs.init('w2EzKh2wh_jMBFtp7');
