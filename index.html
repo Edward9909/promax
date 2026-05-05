@@ -1,2534 +1,982 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PROMAX — Sistemas Museográficos</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <style>
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        :root {
-            --bg: #f5f5f3;
-            --ink: #111111;
-            --ink2: #555555;
-            --accent: #F4DB09;
-            --glass: rgba(245, 245, 243, 0.72);
-            --border: rgba(17, 17, 17, 0.12);
-            --mono: 'Courier New', Courier, monospace;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background: var(--bg);
-            color: var(--ink);
-            font-family: var(--mono);
-            font-size: 13px;
-            line-height: 1.6;
-            cursor: none;
-            overflow-x: hidden;
-        }
-
-        /* CURSOR */
-        #cursor {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 24px;
-            height: 24px;
-            pointer-events: none;
-            z-index: 9999;
-            mix-blend-mode: multiply;
-        }
-
-        #cursor svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        #cursor-dot {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 4px;
-            background: var(--accent);
-            pointer-events: none;
-            z-index: 10000;
-            transform: translate(-50%, -50%);
-        }
-
-        #cursor.hover {
-            transform: scale(2.2) translate(-50%, -50%);
-        }
-
-        /* GRID */
-        .grid-overlay {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 1;
-            background-image: linear-gradient(rgba(17, 17, 17, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(17, 17, 17, 0.04) 1px, transparent 1px);
-            background-size: 64px 64px;
-        }
-
-        /* NAV */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 200;
-            padding: 20px 40px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            background: rgba(245, 245, 243, 0.88);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .nav-logo {
-            font-family: Impact, 'Arial Narrow', sans-serif;
-            font-size: 22px;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: var(--ink);
-            text-decoration: none;
-            position: relative;
-        }
-
-        .nav-logo::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: var(--accent);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s;
-        }
-
-        .nav-logo:hover::after {
-            transform: scaleX(1);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 32px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            font-family: var(--mono);
-            font-size: 11px;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--ink2);
-            text-decoration: none;
-            position: relative;
-            transition: color 0.2s;
-        }
-
-        .nav-links a::before {
-            content: attr(data-code);
-            position: absolute;
-            top: -12px;
-            left: 0;
-            font-size: 8px;
-            color: var(--accent);
-            letter-spacing: 0.1em;
-            opacity: 0;
-            transition: opacity 0.2s;
-        }
-
-        .nav-links a:hover {
-            color: var(--ink);
-        }
-
-        .nav-links a:hover::before {
-            opacity: 1;
-        }
-
-        .nav-sys {
-            font-size: 9px;
-            letter-spacing: 0.2em;
-            color: var(--ink2);
-            border: 1px solid var(--border);
-            padding: 4px 10px;
-        }
-
-        section {
-            position: relative;
-            z-index: 10;
-        }
-
-        /* HERO */
-        #hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 100px 40px 60px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .hero-bg-lines {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .hero-tag {
-            font-size: 9px;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .hero-tag::before {
-            content: '';
-            display: block;
-            width: 32px;
-            height: 1px;
-            background: var(--accent);
-        }
-
-        .hero-title {
-            font-family: Impact, 'Arial Narrow', sans-serif;
-            font-size: clamp(72px, 13vw, 180px);
-            line-height: 0.88;
-            letter-spacing: -0.01em;
-            text-transform: uppercase;
-            color: var(--ink);
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero-title .accent {
-            color: var(--accent);
-        }
-
-        .hero-title-line {
-            overflow: hidden;
-            display: block;
-        }
-
-        .hero-title-inner {
-            display: block;
-        }
-
-        .hero-bottom {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 40px;
-            margin-top: 48px;
-            padding-top: 32px;
-            border-top: 1px solid var(--border);
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero-stat-val {
-            font-family: Impact, sans-serif;
-            font-size: 32px;
-            letter-spacing: 0.04em;
-            color: var(--ink);
-            display: block;
-        }
-
-        .hero-stat-label {
-            font-size: 9px;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--ink2);
-            margin-top: 4px;
-            display: block;
-        }
-
-        .hero-desc {
-            font-size: 12px;
-            line-height: 1.7;
-            color: var(--ink2);
-            max-width: 320px;
-        }
-
-        .hero-panel {
-            position: absolute;
-            top: 140px;
-            right: 40px;
-            width: 220px;
-            background: var(--glass);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--border);
-            padding: 20px;
-            z-index: 10;
-            box-shadow: 0 8px 32px rgba(17, 17, 17, 0.08);
-        }
-
-        .panel-header {
-            font-size: 8px;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: var(--accent);
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 10px;
-            margin-bottom: 14px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .panel-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 5px 0;
-            border-bottom: 1px solid rgba(17, 17, 17, 0.06);
-            font-size: 9px;
-            letter-spacing: 0.1em;
-        }
-
-        .panel-row-key {
-            color: var(--ink2);
-            text-transform: uppercase;
-        }
-
-        .panel-row-val {
-            color: var(--ink);
-            font-weight: bold;
-        }
-
-        .panel-row-val.active {
-            color: var(--accent);
-        }
-
-        .hero-panel-2 {
-            position: absolute;
-            bottom: 160px;
-            right: 40px;
-            width: 140px;
-            background: var(--ink);
-            color: var(--bg);
-            padding: 16px;
-            z-index: 10;
-            font-size: 9px;
-            letter-spacing: 0.12em;
-            line-height: 1.8;
-            text-transform: uppercase;
-        }
-
-        .hero-panel-2 .p2-tag {
-            color: var(--accent);
-            font-size: 8px;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        /* ABOUT */
-        #about {
-            padding: 120px 40px;
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 80px;
-            border-top: 1px solid var(--border);
-        }
-
-        .about-label {
-            font-size: 9px;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: var(--accent);
-            position: sticky;
-            top: 100px;
-            height: fit-content;
-        }
-
-        .about-label-code {
-            display: block;
-            font-size: 22px;
-            font-family: Impact, sans-serif;
-            color: var(--ink);
-            letter-spacing: 0.05em;
-            margin-top: 8px;
-        }
-
-        .about-h2 {
-            font-family: Impact, sans-serif;
-            font-size: clamp(36px, 5vw, 64px);
-            line-height: 0.92;
-            text-transform: uppercase;
-            margin-bottom: 32px;
-            letter-spacing: -0.01em;
-        }
-
-        .about-h2 em {
-            font-style: normal;
-            color: var(--accent);
-        }
-
-        .about-body {
-            font-size: 13px;
-            line-height: 1.9;
-            color: var(--ink2);
-            max-width: 560px;
-            margin-bottom: 48px;
-        }
-
-        .about-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .tag {
-            font-size: 9px;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            border: 1px solid var(--ink);
-            padding: 5px 12px;
-            color: var(--ink);
-            transition: background 0.2s, color 0.2s;
-        }
-
-        .tag:hover {
-            background: var(--accent);
-            border-color: var(--accent);
-        }
-
-        /* SERVICIOS */
-        #servicios {
-            padding: 120px 40px;
-            border-top: 1px solid var(--border);
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-bottom: 64px;
-            padding-bottom: 24px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .section-kicker {
-            font-size: 9px;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: var(--ink2);
-            display: flex;
-            gap: 16px;
-            align-items: center;
-        }
-
-        .section-kicker::before {
-            content: '';
-            display: block;
-            width: 24px;
-            height: 1px;
-            background: var(--accent);
-        }
-
-        .section-title {
-            font-family: Impact, sans-serif;
-            font-size: clamp(36px, 5vw, 72px);
-            text-transform: uppercase;
-            line-height: 0.9;
-            letter-spacing: -0.01em;
-        }
-
-        .section-num {
-            font-family: Impact, sans-serif;
-            font-size: 80px;
-            color: rgba(17, 17, 17, 0.06);
-            letter-spacing: -0.02em;
-            line-height: 1;
-        }
-
-        /* Experience badge — credibility block */
-        .exp-badge {
-            display: flex;
-            align-items: stretch;
-            gap: 0;
-            border: 1px solid var(--ink);
-            margin-bottom: 48px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .exp-badge::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: var(--accent);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.5s ease;
-            z-index: 0;
-        }
-
-        .exp-badge:hover::before {
-            transform: scaleX(1);
-        }
-
-        .exp-badge-num {
-            font-family: Impact, sans-serif;
-            font-size: clamp(48px, 7vw, 80px);
-            letter-spacing: -0.02em;
-            line-height: 1;
-            padding: 24px 28px;
-            border-right: 1px solid var(--ink);
-            color: var(--ink);
-            position: relative;
-            z-index: 1;
-            transition: color 0.3s;
-            display: flex;
-            align-items: center;
-        }
-
-        .exp-badge:hover .exp-badge-num {
-            color: var(--ink);
-        }
-
-        .exp-badge-text {
-            padding: 24px 28px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .exp-badge-title {
-            font-family: Impact, sans-serif;
-            font-size: clamp(18px, 2.5vw, 28px);
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-            color: var(--ink);
-            line-height: 1;
-            transition: color 0.3s;
-        }
-
-        .exp-badge-sub {
-            font-size: 10px;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: var(--ink2);
-            margin-top: 6px;
-            transition: color 0.3s;
-        }
-
-        .exp-badge:hover .exp-badge-title,
-        .exp-badge:hover .exp-badge-sub {
-            color: var(--ink);
-        }
-
-        .exp-badge-tag {
-            margin-left: auto;
-            padding: 24px 24px;
-            display: flex;
-            align-items: center;
-            flex-direction: column;
-            justify-content: center;
-            border-left: 1px solid var(--ink);
-            gap: 4px;
-            min-width: 100px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .exp-badge-tag span {
-            font-size: 8px;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--ink2);
-            text-align: center;
-        }
-
-        .exp-badge-tag strong {
-            font-size: 9px;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--accent);
-            font-weight: normal;
-        }
-
-        .servicios-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0;
-        }
-
-        .servicio-item {
-            padding: 40px 32px;
-            border-right: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-            position: relative;
-            overflow: hidden;
-            transition: background 0.3s;
-        }
-
-        .servicio-item:nth-child(3n) {
-            border-right: none;
-        }
-
-        .servicio-item::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: var(--accent);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s;
-        }
-
-        .servicio-item:hover::before {
-            transform: scaleX(1);
-        }
-
-        .servicio-item:hover {
-            background: rgba(244, 219, 9, 0.04);
-        }
-
-        .serv-num {
-            font-size: 9px;
-            letter-spacing: 0.2em;
-            color: var(--accent);
-            margin-bottom: 24px;
-            display: block;
-        }
-
-        .serv-name {
-            font-family: Impact, sans-serif;
-            font-size: 24px;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-            margin-bottom: 16px;
-            line-height: 1;
-        }
-
-        .serv-desc {
-            font-size: 11px;
-            line-height: 1.8;
-            color: var(--ink2);
-        }
-
-        .serv-icon {
-            position: absolute;
-            top: 32px;
-            right: 32px;
-            width: 40px;
-            height: 40px;
-            opacity: 0.12;
-        }
-
-        /* Wide service item (spans full width) */
-        .servicio-item.wide {
-            grid-column: 1/-1;
-            border-right: none;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .servicio-item.wide .serv-inner {
-            display: grid;
-            grid-template-columns: 240px 1fr;
-            gap: 40px;
-            align-items: start;
-        }
-
-        .servicio-item.wide .serv-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-top: 14px;
-        }
-
-        .servicio-item.wide .serv-tag {
-            font-size: 9px;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            border: 1px solid var(--border);
-            padding: 3px 10px;
-            color: var(--ink2);
-        }
-
-        /* PROCESO */
-        #proceso {
-            padding: 120px 40px;
-            border-top: 1px solid var(--border);
-            background: var(--ink);
-            color: var(--bg);
-        }
-
-        #proceso .section-title {
-            color: var(--bg);
-        }
-
-        #proceso .section-kicker {
-            color: rgba(245, 245, 243, 0.4);
-        }
-
-        #proceso .section-kicker::before {
-            background: var(--accent);
-        }
-
-        #proceso .section-num {
-            color: rgba(245, 245, 243, 0.06);
-        }
-
-        .proceso-diagram {
-            margin-top: 64px;
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 0;
-            position: relative;
-        }
-
-        .proceso-diagram::before {
-            content: '';
-            position: absolute;
-            top: 5px;
-            left: 40px;
-            right: 40px;
-            height: 1px;
-            background: linear-gradient(90deg, var(--accent), rgba(244, 219, 9, 0.2));
-        }
-
-        .proc-step {
-            padding: 32px 24px 40px;
-            position: relative;
-            border-right: 1px solid rgba(245, 245, 243, 0.08);
-        }
-
-        .proc-step:last-child {
-            border-right: none;
-        }
-
-        .proc-dot {
-            width: 10px;
-            height: 10px;
-            background: var(--accent);
-            margin-bottom: 24px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .proc-num {
-            font-size: 8px;
-            letter-spacing: 0.25em;
-            color: rgba(244, 219, 9, 0.7);
-            margin-bottom: 12px;
-            display: block;
-        }
-
-        .proc-name {
-            font-family: Impact, sans-serif;
-            font-size: 18px;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: var(--bg);
-            margin-bottom: 12px;
-        }
-
-        .proc-desc {
-            font-size: 10px;
-            line-height: 1.8;
-            color: rgba(245, 245, 243, 0.5);
-        }
-
-        /* ===================== PORTAFOLIO ===================== */
-        #portafolio {
-            padding: 120px 40px;
-            border-top: 1px solid var(--border);
-        }
-
-        .projects-grid {
-            margin-top: 64px;
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 3px;
-        }
-
-        .project-card {
-            position: relative;
-            overflow: hidden;
-            cursor: none;
-            background: #bbb;
-        }
-
-        .project-card:nth-child(1) {
-            grid-column: 1/8;
-            height: 440px;
-        }
-
-        .project-card:nth-child(2) {
-            grid-column: 8/13;
-            height: 440px;
-        }
-
-        .project-card:nth-child(3) {
-            grid-column: 1/5;
-            height: 300px;
-        }
-
-        .project-card:nth-child(4) {
-            grid-column: 5/9;
-            height: 300px;
-        }
-
-        .project-card:nth-child(5) {
-            grid-column: 9/13;
-            height: 300px;
-        }
-
-        .project-card img {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .project-card:hover img {
-            transform: scale(1.05);
-        }
-
-        .project-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(17, 17, 17, 0.85) 0%, rgba(17, 17, 17, 0.15) 55%, transparent 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 28px;
-            transition: background 0.4s;
-        }
-
-        .project-card:hover .project-overlay {
-            background: linear-gradient(to top, rgba(17, 17, 17, 0.92) 0%, rgba(17, 17, 17, 0.4) 65%, rgba(17, 17, 17, 0.1) 100%);
-        }
-
-        .project-code {
-            font-size: 9px;
-            letter-spacing: 0.25em;
-            color: var(--accent);
-            text-transform: uppercase;
-            margin-bottom: 8px;
-        }
-
-        .project-name {
-            font-family: Impact, sans-serif;
-            font-size: clamp(20px, 2.2vw, 28px);
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-            color: #fff;
-            line-height: 1;
-            margin-bottom: 8px;
-        }
-
-        .project-meta {
-            font-size: 10px;
-            letter-spacing: 0.12em;
-            color: rgba(255, 255, 255, 0.5);
-            text-transform: uppercase;
-        }
-
-        .project-count {
-            font-size: 9px;
-            letter-spacing: 0.18em;
-            color: rgba(255, 255, 255, 0.35);
-            text-transform: uppercase;
-            margin-top: 5px;
-        }
-
-        .project-cta {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: var(--accent);
-            color: var(--ink);
-            font-family: var(--mono);
-            font-size: 9px;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            padding: 6px 12px;
-            opacity: 0;
-            transform: translateY(-6px);
-            transition: opacity 0.3s, transform 0.3s;
-        }
-
-        .project-card:hover .project-cta {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* corner markers */
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 20px;
-            height: 20px;
-            border-top: 1px solid var(--accent);
-            border-left: 1px solid var(--accent);
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: 3;
-        }
-
-        .project-card::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 20px;
-            height: 20px;
-            border-bottom: 1px solid var(--accent);
-            border-right: 1px solid var(--accent);
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: 3;
-        }
-
-        .project-card:hover::before,
-        .project-card:hover::after {
-            opacity: 1;
-        }
-
-        /* ===================== GALLERY MODAL ===================== */
-        #galleryModal {
-            position: fixed;
-            inset: 0;
-            z-index: 3000;
-            background: rgba(17, 17, 17, 0.97);
-            display: flex;
-            flex-direction: column;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s;
-        }
-
-        #galleryModal.open {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .gm-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 24px 40px;
-            border-bottom: 1px solid rgba(245, 245, 243, 0.1);
-            flex-shrink: 0;
-        }
-
-        .gm-code {
-            font-size: 9px;
-            letter-spacing: 0.25em;
-            color: var(--accent);
-            text-transform: uppercase;
-            margin-bottom: 4px;
-        }
-
-        .gm-title {
-            font-family: Impact, sans-serif;
-            font-size: 26px;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            color: #f5f5f3;
-        }
-
-        .gm-meta {
-            font-size: 10px;
-            letter-spacing: 0.12em;
-            color: rgba(245, 245, 243, 0.4);
-            text-transform: uppercase;
-            margin-top: 4px;
-        }
-
-        .gm-close {
-            background: none;
-            border: 1px solid rgba(245, 245, 243, 0.2);
-            color: #f5f5f3;
-            font-family: var(--mono);
-            font-size: 10px;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            padding: 10px 20px;
-            cursor: none;
-            transition: border-color 0.2s, color 0.2s;
-        }
-
-        .gm-close:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-
-        .gm-body {
-            flex: 1;
-            overflow-y: auto;
-            padding: 32px 40px;
-        }
-
-        .gm-grid {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 3px;
-        }
-
-        .gm-img {
-            overflow: hidden;
-            background: #1a1a1a;
-            cursor: none;
-        }
-
-        .gm-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.5s, opacity 0.3s;
-        }
-
-        .gm-img:hover img {
-            transform: scale(1.03);
-            opacity: 0.88;
-        }
-
-        .gm-img.s7 {
-            grid-column: span 7;
-            height: 360px;
-        }
-
-        .gm-img.s5 {
-            grid-column: span 5;
-            height: 360px;
-        }
-
-        .gm-img.s12 {
-            grid-column: span 12;
-            height: 420px;
-        }
-
-        .gm-img.s4 {
-            grid-column: span 4;
-            height: 280px;
-        }
-
-        .gm-img.s8 {
-            grid-column: span 8;
-            height: 320px;
-        }
-
-        .gm-img.s6 {
-            grid-column: span 6;
-            height: 300px;
-        }
-
-        .gm-img.s3 {
-            grid-column: span 3;
-            height: 280px;
-        }
-
-        .gm-footer {
-            flex-shrink: 0;
-            padding: 14px 40px;
-            border-top: 1px solid rgba(245, 245, 243, 0.08);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .gm-counter {
-            font-size: 9px;
-            letter-spacing: 0.2em;
-            color: rgba(245, 245, 243, 0.3);
-            text-transform: uppercase;
-        }
-
-        .gm-nav {
-            display: flex;
-            gap: 8px;
-        }
-
-        .gm-nav-btn {
-            background: none;
-            border: 1px solid rgba(245, 245, 243, 0.15);
-            color: rgba(245, 245, 243, 0.5);
-            font-size: 18px;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: none;
-            transition: border-color 0.2s, color 0.2s;
-        }
-
-        .gm-nav-btn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-
-        /* IMAGE VIEWER */
-        #imgViewer {
-            position: fixed;
-            inset: 0;
-            z-index: 4000;
-            background: rgba(17, 17, 17, 0.98);
-            display: none;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #imgViewer.open {
-            display: flex;
-        }
-
-        #viewerImg {
-            max-width: 88vw;
-            max-height: 88vh;
-            object-fit: contain;
-        }
-
-        .iv-close {
-            position: absolute;
-            top: 20px;
-            right: 32px;
-            background: none;
-            border: none;
-            color: rgba(245, 245, 243, 0.5);
-            font-size: 28px;
-            cursor: none;
-            transition: color 0.2s;
-            font-family: var(--mono);
-        }
-
-        .iv-close:hover {
-            color: var(--accent);
-        }
-
-        .iv-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: rgba(245, 245, 243, 0.35);
-            font-size: 44px;
-            cursor: none;
-            padding: 12px;
-            transition: color 0.2s;
-        }
-
-        .iv-nav:hover {
-            color: var(--accent);
-        }
-
-        .iv-prev {
-            left: 12px;
-        }
-
-        .iv-next {
-            right: 12px;
-        }
-
-        .iv-info {
-            position: absolute;
-            bottom: 24px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 9px;
-            letter-spacing: 0.2em;
-            color: rgba(245, 245, 243, 0.3);
-            text-transform: uppercase;
-            font-family: var(--mono);
-        }
-
-        /* MATERIALES */
-        #materiales {
-            padding: 120px 40px;
-            border-top: 1px solid var(--border);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: start;
-        }
-
-        .mat-right {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2px;
-            margin-top: 16px;
-        }
-
-        .mat-block {
-            padding: 32px 24px;
-            border: 1px solid var(--border);
-            position: relative;
-            overflow: hidden;
-            transition: border-color 0.3s;
-        }
-
-        .mat-block:hover {
-            border-color: var(--accent);
-        }
-
-        .mat-block::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 3px;
-            height: 100%;
-            background: var(--accent);
-            transform: scaleY(0);
-            transform-origin: top;
-            transition: transform 0.4s;
-        }
-
-        .mat-block:hover::after {
-            transform: scaleY(1);
-        }
-
-        .mat-icon {
-            margin-bottom: 20px;
-            opacity: 0.6;
-        }
-
-        .mat-name {
-            font-family: Impact, sans-serif;
-            font-size: 20px;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            margin-bottom: 8px;
-        }
-
-        .mat-spec {
-            font-size: 10px;
-            letter-spacing: 0.12em;
-            color: var(--ink2);
-            line-height: 1.7;
-        }
-
-        .proc-list {
-            margin-top: 48px;
-        }
-
-        .proc-item {
-            display: flex;
-            gap: 24px;
-            align-items: flex-start;
-            padding: 20px 0;
-            border-bottom: 1px solid var(--border);
-            transition: padding-left 0.3s;
-        }
-
-        .proc-item:hover {
-            padding-left: 8px;
-        }
-
-        .proc-item-num {
-            font-size: 9px;
-            color: var(--accent);
-            letter-spacing: 0.2em;
-            min-width: 40px;
-            margin-top: 2px;
-        }
-
-        .proc-item-name {
-            font-family: Impact, sans-serif;
-            font-size: 18px;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-        }
-
-        .proc-item-desc {
-            font-size: 10px;
-            color: var(--ink2);
-            line-height: 1.7;
-            margin-top: 4px;
-        }
-
-        /* CONTACTO */
-        #contacto {
-            padding: 120px 40px;
-            border-top: 1px solid var(--border);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-        }
-
-        .contact-h2 {
-            font-family: Impact, sans-serif;
-            font-size: clamp(40px, 6vw, 80px);
-            text-transform: uppercase;
-            line-height: 0.9;
-            letter-spacing: -0.01em;
-            margin-bottom: 32px;
-        }
-
-        .contact-h2 em {
-            font-style: normal;
-            color: var(--accent);
-        }
-
-        .contact-info {
-            margin-top: 48px;
-        }
-
-        .contact-info-item {
-            padding: 16px 0;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            gap: 24px;
-        }
-
-        .ci-label {
-            font-size: 9px;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--ink2);
-            min-width: 80px;
-        }
-
-        .ci-val {
-            font-size: 12px;
-            letter-spacing: 0.05em;
-        }
-
-        .form-field {
-            margin-bottom: 24px;
-        }
-
-        .form-label {
-            font-size: 9px;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--ink2);
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        .form-input {
-            width: 100%;
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid var(--border);
-            padding: 10px 0;
-            font-family: var(--mono);
-            font-size: 13px;
-            color: var(--ink);
-            outline: none;
-            transition: border-color 0.3s;
-            caret-color: var(--accent);
-        }
-
-        .form-input:focus {
-            border-color: var(--ink);
-        }
-
-        .form-input::placeholder {
-            color: rgba(17, 17, 17, 0.3);
-        }
-
-        textarea.form-input {
-            resize: none;
-            height: 100px;
-        }
-
-        .form-submit {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            background: var(--ink);
-            color: var(--bg);
-            border: none;
-            padding: 16px 32px;
-            font-family: Impact, sans-serif;
-            font-size: 16px;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            cursor: none;
-            position: relative;
-            overflow: hidden;
-            transition: background 0.3s;
-            margin-top: 8px;
-        }
-
-        .form-submit::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: var(--accent);
-            transform: translateX(-100%);
-            transition: transform 0.3s;
-            z-index: 0;
-        }
-
-        .form-submit:hover::before {
-            transform: translateX(0);
-        }
-
-        .form-submit:hover {
-            color: var(--ink);
-        }
-
-        .form-submit span,
-        .form-submit-arrow {
-            position: relative;
-            z-index: 1;
-        }
-
-        .form-submit-arrow {
-            font-size: 20px;
-            transition: transform 0.3s;
-        }
-
-        .form-submit:hover .form-submit-arrow {
-            transform: translateX(4px);
-        }
-
-        /* FOOTER */
-        footer {
-            padding: 40px;
-            border-top: 1px solid var(--border);
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 40px;
-            align-items: center;
-        }
-
-        .footer-logo {
-            font-family: Impact, sans-serif;
-            font-size: 28px;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 24px;
-            justify-content: center;
-        }
-
-        .footer-links a {
-            font-size: 9px;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--ink2);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .footer-links a:hover {
-            color: var(--accent);
-        }
-
-        .footer-right {
-            text-align: right;
-            font-size: 9px;
-            letter-spacing: 0.12em;
-            color: var(--ink2);
-            line-height: 1.8;
-            text-transform: uppercase;
-        }
-
-        .footer-right span {
-            color: var(--accent);
-        }
-
-        /* WA */
-        .wa-btn {
-            position: fixed;
-            bottom: 32px;
-            right: 32px;
-            z-index: 500;
-            width: 52px;
-            height: 52px;
-            background: var(--ink);
-            border: 2px solid var(--accent);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            transition: background 0.3s, transform 0.3s;
-        }
-
-        .wa-btn:hover {
-            background: var(--accent);
-            transform: scale(1.08);
-        }
-
-        .wa-btn svg {
-            width: 22px;
-            height: 22px;
-        }
-
-        .wa-btn svg path {
-            fill: var(--bg);
-            transition: fill 0.3s;
-        }
-
-        .wa-btn:hover svg path {
-            fill: var(--ink);
-        }
-
-        /* UTILS */
-        .tech-line {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 8px;
-            letter-spacing: 0.25em;
-            color: var(--ink2);
-            text-transform: uppercase;
-            margin-bottom: 12px;
-        }
-
-        .tech-line::before,
-        .tech-line::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--border);
-        }
-
-        .tech-line::before {
-            max-width: 40px;
-        }
-
-        /* SCROLL PROGRESS */
-        .scroll-progress {
-            position: fixed;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 300;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            align-items: center;
-        }
-
-        .sp-dot {
-            width: 3px;
-            height: 3px;
-            background: var(--border);
-            transition: background 0.3s, transform 0.3s;
-        }
-
-        .sp-dot.active {
-            background: var(--accent);
-            transform: scale(1.8);
-        }
-
-        .sp-line {
-            width: 1px;
-            height: 40px;
-            background: var(--border);
-        }
-
-        /* REVEALS */
-        .reveal {
-            opacity: 0;
-            transform: translateY(24px);
-        }
-
-        .reveal-left {
-            opacity: 0;
-            transform: translateX(-32px);
-        }
-
-        /* RESPONSIVE */
-        @media(max-width:900px) {
-            nav {
-                padding: 16px 20px;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            #hero {
-                padding: 80px 20px 48px;
-            }
-
-            .hero-panel,
-            .hero-panel-2 {
-                display: none;
-            }
-
-            .hero-bottom {
-                grid-template-columns: 1fr 1fr;
-                gap: 24px;
-            }
-
-            #about {
-                grid-template-columns: 1fr;
-                gap: 32px;
-                padding: 80px 20px;
-            }
-
-            .about-label {
-                position: static;
-            }
-
-            #servicios,
-            #proceso,
-            #portafolio,
-            #materiales,
-            #contacto {
-                padding: 80px 20px;
-            }
-
-            .servicios-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .servicio-item {
-                border-right: none;
-            }
-
-            .servicio-item.wide {
-                grid-template-columns: 1fr;
-            }
-
-            .servicio-item.wide .serv-inner {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-
-            .exp-badge {
-                flex-direction: column;
-            }
-
-            .exp-badge-num {
-                border-right: none;
-                border-bottom: 1px solid var(--ink);
-            }
-
-            .exp-badge-tag {
-                margin-left: 0;
-                border-left: none;
-                border-top: 1px solid var(--ink);
-                flex-direction: row;
-                gap: 12px;
-            }
-
-            .proceso-diagram {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .proceso-diagram::before {
-                display: none;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .project-card {
-                grid-column: auto !important;
-                height: 240px !important;
-            }
-
-            #materiales {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-
-            #contacto {
-                grid-template-columns: 1fr;
-                gap: 48px;
-            }
-
-            footer {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .footer-links {
-                justify-content: center;
-            }
-
-            .footer-right {
-                text-align: center;
-            }
-
-            .scroll-progress {
-                display: none;
-            }
-
-            .gm-header {
-                padding: 16px 20px;
-                flex-direction: column;
-                gap: 12px;
-                align-items: flex-start;
-            }
-
-            .gm-body {
-                padding: 16px 20px;
-            }
-
-            .gm-footer {
-                padding: 10px 20px;
-            }
-
-            .gm-img {
-                grid-column: span 12 !important;
-                height: 220px !important;
-            }
-        }
-
-        @media(max-width:560px) {
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .project-card {
-                grid-column: auto !important;
-                height: 240px !important;
-            }
-        }
-    </style>
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PROMAX — Sistemas Museográficos</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #f5f5f3; --ink: #111111; --ink2: #555555; --accent: #F4DB09;
+  --glass: rgba(245,245,243,0.72); --border: rgba(17,17,17,0.12);
+  --mono: 'Courier New', Courier, monospace;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--ink); font-family: var(--mono); font-size: 13px; line-height: 1.6; cursor: none; overflow-x: hidden; }
+
+/* CURSOR */
+#cursor { position: fixed; top:0; left:0; width:24px; height:24px; pointer-events:none; z-index:9999; mix-blend-mode:multiply; }
+#cursor svg { width:100%; height:100%; }
+#cursor-dot { position:fixed; top:0; left:0; width:4px; height:4px; background:var(--accent); pointer-events:none; z-index:10000; transform:translate(-50%,-50%); }
+#cursor.hover { transform:scale(2.2) translate(-50%,-50%); }
+
+/* GRID */
+.grid-overlay { position:fixed; inset:0; pointer-events:none; z-index:1; background-image: linear-gradient(rgba(17,17,17,0.04) 1px,transparent 1px), linear-gradient(90deg,rgba(17,17,17,0.04) 1px,transparent 1px); background-size:64px 64px; }
+
+/* NAV */
+nav { position:fixed; top:0; left:0; right:0; z-index:200; padding:20px 40px; display:flex; align-items:center; justify-content:space-between; backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); background:rgba(245,245,243,0.88); border-bottom:1px solid var(--border); }
+.nav-logo { font-family:Impact,'Arial Narrow',sans-serif; font-size:22px; letter-spacing:0.18em; text-transform:uppercase; color:var(--ink); text-decoration:none; position:relative; }
+.nav-logo::after { content:''; position:absolute; bottom:-2px; left:0; width:100%; height:2px; background:var(--accent); transform:scaleX(0); transform-origin:left; transition:transform 0.3s; }
+.nav-logo:hover::after { transform:scaleX(1); }
+.nav-links { display:flex; gap:32px; list-style:none; }
+.nav-links a { font-family:var(--mono); font-size:11px; letter-spacing:0.15em; text-transform:uppercase; color:var(--ink2); text-decoration:none; position:relative; transition:color 0.2s; }
+.nav-links a::before { content:attr(data-code); position:absolute; top:-12px; left:0; font-size:8px; color:var(--accent); letter-spacing:0.1em; opacity:0; transition:opacity 0.2s; }
+.nav-links a:hover { color:var(--ink); }
+.nav-links a:hover::before { opacity:1; }
+.nav-sys { font-size:9px; letter-spacing:0.2em; color:var(--ink2); border:1px solid var(--border); padding:4px 10px; }
+
+section { position:relative; z-index:10; }
+
+/* HERO */
+#hero { min-height:100vh; display:flex; flex-direction:column; justify-content:flex-end; padding:100px 40px 60px; overflow:hidden; position:relative; }
+.hero-bg-lines { position:absolute; inset:0; pointer-events:none; z-index:0; }
+.hero-tag { font-size:9px; letter-spacing:0.25em; text-transform:uppercase; color:var(--accent); margin-bottom:24px; display:flex; align-items:center; gap:12px; }
+.hero-tag::before { content:''; display:block; width:32px; height:1px; background:var(--accent); }
+.hero-title { font-family:Impact,'Arial Narrow',sans-serif; font-size:clamp(72px,13vw,180px); line-height:0.88; letter-spacing:-0.01em; text-transform:uppercase; color:var(--ink); position:relative; z-index:2; }
+.hero-title .accent { color:var(--accent); }
+.hero-title-line { overflow:hidden; display:block; }
+.hero-title-inner { display:block; }
+.hero-bottom { display:grid; grid-template-columns:1fr 1fr 1fr; gap:40px; margin-top:48px; padding-top:32px; border-top:1px solid var(--border); position:relative; z-index:2; }
+.hero-stat-val { font-family:Impact,sans-serif; font-size:32px; letter-spacing:0.04em; color:var(--ink); display:block; }
+.hero-stat-label { font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink2); margin-top:4px; display:block; }
+.hero-desc { font-size:12px; line-height:1.7; color:var(--ink2); max-width:320px; }
+.hero-panel { position:absolute; top:140px; right:40px; width:220px; background:var(--glass); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid var(--border); padding:20px; z-index:10; box-shadow:0 8px 32px rgba(17,17,17,0.08); }
+.panel-header { font-size:8px; letter-spacing:0.25em; text-transform:uppercase; color:var(--accent); border-bottom:1px solid var(--border); padding-bottom:10px; margin-bottom:14px; display:flex; justify-content:space-between; }
+.panel-row { display:flex; justify-content:space-between; align-items:center; padding:5px 0; border-bottom:1px solid rgba(17,17,17,0.06); font-size:9px; letter-spacing:0.1em; }
+.panel-row-key { color:var(--ink2); text-transform:uppercase; }
+.panel-row-val { color:var(--ink); font-weight:bold; }
+.panel-row-val.active { color:var(--accent); }
+.hero-panel-2 { position:absolute; bottom:160px; right:40px; width:140px; background:var(--ink); color:var(--bg); padding:16px; z-index:10; font-size:9px; letter-spacing:0.12em; line-height:1.8; text-transform:uppercase; }
+.hero-panel-2 .p2-tag { color:var(--accent); font-size:8px; margin-bottom:8px; display:block; }
+
+/* ABOUT */
+#about { padding:120px 40px; display:grid; grid-template-columns:1fr 2fr; gap:80px; border-top:1px solid var(--border); }
+.about-label { font-size:9px; letter-spacing:0.3em; text-transform:uppercase; color:var(--accent); position:sticky; top:100px; height:fit-content; }
+.about-label-code { display:block; font-size:22px; font-family:Impact,sans-serif; color:var(--ink); letter-spacing:0.05em; margin-top:8px; }
+.about-h2 { font-family:Impact,sans-serif; font-size:clamp(36px,5vw,64px); line-height:0.92; text-transform:uppercase; margin-bottom:32px; letter-spacing:-0.01em; }
+.about-h2 em { font-style:normal; color:var(--accent); }
+.about-body { font-size:13px; line-height:1.9; color:var(--ink2); max-width:560px; margin-bottom:48px; }
+.about-tags { display:flex; flex-wrap:wrap; gap:8px; }
+.tag { font-size:9px; letter-spacing:0.2em; text-transform:uppercase; border:1px solid var(--ink); padding:5px 12px; color:var(--ink); transition:background 0.2s,color 0.2s; }
+.tag:hover { background:var(--accent); border-color:var(--accent); }
+
+/* SERVICIOS */
+#servicios { padding:120px 40px; border-top:1px solid var(--border); }
+.section-header { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:64px; padding-bottom:24px; border-bottom:1px solid var(--border); }
+.section-kicker { font-size:9px; letter-spacing:0.3em; text-transform:uppercase; color:var(--ink2); display:flex; gap:16px; align-items:center; }
+.section-kicker::before { content:''; display:block; width:24px; height:1px; background:var(--accent); }
+.section-title { font-family:Impact,sans-serif; font-size:clamp(36px,5vw,72px); text-transform:uppercase; line-height:0.9; letter-spacing:-0.01em; }
+.section-num { font-family:Impact,sans-serif; font-size:80px; color:rgba(17,17,17,0.06); letter-spacing:-0.02em; line-height:1; }
+
+/* Experience badge — credibility block */
+.exp-badge {
+  display:flex; align-items:stretch; gap:0;
+  border:1px solid var(--ink); margin-bottom:48px;
+  position:relative; overflow:hidden;
+}
+.exp-badge::before {
+  content:''; position:absolute; inset:0;
+  background:var(--accent); transform:scaleX(0); transform-origin:left;
+  transition:transform 0.5s ease; z-index:0;
+}
+.exp-badge:hover::before { transform:scaleX(1); }
+.exp-badge-num {
+  font-family:Impact,sans-serif; font-size:clamp(48px,7vw,80px);
+  letter-spacing:-0.02em; line-height:1; padding:24px 28px;
+  border-right:1px solid var(--ink); color:var(--ink);
+  position:relative; z-index:1; transition:color 0.3s;
+  display:flex; align-items:center;
+}
+.exp-badge:hover .exp-badge-num { color:var(--ink); }
+.exp-badge-text {
+  padding:24px 28px; display:flex; flex-direction:column;
+  justify-content:center; position:relative; z-index:1;
+}
+.exp-badge-title {
+  font-family:Impact,sans-serif; font-size:clamp(18px,2.5vw,28px);
+  text-transform:uppercase; letter-spacing:0.04em; color:var(--ink);
+  line-height:1; transition:color 0.3s;
+}
+.exp-badge-sub {
+  font-size:10px; letter-spacing:0.18em; text-transform:uppercase;
+  color:var(--ink2); margin-top:6px; transition:color 0.3s;
+}
+.exp-badge:hover .exp-badge-title, .exp-badge:hover .exp-badge-sub { color:var(--ink); }
+.exp-badge-tag {
+  margin-left:auto; padding:24px 24px;
+  display:flex; align-items:center; flex-direction:column; justify-content:center;
+  border-left:1px solid var(--ink); gap:4px; min-width:100px; position:relative; z-index:1;
+}
+.exp-badge-tag span { font-size:8px; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink2); text-align:center; }
+.exp-badge-tag strong { font-size:9px; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent); font-weight:normal; }
+
+.servicios-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:0; }
+.servicio-item { padding:40px 32px; border-right:1px solid var(--border); border-bottom:1px solid var(--border); position:relative; overflow:hidden; transition:background 0.3s; }
+.servicio-item:nth-child(3n) { border-right:none; }
+.servicio-item::before { content:''; position:absolute; bottom:0; left:0; width:100%; height:2px; background:var(--accent); transform:scaleX(0); transform-origin:left; transition:transform 0.4s; }
+.servicio-item:hover::before { transform:scaleX(1); }
+.servicio-item:hover { background:rgba(244,219,9,0.04); }
+.serv-num { font-size:9px; letter-spacing:0.2em; color:var(--accent); margin-bottom:24px; display:block; }
+.serv-name { font-family:Impact,sans-serif; font-size:24px; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:16px; line-height:1; }
+.serv-desc { font-size:11px; line-height:1.8; color:var(--ink2); }
+.serv-icon { position:absolute; top:32px; right:32px; width:40px; height:40px; opacity:0.12; }
+
+/* Wide service item (spans full width) */
+.servicio-item.wide {
+  grid-column: 1/-1;
+  border-right: none;
+  border-bottom: 1px solid var(--border);
+}
+.servicio-item.wide .serv-inner {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 40px;
+  align-items: start;
+}
+.servicio-item.wide .serv-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:14px; }
+.servicio-item.wide .serv-tag { font-size:9px; letter-spacing:0.15em; text-transform:uppercase; border:1px solid var(--border); padding:3px 10px; color:var(--ink2); }
+
+/* PROCESO */
+#proceso { padding:120px 40px; border-top:1px solid var(--border); background:var(--ink); color:var(--bg); }
+#proceso .section-title { color:var(--bg); }
+#proceso .section-kicker { color:rgba(245,245,243,0.4); }
+#proceso .section-kicker::before { background:var(--accent); }
+#proceso .section-num { color:rgba(245,245,243,0.06); }
+.proceso-diagram { margin-top:64px; display:grid; grid-template-columns:repeat(5,1fr); gap:0; position:relative; }
+.proceso-diagram::before { content:''; position:absolute; top:5px; left:40px; right:40px; height:1px; background:linear-gradient(90deg,var(--accent),rgba(244,219,9,0.2)); }
+.proc-step { padding:32px 24px 40px; position:relative; border-right:1px solid rgba(245,245,243,0.08); }
+.proc-step:last-child { border-right:none; }
+.proc-dot { width:10px; height:10px; background:var(--accent); margin-bottom:24px; position:relative; z-index:2; }
+.proc-num { font-size:8px; letter-spacing:0.25em; color:rgba(244,219,9,0.7); margin-bottom:12px; display:block; }
+.proc-name { font-family:Impact,sans-serif; font-size:18px; text-transform:uppercase; letter-spacing:0.06em; color:var(--bg); margin-bottom:12px; }
+.proc-desc { font-size:10px; line-height:1.8; color:rgba(245,245,243,0.5); }
+
+/* ===================== PORTAFOLIO ===================== */
+#portafolio { padding:120px 40px; border-top:1px solid var(--border); }
+
+.projects-grid { margin-top:64px; display:grid; grid-template-columns:repeat(12,1fr); gap:3px; }
+
+.project-card { position:relative; overflow:hidden; cursor:none; background:#bbb; }
+.project-card:nth-child(1) { grid-column:1/8; height:440px; }
+.project-card:nth-child(2) { grid-column:8/13; height:440px; }
+.project-card:nth-child(3) { grid-column:1/5; height:300px; }
+.project-card:nth-child(4) { grid-column:5/9; height:300px; }
+.project-card:nth-child(5) { grid-column:9/13; height:300px; }
+
+.project-card img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
+.project-card:hover img { transform:scale(1.05); }
+
+.project-overlay { position:absolute; inset:0; background:linear-gradient(to top, rgba(17,17,17,0.85) 0%, rgba(17,17,17,0.15) 55%, transparent 100%); display:flex; flex-direction:column; justify-content:flex-end; padding:28px; transition:background 0.4s; }
+.project-card:hover .project-overlay { background:linear-gradient(to top, rgba(17,17,17,0.92) 0%, rgba(17,17,17,0.4) 65%, rgba(17,17,17,0.1) 100%); }
+
+.project-code { font-size:9px; letter-spacing:0.25em; color:var(--accent); text-transform:uppercase; margin-bottom:8px; }
+.project-name { font-family:Impact,sans-serif; font-size:clamp(20px,2.2vw,28px); letter-spacing:0.04em; text-transform:uppercase; color:#fff; line-height:1; margin-bottom:8px; }
+.project-meta { font-size:10px; letter-spacing:0.12em; color:rgba(255,255,255,0.5); text-transform:uppercase; }
+.project-count { font-size:9px; letter-spacing:0.18em; color:rgba(255,255,255,0.35); text-transform:uppercase; margin-top:5px; }
+
+.project-cta { position:absolute; top:20px; right:20px; background:var(--accent); color:var(--ink); font-family:var(--mono); font-size:9px; letter-spacing:0.2em; text-transform:uppercase; padding:6px 12px; opacity:0; transform:translateY(-6px); transition:opacity 0.3s, transform 0.3s; }
+.project-card:hover .project-cta { opacity:1; transform:translateY(0); }
+
+/* corner markers */
+.project-card::before { content:''; position:absolute; top:0; left:0; width:20px; height:20px; border-top:1px solid var(--accent); border-left:1px solid var(--accent); opacity:0; transition:opacity 0.3s; z-index:3; }
+.project-card::after  { content:''; position:absolute; bottom:0; right:0; width:20px; height:20px; border-bottom:1px solid var(--accent); border-right:1px solid var(--accent); opacity:0; transition:opacity 0.3s; z-index:3; }
+.project-card:hover::before, .project-card:hover::after { opacity:1; }
+
+/* ===================== GALLERY MODAL ===================== */
+#galleryModal { position:fixed; inset:0; z-index:3000; background:rgba(17,17,17,0.97); display:flex; flex-direction:column; opacity:0; pointer-events:none; transition:opacity 0.3s; }
+#galleryModal.open { opacity:1; pointer-events:all; }
+
+.gm-header { display:flex; align-items:center; justify-content:space-between; padding:24px 40px; border-bottom:1px solid rgba(245,245,243,0.1); flex-shrink:0; }
+.gm-code { font-size:9px; letter-spacing:0.25em; color:var(--accent); text-transform:uppercase; margin-bottom:4px; }
+.gm-title { font-family:Impact,sans-serif; font-size:26px; letter-spacing:0.06em; text-transform:uppercase; color:#f5f5f3; }
+.gm-meta { font-size:10px; letter-spacing:0.12em; color:rgba(245,245,243,0.4); text-transform:uppercase; margin-top:4px; }
+.gm-close { background:none; border:1px solid rgba(245,245,243,0.2); color:#f5f5f3; font-family:var(--mono); font-size:10px; letter-spacing:0.2em; text-transform:uppercase; padding:10px 20px; cursor:none; transition:border-color 0.2s,color 0.2s; }
+.gm-close:hover { border-color:var(--accent); color:var(--accent); }
+
+.gm-body { flex:1; overflow-y:auto; padding:32px 40px; }
+.gm-grid { display:grid; grid-template-columns:repeat(12,1fr); gap:3px; }
+.gm-img { overflow:hidden; background:#1a1a1a; cursor:none; }
+.gm-img img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.5s, opacity 0.3s; }
+.gm-img:hover img { transform:scale(1.03); opacity:0.88; }
+.gm-img.s7  { grid-column:span 7; height:360px; }
+.gm-img.s5  { grid-column:span 5; height:360px; }
+.gm-img.s12 { grid-column:span 12; height:420px; }
+.gm-img.s4  { grid-column:span 4; height:280px; }
+.gm-img.s8  { grid-column:span 8; height:320px; }
+.gm-img.s6  { grid-column:span 6; height:300px; }
+.gm-img.s3  { grid-column:span 3; height:280px; }
+
+.gm-footer { flex-shrink:0; padding:14px 40px; border-top:1px solid rgba(245,245,243,0.08); display:flex; align-items:center; justify-content:space-between; }
+.gm-counter { font-size:9px; letter-spacing:0.2em; color:rgba(245,245,243,0.3); text-transform:uppercase; }
+.gm-nav { display:flex; gap:8px; }
+.gm-nav-btn { background:none; border:1px solid rgba(245,245,243,0.15); color:rgba(245,245,243,0.5); font-size:18px; width:40px; height:40px; display:flex; align-items:center; justify-content:center; cursor:none; transition:border-color 0.2s,color 0.2s; }
+.gm-nav-btn:hover { border-color:var(--accent); color:var(--accent); }
+
+/* IMAGE VIEWER */
+#imgViewer { position:fixed; inset:0; z-index:4000; background:rgba(17,17,17,0.98); display:none; align-items:center; justify-content:center; }
+#imgViewer.open { display:flex; }
+#viewerImg { max-width:88vw; max-height:88vh; object-fit:contain; }
+.iv-close { position:absolute; top:20px; right:32px; background:none; border:none; color:rgba(245,245,243,0.5); font-size:28px; cursor:none; transition:color 0.2s; font-family:var(--mono); }
+.iv-close:hover { color:var(--accent); }
+.iv-nav { position:absolute; top:50%; transform:translateY(-50%); background:none; border:none; color:rgba(245,245,243,0.35); font-size:44px; cursor:none; padding:12px; transition:color 0.2s; }
+.iv-nav:hover { color:var(--accent); }
+.iv-prev { left:12px; }
+.iv-next { right:12px; }
+.iv-info { position:absolute; bottom:24px; left:50%; transform:translateX(-50%); font-size:9px; letter-spacing:0.2em; color:rgba(245,245,243,0.3); text-transform:uppercase; font-family:var(--mono); }
+
+/* MATERIALES */
+#materiales { padding:120px 40px; border-top:1px solid var(--border); display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
+.mat-right { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-top:16px; }
+.mat-block { padding:32px 24px; border:1px solid var(--border); position:relative; overflow:hidden; transition:border-color 0.3s; }
+.mat-block:hover { border-color:var(--accent); }
+.mat-block::after { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background:var(--accent); transform:scaleY(0); transform-origin:top; transition:transform 0.4s; }
+.mat-block:hover::after { transform:scaleY(1); }
+.mat-icon { margin-bottom:20px; opacity:0.6; }
+.mat-name { font-family:Impact,sans-serif; font-size:20px; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:8px; }
+.mat-spec { font-size:10px; letter-spacing:0.12em; color:var(--ink2); line-height:1.7; }
+.proc-list { margin-top:48px; }
+.proc-item { display:flex; gap:24px; align-items:flex-start; padding:20px 0; border-bottom:1px solid var(--border); transition:padding-left 0.3s; }
+.proc-item:hover { padding-left:8px; }
+.proc-item-num { font-size:9px; color:var(--accent); letter-spacing:0.2em; min-width:40px; margin-top:2px; }
+.proc-item-name { font-family:Impact,sans-serif; font-size:18px; text-transform:uppercase; letter-spacing:0.04em; }
+.proc-item-desc { font-size:10px; color:var(--ink2); line-height:1.7; margin-top:4px; }
+
+/* CONTACTO */
+#contacto { padding:120px 40px; border-top:1px solid var(--border); display:grid; grid-template-columns:1fr 1fr; gap:80px; }
+.contact-h2 { font-family:Impact,sans-serif; font-size:clamp(40px,6vw,80px); text-transform:uppercase; line-height:0.9; letter-spacing:-0.01em; margin-bottom:32px; }
+.contact-h2 em { font-style:normal; color:var(--accent); }
+.contact-info { margin-top:48px; }
+.contact-info-item { padding:16px 0; border-bottom:1px solid var(--border); display:flex; gap:24px; }
+.ci-label { font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink2); min-width:80px; }
+.ci-val { font-size:12px; letter-spacing:0.05em; }
+.form-field { margin-bottom:24px; }
+.form-label { font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink2); display:block; margin-bottom:8px; }
+.form-input { width:100%; background:transparent; border:none; border-bottom:1px solid var(--border); padding:10px 0; font-family:var(--mono); font-size:13px; color:var(--ink); outline:none; transition:border-color 0.3s; caret-color:var(--accent); }
+.form-input:focus { border-color:var(--ink); }
+.form-input::placeholder { color:rgba(17,17,17,0.3); }
+textarea.form-input { resize:none; height:100px; }
+.form-submit { display:flex; align-items:center; gap:16px; background:var(--ink); color:var(--bg); border:none; padding:16px 32px; font-family:Impact,sans-serif; font-size:16px; letter-spacing:0.12em; text-transform:uppercase; cursor:none; position:relative; overflow:hidden; transition:background 0.3s; margin-top:8px; }
+.form-submit::before { content:''; position:absolute; inset:0; background:var(--accent); transform:translateX(-100%); transition:transform 0.3s; z-index:0; }
+.form-submit:hover::before { transform:translateX(0); }
+.form-submit:hover { color:var(--ink); }
+.form-submit span, .form-submit-arrow { position:relative; z-index:1; }
+/* reCAPTCHA widget styling */
+#captchaField { margin-top:24px; margin-bottom:8px; }
+#captchaField .g-recaptcha { transform-origin:left top; }
+
+/* FOOTER */
+footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-template-columns:1fr 1fr 1fr; gap:40px; align-items:center; }
+.footer-logo { font-family:Impact,sans-serif; font-size:28px; letter-spacing:0.15em; text-transform:uppercase; }
+.footer-links { display:flex; gap:24px; justify-content:center; }
+.footer-links a { font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink2); text-decoration:none; transition:color 0.2s; }
+.footer-links a:hover { color:var(--accent); }
+.footer-right { text-align:right; font-size:9px; letter-spacing:0.12em; color:var(--ink2); line-height:1.8; text-transform:uppercase; }
+.footer-right span { color:var(--accent); }
+
+/* WA */
+.wa-btn { position:fixed; bottom:32px; right:32px; z-index:500; width:52px; height:52px; background:var(--ink); border:2px solid var(--accent); display:flex; align-items:center; justify-content:center; text-decoration:none; transition:background 0.3s,transform 0.3s; }
+.wa-btn:hover { background:var(--accent); transform:scale(1.08); }
+.wa-btn svg { width:22px; height:22px; }
+.wa-btn svg path { fill:var(--bg); transition:fill 0.3s; }
+.wa-btn:hover svg path { fill:var(--ink); }
+
+/* UTILS */
+.tech-line { display:flex; align-items:center; gap:12px; font-size:8px; letter-spacing:0.25em; color:var(--ink2); text-transform:uppercase; margin-bottom:12px; }
+.tech-line::before, .tech-line::after { content:''; flex:1; height:1px; background:var(--border); }
+.tech-line::before { max-width:40px; }
+
+/* SCROLL PROGRESS */
+.scroll-progress { position:fixed; left:16px; top:50%; transform:translateY(-50%); z-index:300; display:flex; flex-direction:column; gap:8px; align-items:center; }
+.sp-dot { width:3px; height:3px; background:var(--border); transition:background 0.3s,transform 0.3s; }
+.sp-dot.active { background:var(--accent); transform:scale(1.8); }
+.sp-line { width:1px; height:40px; background:var(--border); }
+
+/* REVEALS */
+.reveal { opacity:0; transform:translateY(24px); }
+.reveal-left { opacity:0; transform:translateX(-32px); }
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav { padding:16px 20px; }
+  .nav-links { display:none; }
+  #hero { padding:80px 20px 48px; }
+  .hero-panel,.hero-panel-2 { display:none; }
+  .hero-bottom { grid-template-columns:1fr 1fr; gap:24px; }
+  #about { grid-template-columns:1fr; gap:32px; padding:80px 20px; }
+  .about-label { position:static; }
+  #servicios,#proceso,#portafolio,#materiales,#contacto { padding:80px 20px; }
+  .servicios-grid { grid-template-columns:1fr; }
+  .servicio-item { border-right:none; }
+  .servicio-item.wide { grid-template-columns:1fr; }
+  .servicio-item.wide .serv-inner { grid-template-columns:1fr; gap:16px; }
+  .exp-badge { flex-direction:column; }
+  .exp-badge-num { border-right:none; border-bottom:1px solid var(--ink); }
+  .exp-badge-tag { margin-left:0; border-left:none; border-top:1px solid var(--ink); flex-direction:row; gap:12px; }
+  .proceso-diagram { grid-template-columns:1fr 1fr; }
+  .proceso-diagram::before { display:none; }
+  .projects-grid { grid-template-columns:1fr 1fr; }
+  .project-card { grid-column:auto!important; height:240px!important; }
+  #materiales { grid-template-columns:1fr; gap:40px; }
+  #contacto { grid-template-columns:1fr; gap:48px; }
+  footer { grid-template-columns:1fr; text-align:center; }
+  .footer-links { justify-content:center; }
+  .footer-right { text-align:center; }
+  .scroll-progress { display:none; }
+  .gm-header { padding:16px 20px; flex-direction:column; gap:12px; align-items:flex-start; }
+  .gm-body { padding:16px 20px; }
+  .gm-footer { padding:10px 20px; }
+  .gm-img { grid-column:span 12!important; height:220px!important; }
+}
+@media(max-width:560px){
+  .projects-grid { grid-template-columns:1fr; }
+  .project-card { grid-column:auto!important; height:240px!important; }
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
-
 <body>
 
-    <div id="cursor"><svg viewBox="0 0 24 24" fill="none">
-            <line x1="12" y1="0" x2="12" y2="24" stroke="#111" stroke-width="1" />
-            <line x1="0" y1="12" x2="24" y2="12" stroke="#111" stroke-width="1" />
-            <rect x="9" y="9" width="6" height="6" stroke="#111" stroke-width="1" fill="none" />
-        </svg></div>
-    <div id="cursor-dot"></div>
-    <div class="grid-overlay"></div>
+<div id="cursor"><svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="0" x2="12" y2="24" stroke="#111" stroke-width="1"/><line x1="0" y1="12" x2="24" y2="12" stroke="#111" stroke-width="1"/><rect x="9" y="9" width="6" height="6" stroke="#111" stroke-width="1" fill="none"/></svg></div>
+<div id="cursor-dot"></div>
+<div class="grid-overlay"></div>
 
-    <div class="scroll-progress">
-        <div class="sp-dot active"></div>
-        <div class="sp-line"></div>
-        <div class="sp-dot"></div>
-        <div class="sp-line"></div>
-        <div class="sp-dot"></div>
-        <div class="sp-line"></div>
-        <div class="sp-dot"></div>
-        <div class="sp-line"></div>
-        <div class="sp-dot"></div>
-        <div class="sp-line"></div>
-        <div class="sp-dot"></div>
-        <div class="sp-line"></div>
-        <div class="sp-dot"></div>
+<div class="scroll-progress">
+  <div class="sp-dot active"></div><div class="sp-line"></div>
+  <div class="sp-dot"></div><div class="sp-line"></div>
+  <div class="sp-dot"></div><div class="sp-line"></div>
+  <div class="sp-dot"></div><div class="sp-line"></div>
+  <div class="sp-dot"></div><div class="sp-line"></div>
+  <div class="sp-dot"></div><div class="sp-line"></div>
+  <div class="sp-dot"></div>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a class="nav-logo" href="#">PROMAX</a>
+  <ul class="nav-links">
+    <li><a href="#about"      data-code="SYS/01">Estudio</a></li>
+    <li><a href="#servicios"  data-code="SYS/02">Servicios</a></li>
+    <li><a href="#proceso"    data-code="SYS/03">Proceso</a></li>
+    <li><a href="#portafolio" data-code="SYS/04">Portafolio</a></li>
+    <li><a href="#materiales" data-code="SYS/05">Materiales</a></li>
+    <li><a href="#contacto"   data-code="SYS/06">Contacto</a></li>
+  </ul>
+  <div class="nav-sys">SYS · ACTIVO · PX-2025</div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <svg class="hero-bg-lines" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" fill="none">
+    <line id="bl1" x1="360" y1="0" x2="360" y2="900" stroke="#F4DB09" stroke-width="0.5" opacity="0.3"/>
+    <line id="bl2" x1="720" y1="0" x2="720" y2="900" stroke="#111" stroke-width="0.5" opacity="0.08"/>
+    <line id="bl3" x1="1080" y1="0" x2="1080" y2="900" stroke="#111" stroke-width="0.5" opacity="0.08"/>
+    <line id="bl4" x1="0" y1="300" x2="1440" y2="300" stroke="#111" stroke-width="0.5" opacity="0.08"/>
+    <line id="bl5" x1="0" y1="600" x2="1440" y2="600" stroke="#111" stroke-width="0.5" opacity="0.08"/>
+    <line id="bl6" x1="0" y1="900" x2="600" y2="0" stroke="#F4DB09" stroke-width="0.5" opacity="0.15"/>
+    <path id="bl7" d="M 1440 900 A 600 600 0 0 0 840 300" stroke="#111" stroke-width="0.8" opacity="0.06" fill="none"/>
+    <path id="bl8" d="M 40 40 L 40 80 M 40 40 L 80 40" stroke="#F4DB09" stroke-width="1" opacity="0.6"/>
+    <path id="bl9" d="M 1400 40 L 1400 80 M 1400 40 L 1360 40" stroke="#F4DB09" stroke-width="1" opacity="0.6"/>
+    <path id="bl10" d="M 40 860 L 40 820 M 40 860 L 80 860" stroke="#F4DB09" stroke-width="1" opacity="0.6"/>
+    <circle id="bl11" cx="1200" cy="160" r="80" stroke="#111" stroke-width="0.6" opacity="0.06" fill="none"/>
+    <circle cx="1200" cy="160" r="4" fill="#F4DB09" opacity="0.4"/>
+  </svg>
+
+  <div class="hero-panel reveal">
+    <div class="panel-header"><span>SYS/STATUS</span><span>PX-01</span></div>
+    <div class="panel-row"><span class="panel-row-key">Modo</span><span class="panel-row-val active">ACTIVO</span></div>
+    <div class="panel-row"><span class="panel-row-key">Proyectos</span><span class="panel-row-val">05</span></div>
+    <div class="panel-row"><span class="panel-row-key">Materiales</span><span class="panel-row-val">06</span></div>
+    <div class="panel-row"><span class="panel-row-key">Procesos</span><span class="panel-row-val">05</span></div>
+    <div class="panel-row"><span class="panel-row-key">Ejecutados</span><span class="panel-row-val">+40</span></div>
+  </div>
+  <div class="hero-panel-2 reveal">
+    <span class="p2-tag">MOD / EXEC</span>
+    PRODUCCIÓN<br>IMPRESIÓN<br>GRÁFICA<br>ENMARCADO<br>TRASLADO<br>MOBILIARIO
+  </div>
+
+  <div class="hero-tag reveal"><span>MOD/SYS · PROMAX · 2025</span></div>
+  <div class="hero-title">
+    <span class="hero-title-line"><span class="hero-title-inner">SISTEMAS</span></span>
+    <span class="hero-title-line"><span class="hero-title-inner">MUSEO<span class="accent">GRÁ</span></span></span>
+    <span class="hero-title-line"><span class="hero-title-inner">FICOS</span></span>
+  </div>
+  <div class="hero-bottom">
+    <div class="reveal"><span class="hero-stat-val">+40</span><span class="hero-stat-label">Proyectos ejecutados</span></div>
+    <div class="reveal" style="transition-delay:.1s"><span class="hero-stat-val">05</span><span class="hero-stat-label">Proyectos en portafolio</span></div>
+    <div class="hero-desc reveal" style="transition-delay:.2s">Sistemas expositivos basados en control material y ejecución precisa. Lenguaje artístico con soluciones constructivas reales.</div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-label reveal-left">
+    <span>SYS/01</span><span class="about-label-code">ESTUDIO</span>
+  </div>
+  <div>
+    <div class="tech-line reveal">MOD · IDENTIDAD · V2</div>
+    <h2 class="about-h2 reveal">CONTROL<br>MATERIAL<br><em>+ DISEÑO</em></h2>
+    <p class="about-body reveal">PROMAX desarrolla proyectos museográficos con enfoque técnico y profesional. Combinamos lenguaje artístico con soluciones constructivas documentadas, procesos verificables y materiales seleccionados por función y estética.</p>
+    <p class="about-body reveal" style="margin-top:-24px">No ofrecemos experiencias. Ofrecemos sistemas: estructuras físicas que comunican, permanecen y funcionan.</p>
+    <div class="about-tags reveal">
+      <span class="tag">Precisión técnica</span><span class="tag">Control constructivo</span><span class="tag">Estética curada</span><span class="tag">Ejecución rápida</span><span class="tag">Inteligencia de diseño</span><span class="tag">Museografía</span>
     </div>
+  </div>
+</section>
 
-    <!-- NAV -->
-    <nav id="mainNav">
-        <a class="nav-logo" href="#">PROMAX</a>
-        <ul class="nav-links">
-            <li><a href="#about" data-code="SYS/01">Estudio</a></li>
-            <li><a href="#servicios" data-code="SYS/02">Servicios</a></li>
-            <li><a href="#proceso" data-code="SYS/03">Proceso</a></li>
-            <li><a href="#portafolio" data-code="SYS/04">Portafolio</a></li>
-            <li><a href="#materiales" data-code="SYS/05">Materiales</a></li>
-            <li><a href="#contacto" data-code="SYS/06">Contacto</a></li>
-        </ul>
-        <div class="nav-sys">SYS · ACTIVO · PX-2025</div>
-    </nav>
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="section-header">
+    <div><div class="section-kicker reveal">SYS/02 · Módulos de servicio</div><h2 class="section-title reveal">SERVICIOS</h2></div>
+    <div class="section-num reveal">02</div>
+  </div>
 
-    <!-- HERO -->
-    <section id="hero">
-        <svg class="hero-bg-lines" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" fill="none">
-            <line id="bl1" x1="360" y1="0" x2="360" y2="900" stroke="#F4DB09" stroke-width="0.5" opacity="0.3" />
-            <line id="bl2" x1="720" y1="0" x2="720" y2="900" stroke="#111" stroke-width="0.5" opacity="0.08" />
-            <line id="bl3" x1="1080" y1="0" x2="1080" y2="900" stroke="#111" stroke-width="0.5" opacity="0.08" />
-            <line id="bl4" x1="0" y1="300" x2="1440" y2="300" stroke="#111" stroke-width="0.5" opacity="0.08" />
-            <line id="bl5" x1="0" y1="600" x2="1440" y2="600" stroke="#111" stroke-width="0.5" opacity="0.08" />
-            <line id="bl6" x1="0" y1="900" x2="600" y2="0" stroke="#F4DB09" stroke-width="0.5" opacity="0.15" />
-            <path id="bl7" d="M 1440 900 A 600 600 0 0 0 840 300" stroke="#111" stroke-width="0.8" opacity="0.06"
-                fill="none" />
-            <path id="bl8" d="M 40 40 L 40 80 M 40 40 L 80 40" stroke="#F4DB09" stroke-width="1" opacity="0.6" />
-            <path id="bl9" d="M 1400 40 L 1400 80 M 1400 40 L 1360 40" stroke="#F4DB09" stroke-width="1"
-                opacity="0.6" />
-            <path id="bl10" d="M 40 860 L 40 820 M 40 860 L 80 860" stroke="#F4DB09" stroke-width="1" opacity="0.6" />
-            <circle id="bl11" cx="1200" cy="160" r="80" stroke="#111" stroke-width="0.6" opacity="0.06" fill="none" />
-            <circle cx="1200" cy="160" r="4" fill="#F4DB09" opacity="0.4" />
-        </svg>
-
-        <div class="hero-panel reveal">
-            <div class="panel-header"><span>SYS/STATUS</span><span>PX-01</span></div>
-            <div class="panel-row"><span class="panel-row-key">Modo</span><span
-                    class="panel-row-val active">ACTIVO</span></div>
-            <div class="panel-row"><span class="panel-row-key">Proyectos</span><span class="panel-row-val">05</span>
-            </div>
-            <div class="panel-row"><span class="panel-row-key">Materiales</span><span class="panel-row-val">06</span>
-            </div>
-            <div class="panel-row"><span class="panel-row-key">Procesos</span><span class="panel-row-val">05</span>
-            </div>
-            <div class="panel-row"><span class="panel-row-key">Ejecutados</span><span class="panel-row-val">+40</span>
-            </div>
-        </div>
-        <div class="hero-panel-2 reveal">
-            <span class="p2-tag">MOD / EXEC</span>
-            PRODUCCIÓN<br>IMPRESIÓN<br>GRÁFICA<br>ENMARCADO<br>TRASLADO<br>MOBILIARIO
-        </div>
-
-        <div class="hero-tag reveal"><span>MOD/SYS · PROMAX · 2025</span></div>
-        <div class="hero-title">
-            <span class="hero-title-line"><span class="hero-title-inner">SISTEMAS</span></span>
-            <span class="hero-title-line"><span class="hero-title-inner">MUSEO<span
-                        class="accent">GRÁ</span></span></span>
-            <span class="hero-title-line"><span class="hero-title-inner">FICOS</span></span>
-        </div>
-        <div class="hero-bottom">
-            <div class="reveal"><span class="hero-stat-val">+40</span><span class="hero-stat-label">Proyectos
-                    ejecutados</span></div>
-            <div class="reveal" style="transition-delay:.1s"><span class="hero-stat-val">05</span><span
-                    class="hero-stat-label">Proyectos en portafolio</span></div>
-            <div class="hero-desc reveal" style="transition-delay:.2s">Sistemas expositivos basados en control material
-                y ejecución precisa. Lenguaje artístico con soluciones constructivas reales.</div>
-        </div>
-    </section>
-
-    <!-- ABOUT -->
-    <section id="about">
-        <div class="about-label reveal-left">
-            <span>SYS/01</span><span class="about-label-code">ESTUDIO</span>
-        </div>
-        <div>
-            <div class="tech-line reveal">MOD · IDENTIDAD · V2</div>
-            <h2 class="about-h2 reveal">CONTROL<br>MATERIAL<br><em>+ DISEÑO</em></h2>
-            <p class="about-body reveal">PROMAX desarrolla proyectos museográficos con enfoque técnico y profesional.
-                Combinamos lenguaje artístico con soluciones constructivas documentadas, procesos verificables y
-                materiales seleccionados por función y estética.</p>
-            <p class="about-body reveal" style="margin-top:-24px">No ofrecemos experiencias. Ofrecemos sistemas:
-                estructuras físicas que comunican, permanecen y funcionan.</p>
-            <div class="about-tags reveal">
-                <span class="tag">Precisión técnica</span><span class="tag">Control constructivo</span><span
-                    class="tag">Estética curada</span><span class="tag">Ejecución rápida</span><span
-                    class="tag">Inteligencia de diseño</span><span class="tag">Museografía</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- SERVICIOS -->
-    <section id="servicios">
-        <div class="section-header">
-            <div>
-                <div class="section-kicker reveal">SYS/02 · Módulos de servicio</div>
-                <h2 class="section-title reveal">SERVICIOS</h2>
-            </div>
-            <div class="section-num reveal">02</div>
-        </div>
-
-        <!-- EXPERIENCE BADGE -->
-        <div class="exp-badge reveal">
-            <div class="exp-badge-num">+10</div>
-            <div class="exp-badge-text">
-                <div class="exp-badge-title">Años de experiencia en<br>manejo y producción de obra</div>
-                <div class="exp-badge-sub">Museografía · Producción técnica · Manejo de obra · Ciudad de México</div>
-            </div>
-            <div class="exp-badge-tag">
-                <strong>ACTIVO</strong>
-                <span>DESDE</span>
-                <span>2014</span>
-            </div>
-        </div>
-
-        <div class="servicios-grid">
-            <!-- PX/02 Producción + Mobiliario -->
-            <div class="servicio-item wide reveal" style="transition-delay:.1s">
-                <svg class="serv-icon" style="position:relative;top:auto;right:auto;margin-bottom:20px;display:block"
-                    viewBox="0 0 40 40">
-                    <circle cx="20" cy="20" r="14" stroke="#111" stroke-width="1.5" fill="none" />
-                    <line x1="6" y1="20" x2="34" y2="20" stroke="#111" stroke-width="1" />
-                    <line x1="20" y1="6" x2="20" y2="34" stroke="#111" stroke-width="1" />
-                </svg>
-                <span class="serv-num">PX / 02</span>
-                <div class="serv-name">Producción y<br>Mobiliario</div>
-                <p class="serv-desc">Fabricación integral en taller propio: carpintería técnica, herrería, metalurgia,
-                    corte CNC y láser. Diseño y producción de mobiliario a medida para espacios expositivos y culturales
-                    — vitrinas, pedestales, mesas de consulta, anaqueles y sistemas de almacenamiento. Materiales:
-                    madera, metal, acrílico, MDF y compuestos. Control dimensional y calidad verificada en cada pieza.
-                </p>
-            </div>
-            <!-- PX/01 Diseño Museográfico -->
-            <div class="servicio-item reveal">
-                <svg class="serv-icon" viewBox="0 0 40 40">
-                    <rect x="4" y="4" width="32" height="32" stroke="#111" stroke-width="1.5" fill="none" />
-                    <line x1="4" y1="20" x2="36" y2="20" stroke="#111" stroke-width="1" />
-                    <line x1="20" y1="4" x2="20" y2="36" stroke="#111" stroke-width="1" />
-                </svg>
-                <span class="serv-num">PX / 01</span>
-                <div class="serv-name">Diseño<br>Museográfico</div>
-                <p class="serv-desc">Desarrollo integral de sistemas expositivos. Desde concepto hasta instalación.
-                    Coherencia visual y constructiva en cada fase del proyecto.</p>
-            </div>
-            <!-- PX/03 Diseño y Producción Gráfica -->
-            <div class="servicio-item reveal" style="transition-delay:.2s">
-                <svg class="serv-icon" viewBox="0 0 40 40">
-                    <rect x="4" y="10" width="32" height="20" stroke="#111" stroke-width="1.5" fill="none" />
-                    <line x1="4" y1="18" x2="36" y2="18" stroke="#111" stroke-width="0.8" />
-                    <line x1="4" y1="26" x2="36" y2="26" stroke="#111" stroke-width="0.8" />
-                    <line x1="12" y1="10" x2="12" y2="30" stroke="#111" stroke-width="0.8" />
-                </svg>
-                <span class="serv-num">PX / 03</span>
-                <div class="serv-name">Diseño y Producción<br>Gráfica</div>
-                <p class="serv-desc">Gigantografías, cédulas, vinil adhesivo, impresión en cama plana sobre materiales
-                    rígidos y señalética. Producción gráfica integral para exposiciones y espacios culturales.</p>
-            </div>
-            <!-- PX/04 Impresión 3D -->
-            <div class="servicio-item reveal" style="transition-delay:.3s">
-                <svg class="serv-icon" viewBox="0 0 40 40">
-                    <polygon points="20,4 36,34 4,34" stroke="#111" stroke-width="1.5" fill="none" />
-                </svg>
-                <span class="serv-num">PX / 04</span>
-                <div class="serv-name">Impresión<br>3D + Prototipo</div>
-                <p class="serv-desc">Prototipado rápido y producción de piezas únicas. Geometrías complejas,
-                    materialización directa de diseño digital en 24–48 hrs.</p>
-            </div>
-            <!-- PX/05 Instalación y Montaje -->
-            <div class="servicio-item reveal" style="transition-delay:.4s">
-                <svg class="serv-icon" viewBox="0 0 40 40">
-                    <rect x="4" y="4" width="14" height="14" stroke="#111" stroke-width="1.5" fill="none" />
-                    <rect x="22" y="4" width="14" height="14" stroke="#111" stroke-width="1.5" fill="none" />
-                    <rect x="4" y="22" width="14" height="14" stroke="#111" stroke-width="1.5" fill="none" />
-                    <rect x="22" y="22" width="14" height="14" stroke="#111" stroke-width="1.5" fill="none" />
-                </svg>
-                <span class="serv-num">PX / 05</span>
-                <div class="serv-name">Instalación<br>+ Montaje</div>
-                <p class="serv-desc">Coordinación técnica de instalación in situ. Supervisión de montaje, ajuste
-                    dimensional y entrega documentada con más de 10 años de experiencia en manejo de obra.</p>
-            </div>
-            <!-- PX/06 Enmarcado -->
-            <div class="servicio-item reveal" style="transition-delay:.5s">
-                <svg class="serv-icon" viewBox="0 0 40 40">
-                    <rect x="4" y="4" width="32" height="32" stroke="#111" stroke-width="1.5" fill="none" />
-                    <rect x="11" y="11" width="18" height="18" stroke="#111" stroke-width="0.8" fill="none" />
-                </svg>
-                <span class="serv-num">PX / 06</span>
-                <div class="serv-name">Enmarcado</div>
-                <p class="serv-desc">Producción de marcos y bastidores para obra artística. Materiales seleccionados por
-                    proyecto. Acabados de nivel museográfico y manejo profesional de piezas.</p>
-            </div>
-            <!-- PX/07 Traslado de Obra -->
-            <div class="servicio-item reveal" style="transition-delay:.6s">
-                <svg class="serv-icon" viewBox="0 0 40 40">
-                    <rect x="2" y="14" width="28" height="18" stroke="#111" stroke-width="1.5" fill="none" rx="1" />
-                    <circle cx="10" cy="33" r="4" stroke="#111" stroke-width="1.5" fill="none" />
-                    <circle cx="24" cy="33" r="4" stroke="#111" stroke-width="1.5" fill="none" />
-                    <line x1="30" y1="22" x2="38" y2="22" stroke="#111" stroke-width="1.5" />
-                    <line x1="34" y1="18" x2="38" y2="22" stroke="#111" stroke-width="1" />
-                    <line x1="34" y1="26" x2="38" y2="22" stroke="#111" stroke-width="1" />
-                </svg>
-                <span class="serv-num">PX / 07</span>
-                <div class="serv-name">Traslado<br>de Obra</div>
-                <p class="serv-desc">Logística y transporte especializado de obra artística. Embalaje técnico, manejo
-                    cuidadoso y coordinación de entrega en destino con protocolo de seguridad.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- PROCESO -->
-    <section id="proceso">
-        <div class="section-header">
-            <div>
-                <div class="section-kicker" style="color:rgba(245,245,243,0.4)">SYS/03 · Flujo de trabajo</div>
-                <h2 class="section-title" style="color:#f5f5f3">PROCESO</h2>
-            </div>
-            <div class="section-num">03</div>
-        </div>
-        <div class="proceso-diagram">
-            <div class="proc-step reveal">
-                <div class="proc-dot"></div><span class="proc-num">FASE / 01</span>
-                <div class="proc-name">Brief<br>Técnico</div>
-                <p class="proc-desc">Levantamiento de requerimientos. Definición de materiales, escala, plazos y
-                    presupuesto.</p>
-            </div>
-            <div class="proc-step reveal" style="transition-delay:.1s">
-                <div class="proc-dot"></div><span class="proc-num">FASE / 02</span>
-                <div class="proc-name">Diseño<br>+ Planos</div>
-                <p class="proc-desc">Desarrollo conceptual y documentación técnica. Renders, planos acotados y
-                    especificaciones de fabricación.</p>
-            </div>
-            <div class="proc-step reveal" style="transition-delay:.2s">
-                <div class="proc-dot"></div><span class="proc-num">FASE / 03</span>
-                <div class="proc-name">Producción<br>CNC/3D</div>
-                <p class="proc-desc">Fabricación con control de calidad en proceso. Tolerancias verificadas en cada
-                    elemento.</p>
-            </div>
-            <div class="proc-step reveal" style="transition-delay:.3s">
-                <div class="proc-dot"></div><span class="proc-num">FASE / 04</span>
-                <div class="proc-name">Acabados<br>+ QC</div>
-                <p class="proc-desc">Pintura, ensamble, verificación dimensional. Control de calidad previo a entrega.
-                </p>
-            </div>
-            <div class="proc-step reveal" style="transition-delay:.4s">
-                <div class="proc-dot"></div><span class="proc-num">FASE / 05</span>
-                <div class="proc-name">Instalación<br>In Situ</div>
-                <p class="proc-desc">Montaje supervisado. Ajuste final. Entrega con documentación técnica completa.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- PORTAFOLIO -->
-    <section id="portafolio">
-        <div class="section-header">
-            <div>
-                <div class="section-kicker reveal">SYS/04 · Archivo de proyectos</div>
-                <h2 class="section-title reveal">PORTAFOLIO</h2>
-            </div>
-            <div class="section-num reveal">04</div>
-        </div>
-
-        <div class="projects-grid">
-            <div class="project-card reveal" onclick="openGallery('wpp')">
-                <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673832/wpp_1_hyutx4.jpg"
-                    alt="World Press Photo" loading="lazy">
-                <div class="project-overlay">
-                    <div class="project-code">PX-01 · 2025</div>
-                    <div class="project-name">World Press<br>Photo</div>
-                    <div class="project-count">02 imágenes</div>
-                </div>
-                <div class="project-cta">VER PROYECTO</div>
-            </div>
-            <div class="project-card reveal" style="transition-delay:.1s" onclick="openGallery('fm')">
-                <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673822/FM_1_ljra8p.jpg"
-                    alt="Franz Mayer" loading="lazy">
-                <div class="project-overlay">
-                    <div class="project-code">PX-02 · 2025</div>
-                    <div class="project-name">Museo<br>Franz Mayer</div>
-                    <div class="project-count">05 imágenes</div>
-                </div>
-                <div class="project-cta">VER PROYECTO</div>
-            </div>
-            <div class="project-card reveal" style="transition-delay:.2s" onclick="openGallery('cn')">
-                <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673805/jp_1_jwqj46.jpg"
-                    alt="Colegio Nacional" loading="lazy">
-                <div class="project-overlay">
-                    <div class="project-code">PX-03 · 2025</div>
-                    <div class="project-name">Museo Colegio<br>Nacional</div>
-                    <div class="project-count">07 imágenes</div>
-                </div>
-                <div class="project-cta">VER PROYECTO</div>
-            </div>
-            <div class="project-card reveal" style="transition-delay:.3s" onclick="openGallery('casa')">
-                <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673794/Unacasa_5_sej4pf.jpg"
-                    alt="De Casa a Hogar" loading="lazy">
-                <div class="project-overlay">
-                    <div class="project-code">PX-04 · 2025</div>
-                    <div class="project-name">De Casa<br>a Hogar</div>
-                    <div class="project-count">04 imágenes</div>
-                </div>
-                <div class="project-cta">VER PROYECTO</div>
-            </div>
-            <div class="project-card reveal" style="transition-delay:.4s" onclick="openGallery('atl')">
-                <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673777/Dr.Atl_10_wqxc2l.jpg"
-                    alt="Dr. Atl" loading="lazy">
-                <div class="project-overlay">
-                    <div class="project-code">PX-05 · 2025</div>
-                    <div class="project-name">Exposición<br>Dr. Atl</div>
-                    <div class="project-count">05 imágenes</div>
-                </div>
-                <div class="project-cta">VER PROYECTO</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- GALLERY MODAL -->
-    <div id="galleryModal">
-        <div class="gm-header">
-            <div>
-                <div class="gm-code" id="gmCode"></div>
-                <div class="gm-title" id="gmTitle"></div>
-                <div class="gm-meta" id="gmMeta"></div>
-            </div>
-            <button class="gm-close" onclick="closeGallery()">CERRAR ×</button>
-        </div>
-        <div class="gm-body">
-            <div class="gm-grid" id="gmGrid"></div>
-        </div>
-        <div class="gm-footer">
-            <div class="gm-counter" id="gmCounter"></div>
-            <div class="gm-nav">
-                <button class="gm-nav-btn" onclick="navProject(-1)" title="Proyecto anterior">‹</button>
-                <button class="gm-nav-btn" onclick="navProject(1)" title="Proyecto siguiente">›</button>
-            </div>
-        </div>
+  <!-- EXPERIENCE BADGE -->
+  <div class="exp-badge reveal">
+    <div class="exp-badge-num">+10</div>
+    <div class="exp-badge-text">
+      <div class="exp-badge-title">Años de experiencia en<br>manejo y producción de obra</div>
+      <div class="exp-badge-sub">Museografía · Producción técnica · Manejo de obra · Ciudad de México</div>
     </div>
-
-    <!-- IMAGE VIEWER -->
-    <div id="imgViewer">
-        <button class="iv-close" onclick="closeViewer()">×</button>
-        <button class="iv-nav iv-prev" onclick="viewerNav(-1)">‹</button>
-        <img id="viewerImg" src="" alt="">
-        <button class="iv-nav iv-next" onclick="viewerNav(1)">›</button>
-        <div class="iv-info" id="viewerInfo"></div>
+    <div class="exp-badge-tag">
+      <strong>ACTIVO</strong>
+      <span>DESDE</span>
+      <span>2014</span>
     </div>
+  </div>
 
-    <!-- MATERIALES -->
-    <section id="materiales">
-        <div class="mat-left">
-            <div class="tech-line reveal">SYS/05 · MATERIALES · V3</div>
-            <h2 class="section-title reveal" style="margin-bottom:16px">MATERIALES<br><em style="color:var(--accent)">+
-                    PROCESOS</em></h2>
-            <p class="reveal" style="font-size:12px;line-height:1.9;color:var(--ink2);max-width:420px;margin-top:16px">
-                Selección material basada en función, durabilidad y estética. Cada proyecto define su propio sistema
-                constructivo. Sin atajos. Sin soluciones genéricas.</p>
-            <div class="proc-list reveal">
-                <div class="proc-item"><span class="proc-item-num">MOD/01</span>
-                    <div>
-                        <div class="proc-item-name">CNC + Corte Láser</div>
-                        <div class="proc-item-desc">Fresado y corte de alta precisión en madera, MDF, acrílico y
-                            aluminio. Tolerancias hasta 0.1mm. Sin rebaba.</div>
-                    </div>
-                </div>
-                <div class="proc-item"><span class="proc-item-num">MOD/02</span>
-                    <div>
-                        <div class="proc-item-name">Carpintería + Herrería</div>
-                        <div class="proc-item-desc">Fabricación estructural en madera y metal. Soldadura TIG, doblez,
-                            ensambles y acabados industriales de nivel museográfico.</div>
-                    </div>
-                </div>
-                <div class="proc-item"><span class="proc-item-num">MOD/03</span>
-                    <div>
-                        <div class="proc-item-name">Impresión 3D</div>
-                        <div class="proc-item-desc">FDM y resina. Piezas funcionales y decorativas. Prototipado en 24–48
-                            hrs.</div>
-                    </div>
-                </div>
-                <div class="proc-item"><span class="proc-item-num">MOD/04</span>
-                    <div>
-                        <div class="proc-item-name">Diseño y Producción Gráfica</div>
-                        <div class="proc-item-desc">Gigantografías, cédulas, vinil y cama plana sobre materiales
-                            rígidos. Control cromático documentado por proyecto.</div>
-                    </div>
-                </div>
-                <div class="proc-item"><span class="proc-item-num">MOD/05</span>
-                    <div>
-                        <div class="proc-item-name">Enmarcado + Traslado</div>
-                        <div class="proc-item-desc">Producción de marcos museográficos y logística especializada de
-                            obra. Embalaje técnico y protocolo de manejo seguro.</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div>
-            <div class="tech-line reveal">MAT · SISTEMA · V2</div>
-            <div class="mat-right">
-                <div class="mat-block reveal">
-                    <div class="mat-icon"><svg width="32" height="32" viewBox="0 0 32 32">
-                            <rect x="4" y="4" width="24" height="24" stroke="#111" stroke-width="1.5" fill="none"
-                                rx="1" />
-                            <line x1="4" y1="16" x2="28" y2="16" stroke="#111" stroke-width="0.8" />
-                        </svg></div>
-                    <div class="mat-name">Acrílico</div>
-                    <div class="mat-spec">Transparente, opaco, espejo. Calibres 3–20mm. Corte láser + CNC.</div>
-                </div>
-                <div class="mat-block reveal" style="transition-delay:.08s">
-                    <div class="mat-icon"><svg width="32" height="32" viewBox="0 0 32 32">
-                            <polygon points="16,4 28,28 4,28" stroke="#111" stroke-width="1.5" fill="none" />
-                        </svg></div>
-                    <div class="mat-name">Madera</div>
-                    <div class="mat-spec">MDF, triplay, madera sólida. Múltiples acabados. Fresado 3D.</div>
-                </div>
-                <div class="mat-block reveal" style="transition-delay:.12s">
-                    <div class="mat-icon"><svg width="32" height="32" viewBox="0 0 32 32">
-                            <circle cx="16" cy="16" r="12" stroke="#111" stroke-width="1.5" fill="none" />
-                            <circle cx="16" cy="16" r="4" stroke="#111" stroke-width="1" fill="none" />
-                        </svg></div>
-                    <div class="mat-name">Metal</div>
-                    <div class="mat-spec">Acero, aluminio, inox. Doblez, soldadura TIG, corte plasma.</div>
-                </div>
-                <div class="mat-block reveal" style="transition-delay:.16s">
-                    <div class="mat-icon"><svg width="32" height="32" viewBox="0 0 32 32">
-                            <rect x="4" y="8" width="24" height="16" stroke="#111" stroke-width="1.5" fill="none"
-                                rx="1" />
-                            <line x1="4" y1="16" x2="28" y2="16" stroke="#111" stroke-width="0.8" />
-                        </svg></div>
-                    <div class="mat-name">PVC Espumado</div>
-                    <div class="mat-spec">Láminas rígidas y ligeras 3–10mm. Impresión directa, CNC y láser. Paneles y
-                        cartelas.</div>
-                </div>
-                <div class="mat-block reveal" style="transition-delay:.20s;grid-column:1/-1">
-                    <div class="mat-icon"><svg width="32" height="32" viewBox="0 0 32 32">
-                            <rect x="2" y="2" width="12" height="12" stroke="#111" stroke-width="1.5" fill="none" />
-                            <rect x="18" y="2" width="12" height="12" stroke="#111" stroke-width="1.5" fill="none" />
-                            <rect x="2" y="18" width="12" height="12" stroke="#111" stroke-width="1.5" fill="none" />
-                            <rect x="18" y="18" width="12" height="12" stroke="#111" stroke-width="1.5" fill="none" />
-                        </svg></div>
-                    <div class="mat-name">Otros Materiales Rígidos</div>
-                    <div class="mat-spec">Dibond, policarbonato, cartón pluma, forex y materiales compuestos. Selección
-                        por proyecto según requerimientos técnicos, estéticos y de durabilidad. Criterio único: función
-                        primero, estética siempre.</div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <div class="servicios-grid">
+    <!-- PX/02 Producción + Mobiliario -->
+    <div class="servicio-item wide reveal" style="transition-delay:.1s">
+          <svg class="serv-icon" style="position:relative;top:auto;right:auto;margin-bottom:20px;display:block" viewBox="0 0 40 40"><circle cx="20" cy="20" r="14" stroke="#111" stroke-width="1.5" fill="none"/><line x1="6" y1="20" x2="34" y2="20" stroke="#111" stroke-width="1"/><line x1="20" y1="6" x2="20" y2="34" stroke="#111" stroke-width="1"/></svg>
+          <span class="serv-num">PX / 02</span>
+          <div class="serv-name">Producción y<br>Mobiliario</div>
+          <p class="serv-desc">Fabricación integral en taller propio: carpintería técnica, herrería, metalurgia, corte CNC y láser. Diseño y producción de mobiliario a medida para espacios expositivos y culturales — vitrinas, pedestales, mesas de consulta, anaqueles y sistemas de almacenamiento. Materiales: madera, metal, acrílico, MDF y compuestos. Control dimensional y calidad verificada en cada pieza.</p>
+    </div>
+     <!-- PX/01 Diseño Museográfico -->
+    <div class="servicio-item reveal">
+      <svg class="serv-icon" viewBox="0 0 40 40"><rect x="4" y="4" width="32" height="32" stroke="#111" stroke-width="1.5" fill="none"/><line x1="4" y1="20" x2="36" y2="20" stroke="#111" stroke-width="1"/><line x1="20" y1="4" x2="20" y2="36" stroke="#111" stroke-width="1"/></svg>
+      <span class="serv-num">PX / 01</span><div class="serv-name">Diseño<br>Museográfico</div>
+      <p class="serv-desc">Desarrollo integral de sistemas expositivos. Desde concepto hasta instalación. Coherencia visual y constructiva en cada fase del proyecto.</p>
+    </div>
+    <!-- PX/03 Diseño y Producción Gráfica -->
+    <div class="servicio-item reveal" style="transition-delay:.2s">
+      <svg class="serv-icon" viewBox="0 0 40 40"><rect x="4" y="10" width="32" height="20" stroke="#111" stroke-width="1.5" fill="none"/><line x1="4" y1="18" x2="36" y2="18" stroke="#111" stroke-width="0.8"/><line x1="4" y1="26" x2="36" y2="26" stroke="#111" stroke-width="0.8"/><line x1="12" y1="10" x2="12" y2="30" stroke="#111" stroke-width="0.8"/></svg>
+      <span class="serv-num">PX / 03</span><div class="serv-name">Diseño y Producción<br>Gráfica</div>
+      <p class="serv-desc">Gigantografías, cédulas, vinil adhesivo, impresión en cama plana sobre materiales rígidos y señalética. Producción gráfica integral para exposiciones y espacios culturales.</p>
+    </div>
+    <!-- PX/04 Impresión 3D -->
+    <div class="servicio-item reveal" style="transition-delay:.3s">
+      <svg class="serv-icon" viewBox="0 0 40 40"><polygon points="20,4 36,34 4,34" stroke="#111" stroke-width="1.5" fill="none"/></svg>
+      <span class="serv-num">PX / 04</span><div class="serv-name">Impresión<br>3D + Prototipo</div>
+      <p class="serv-desc">Prototipado rápido y producción de piezas únicas. Geometrías complejas, materialización directa de diseño digital en 24–48 hrs.</p>
+    </div>
+    <!-- PX/05 Instalación y Montaje -->
+    <div class="servicio-item reveal" style="transition-delay:.4s">
+      <svg class="serv-icon" viewBox="0 0 40 40"><rect x="4" y="4" width="14" height="14" stroke="#111" stroke-width="1.5" fill="none"/><rect x="22" y="4" width="14" height="14" stroke="#111" stroke-width="1.5" fill="none"/><rect x="4" y="22" width="14" height="14" stroke="#111" stroke-width="1.5" fill="none"/><rect x="22" y="22" width="14" height="14" stroke="#111" stroke-width="1.5" fill="none"/></svg>
+      <span class="serv-num">PX / 05</span><div class="serv-name">Instalación<br>+ Montaje</div>
+      <p class="serv-desc">Coordinación técnica de instalación in situ. Supervisión de montaje, ajuste dimensional y entrega documentada con más de 10 años de experiencia en manejo de obra.</p>
+    </div>
+    <!-- PX/06 Enmarcado -->
+    <div class="servicio-item reveal" style="transition-delay:.5s">
+      <svg class="serv-icon" viewBox="0 0 40 40"><rect x="4" y="4" width="32" height="32" stroke="#111" stroke-width="1.5" fill="none"/><rect x="11" y="11" width="18" height="18" stroke="#111" stroke-width="0.8" fill="none"/></svg>
+      <span class="serv-num">PX / 06</span><div class="serv-name">Enmarcado</div>
+      <p class="serv-desc">Producción de marcos y bastidores para obra artística. Materiales seleccionados por proyecto. Acabados de nivel museográfico y manejo profesional de piezas.</p>
+    </div>
+    <!-- PX/07 Traslado de Obra -->
+    <div class="servicio-item reveal" style="transition-delay:.6s">
+      <svg class="serv-icon" viewBox="0 0 40 40"><rect x="2" y="14" width="28" height="18" stroke="#111" stroke-width="1.5" fill="none" rx="1"/><circle cx="10" cy="33" r="4" stroke="#111" stroke-width="1.5" fill="none"/><circle cx="24" cy="33" r="4" stroke="#111" stroke-width="1.5" fill="none"/><line x1="30" y1="22" x2="38" y2="22" stroke="#111" stroke-width="1.5"/><line x1="34" y1="18" x2="38" y2="22" stroke="#111" stroke-width="1"/><line x1="34" y1="26" x2="38" y2="22" stroke="#111" stroke-width="1"/></svg>
+      <span class="serv-num">PX / 07</span><div class="serv-name">Traslado<br>de Obra</div>
+      <p class="serv-desc">Logística y transporte especializado de obra artística. Embalaje técnico, manejo cuidadoso y coordinación de entrega en destino con protocolo de seguridad.</p>
+    </div>
+  </div>
+</section>
 
-    <!-- CONTACTO -->
-    <section id="contacto">
-        <div class="contact-left">
-            <div class="tech-line reveal">SYS/06 · CONTACTO</div>
-            <h2 class="contact-h2 reveal">INICIAR<br><em>PROYECTO</em></h2>
-            <p class="reveal" style="font-size:12px;line-height:1.9;color:var(--ink2);max-width:360px">Cada proyecto
-                comienza con un brief técnico. Cuéntanos qué necesitas construir.</p>
-            <div class="contact-info reveal">
-                <div class="contact-info-item"><span class="ci-label">Email</span><span
-                        class="ci-val">atencion.promax@gmail.com</span></div>
-                <div class="contact-info-item"><span class="ci-label">WhatsApp</span><span class="ci-val">+52 56 3858
-                        8892</span></div>
-                <div class="contact-info-item"><span class="ci-label">Ciudad</span><span class="ci-val">Ciudad de
-                        México, MX</span></div>
-                <div class="contact-info-item"><span class="ci-label">Sistema</span><span class="ci-val"
-                        style="color:var(--accent)">ACTIVO · RECIBIENDO PROYECTOS</span></div>
-            </div>
-        </div>
-        <div class="contact-form reveal">
-            <div class="tech-line">FORM · BRIEF · V2</div>
-            <div class="form-field" style="margin-top:24px"><label class="form-label">Nombre completo</label><input
-                    class="form-input" id="fName" name="name" type="text" placeholder="Tu nombre"></div>
-            <div class="form-field"><label class="form-label">Correo electrónico</label><input class="form-input"
-                    id="fEmail" name="email" type="email" placeholder="correo@ejemplo.com"></div>
-            <div class="form-field"><label class="form-label">Tipo de proyecto</label><input class="form-input"
-                    id="fTipo" name="tipo" type="text" placeholder="Exposición / Vitrina / Señalética / Otro"></div>
-            <div class="form-field"><label class="form-label">Descripción técnica</label><textarea class="form-input"
-                    id="fDesc" name="message"
-                    placeholder="Materiales, dimensiones, plazo, presupuesto estimado..."></textarea></div>
-            <button class="form-submit" id="submitBtn"><span id="submitLabel">ENVIAR BRIEF</span><span
-                    class="form-submit-arrow">→</span></button>
-            <p
-                style="font-size:9px;letter-spacing:0.1em;color:var(--ink2);margin-top:10px;text-transform:uppercase;opacity:0.7">
-                Las solicitudes se envían a: atencion.promax@gmail.com</p>
-        </div>
-    </section>
+<!-- PROCESO -->
+<section id="proceso">
+  <div class="section-header">
+    <div><div class="section-kicker" style="color:rgba(245,245,243,0.4)">SYS/03 · Flujo de trabajo</div><h2 class="section-title" style="color:#f5f5f3">PROCESO</h2></div>
+    <div class="section-num">03</div>
+  </div>
+  <div class="proceso-diagram">
+    <div class="proc-step reveal"><div class="proc-dot"></div><span class="proc-num">FASE / 01</span><div class="proc-name">Brief<br>Técnico</div><p class="proc-desc">Levantamiento de requerimientos. Definición de materiales, escala, plazos y presupuesto.</p></div>
+    <div class="proc-step reveal" style="transition-delay:.1s"><div class="proc-dot"></div><span class="proc-num">FASE / 02</span><div class="proc-name">Diseño<br>+ Planos</div><p class="proc-desc">Desarrollo conceptual y documentación técnica. Renders, planos acotados y especificaciones de fabricación.</p></div>
+    <div class="proc-step reveal" style="transition-delay:.2s"><div class="proc-dot"></div><span class="proc-num">FASE / 03</span><div class="proc-name">Producción<br>CNC/3D</div><p class="proc-desc">Fabricación con control de calidad en proceso. Tolerancias verificadas en cada elemento.</p></div>
+    <div class="proc-step reveal" style="transition-delay:.3s"><div class="proc-dot"></div><span class="proc-num">FASE / 04</span><div class="proc-name">Acabados<br>+ QC</div><p class="proc-desc">Pintura, ensamble, verificación dimensional. Control de calidad previo a entrega.</p></div>
+    <div class="proc-step reveal" style="transition-delay:.4s"><div class="proc-dot"></div><span class="proc-num">FASE / 05</span><div class="proc-name">Instalación<br>In Situ</div><p class="proc-desc">Montaje supervisado. Ajuste final. Entrega con documentación técnica completa.</p></div>
+  </div>
+</section>
 
-    <!-- FOOTER -->
-    <footer>
-        <div class="footer-logo">PROMAX<span style="color:var(--accent)">.</span></div>
-        <nav class="footer-links">
-            <a href="#about">Estudio</a><a href="#servicios">Servicios</a><a href="#portafolio">Portafolio</a><a
-                href="#contacto">Contacto</a>
-        </nav>
-        <div class="footer-right"><span>SYS/VERSION · 2025.1</span><br>Ciudad de México<br>Sistemas
-            Museográficos<br><span>PROMAX ©2025</span></div>
-    </footer>
+<!-- PORTAFOLIO -->
+<section id="portafolio">
+  <div class="section-header">
+    <div><div class="section-kicker reveal">SYS/04 · Archivo de proyectos</div><h2 class="section-title reveal">PORTAFOLIO</h2></div>
+    <div class="section-num reveal">04</div>
+  </div>
 
-    <a class="wa-btn" href="https://wa.me/525638588892" target="_blank" title="WhatsApp PROMAX">
-        <svg viewBox="0 0 24 24">
-            <path
-                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-        </svg>
-    </a>
+  <div class="projects-grid">
+    <div class="project-card reveal" onclick="openGallery('wpp')">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673832/wpp_1_hyutx4.jpg" alt="World Press Photo" loading="lazy">
+      <div class="project-overlay">
+        <div class="project-code">PX-01 · 2025</div>
+        <div class="project-name">World Press<br>Photo</div>
+        <div class="project-count">02 imágenes</div>
+      </div>
+      <div class="project-cta">VER PROYECTO</div>
+    </div>
+    <div class="project-card reveal" style="transition-delay:.1s" onclick="openGallery('fm')">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673822/FM_1_ljra8p.jpg" alt="Franz Mayer" loading="lazy">
+      <div class="project-overlay">
+        <div class="project-code">PX-02 · 2025</div>
+        <div class="project-name">Museo<br>Franz Mayer</div>
+        <div class="project-count">05 imágenes</div>
+      </div>
+      <div class="project-cta">VER PROYECTO</div>
+    </div>
+    <div class="project-card reveal" style="transition-delay:.2s" onclick="openGallery('cn')">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673805/jp_1_jwqj46.jpg" alt="Colegio Nacional" loading="lazy">
+      <div class="project-overlay">
+        <div class="project-code">PX-03 · 2025</div>
+        <div class="project-name">Museo Colegio<br>Nacional</div>
+        <div class="project-count">07 imágenes</div>
+      </div>
+      <div class="project-cta">VER PROYECTO</div>
+    </div>
+    <div class="project-card reveal" style="transition-delay:.3s" onclick="openGallery('casa')">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673794/Unacasa_5_sej4pf.jpg" alt="De Casa a Hogar" loading="lazy">
+      <div class="project-overlay">
+        <div class="project-code">PX-04 · 2025</div>
+        <div class="project-name">De Casa<br>a Hogar</div>
+        <div class="project-count">04 imágenes</div>
+      </div>
+      <div class="project-cta">VER PROYECTO</div>
+    </div>
+    <div class="project-card reveal" style="transition-delay:.4s" onclick="openGallery('atl')">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673777/Dr.Atl_10_wqxc2l.jpg" alt="Dr. Atl" loading="lazy">
+      <div class="project-overlay">
+        <div class="project-code">PX-05 · 2025</div>
+        <div class="project-name">Exposición<br>Dr. Atl</div>
+        <div class="project-count">05 imágenes</div>
+      </div>
+      <div class="project-cta">VER PROYECTO</div>
+    </div>
+  </div>
+</section>
 
-    <script>
-        gsap.registerPlugin(ScrollTrigger);
+<!-- GALLERY MODAL -->
+<div id="galleryModal">
+  <div class="gm-header">
+    <div><div class="gm-code" id="gmCode"></div><div class="gm-title" id="gmTitle"></div><div class="gm-meta" id="gmMeta"></div></div>
+    <button class="gm-close" onclick="closeGallery()">CERRAR ×</button>
+  </div>
+  <div class="gm-body"><div class="gm-grid" id="gmGrid"></div></div>
+  <div class="gm-footer">
+    <div class="gm-counter" id="gmCounter"></div>
+    <div class="gm-nav">
+      <button class="gm-nav-btn" onclick="navProject(-1)" title="Proyecto anterior">‹</button>
+      <button class="gm-nav-btn" onclick="navProject(1)"  title="Proyecto siguiente">›</button>
+    </div>
+  </div>
+</div>
 
-        // CURSOR
-        const cursor = document.getElementById('cursor');
-        const cursorDot = document.getElementById('cursor-dot');
-        document.addEventListener('mousemove', e => {
-            gsap.to(cursor, { x: e.clientX - 12, y: e.clientY - 12, duration: .15, ease: 'power2.out' });
-            gsap.to(cursorDot, { x: e.clientX, y: e.clientY, duration: .05 });
-        });
-        document.querySelectorAll('a,button,.project-card,.servicio-item,.mat-block,.tag,.form-input,.gm-img,.gm-nav-btn').forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-        });
+<!-- IMAGE VIEWER -->
+<div id="imgViewer">
+  <button class="iv-close" onclick="closeViewer()">×</button>
+  <button class="iv-nav iv-prev" onclick="viewerNav(-1)">‹</button>
+  <img id="viewerImg" src="" alt="">
+  <button class="iv-nav iv-next" onclick="viewerNav(1)">›</button>
+  <div class="iv-info" id="viewerInfo"></div>
+</div>
 
-        // HERO LINES
-        ['bl1', 'bl2', 'bl3', 'bl4', 'bl5', 'bl6', 'bl7', 'bl8', 'bl9', 'bl10', 'bl11'].forEach((id, i) => {
-            const el = document.getElementById(id); if (!el) return;
-            const len = el.getTotalLength ? el.getTotalLength() : 400;
-            gsap.set(el, { strokeDasharray: len, strokeDashoffset: len });
-            gsap.to(el, { strokeDashoffset: 0, duration: 1.5 + i * .2, delay: .3 + i * .1, ease: 'power2.inOut' });
-        });
+<!-- MATERIALES -->
+<section id="materiales">
+  <div class="mat-left">
+    <div class="tech-line reveal">SYS/05 · MATERIALES · V3</div>
+    <h2 class="section-title reveal" style="margin-bottom:16px">MATERIALES<br><em style="color:var(--accent)">+ PROCESOS</em></h2>
+    <p class="reveal" style="font-size:12px;line-height:1.9;color:var(--ink2);max-width:420px;margin-top:16px">Selección material basada en función, durabilidad y estética. Cada proyecto define su propio sistema constructivo. Sin atajos. Sin soluciones genéricas.</p>
+    <div class="proc-list reveal">
+      <div class="proc-item"><span class="proc-item-num">MOD/01</span><div><div class="proc-item-name">CNC + Corte Láser</div><div class="proc-item-desc">Fresado y corte de alta precisión en madera, MDF, acrílico y aluminio. Tolerancias hasta 0.1mm. Sin rebaba.</div></div></div>
+      <div class="proc-item"><span class="proc-item-num">MOD/02</span><div><div class="proc-item-name">Carpintería + Herrería</div><div class="proc-item-desc">Fabricación estructural en madera y metal. Soldadura TIG, doblez, ensambles y acabados industriales de nivel museográfico.</div></div></div>
+      <div class="proc-item"><span class="proc-item-num">MOD/03</span><div><div class="proc-item-name">Impresión 3D</div><div class="proc-item-desc">FDM y resina. Piezas funcionales y decorativas. Prototipado en 24–48 hrs.</div></div></div>
+      <div class="proc-item"><span class="proc-item-num">MOD/04</span><div><div class="proc-item-name">Diseño y Producción Gráfica</div><div class="proc-item-desc">Gigantografías, cédulas, vinil y cama plana sobre materiales rígidos. Control cromático documentado por proyecto.</div></div></div>
+      <div class="proc-item"><span class="proc-item-num">MOD/05</span><div><div class="proc-item-name">Enmarcado + Traslado</div><div class="proc-item-desc">Producción de marcos museográficos y logística especializada de obra. Embalaje técnico y protocolo de manejo seguro.</div></div></div>
+    </div>
+  </div>
+  <div>
+    <div class="tech-line reveal">MAT · SISTEMA · V2</div>
+    <div class="mat-right">
+      <div class="mat-block reveal">
+        <div class="mat-icon"><svg width="32" height="32" viewBox="0 0 32 32"><rect x="4" y="4" width="24" height="24" stroke="#111" stroke-width="1.5" fill="none" rx="1"/><line x1="4" y1="16" x2="28" y2="16" stroke="#111" stroke-width="0.8"/></svg></div>
+        <div class="mat-name">Acrílico</div>
+        <div class="mat-spec">Transparente, opaco, espejo. Calibres 3–20mm. Corte láser + CNC.</div>
+      </div>
+      <div class="mat-block reveal" style="transition-delay:.08s">
+        <div class="mat-icon"><svg width="32" height="32" viewBox="0 0 32 32"><polygon points="16,4 28,28 4,28" stroke="#111" stroke-width="1.5" fill="none"/></svg></div>
+        <div class="mat-name">Madera</div>
+        <div class="mat-spec">MDF, triplay, madera sólida. Múltiples acabados. Fresado 3D.</div>
+      </div>
+      <div class="mat-block reveal" style="transition-delay:.12s">
+        <div class="mat-icon"><svg width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="12" stroke="#111" stroke-width="1.5" fill="none"/><circle cx="16" cy="16" r="4" stroke="#111" stroke-width="1" fill="none"/></svg></div>
+        <div class="mat-name">Metal</div>
+        <div class="mat-spec">Acero, aluminio, inox. Doblez, soldadura TIG, corte plasma.</div>
+      </div>
+      <div class="mat-block reveal" style="transition-delay:.16s">
+        <div class="mat-icon"><svg width="32" height="32" viewBox="0 0 32 32"><rect x="4" y="8" width="24" height="16" stroke="#111" stroke-width="1.5" fill="none" rx="1"/><line x1="4" y1="16" x2="28" y2="16" stroke="#111" stroke-width="0.8"/></svg></div>
+        <div class="mat-name">PVC Espumado</div>
+        <div class="mat-spec">Láminas rígidas y ligeras 3–10mm. Impresión directa, CNC y láser. Paneles y cartelas.</div>
+      </div>
+      <div class="mat-block reveal" style="transition-delay:.20s;grid-column:1/-1">
+        <div class="mat-icon"><svg width="32" height="32" viewBox="0 0 32 32"><rect x="2" y="2" width="12" height="12" stroke="#111" stroke-width="1.5" fill="none"/><rect x="18" y="2" width="12" height="12" stroke="#111" stroke-width="1.5" fill="none"/><rect x="2" y="18" width="12" height="12" stroke="#111" stroke-width="1.5" fill="none"/><rect x="18" y="18" width="12" height="12" stroke="#111" stroke-width="1.5" fill="none"/></svg></div>
+        <div class="mat-name">Otros Materiales Rígidos</div>
+        <div class="mat-spec">Dibond, policarbonato, cartón pluma, forex y materiales compuestos. Selección por proyecto según requerimientos técnicos, estéticos y de durabilidad. Criterio único: función primero, estética siempre.</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        // HERO TITLE
-        document.querySelectorAll('.hero-title-inner').forEach((el, i) => {
-            gsap.from(el, { yPercent: 105, duration: 1.1, delay: .5 + i * .15, ease: 'power4.out' });
-        });
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="contact-left">
+    <div class="tech-line reveal">SYS/06 · CONTACTO</div>
+    <h2 class="contact-h2 reveal">INICIAR<br><em>PROYECTO</em></h2>
+    <p class="reveal" style="font-size:12px;line-height:1.9;color:var(--ink2);max-width:360px">Cada proyecto comienza con un brief técnico. Cuéntanos qué necesitas construir.</p>
+    <div class="contact-info reveal">
+      <div class="contact-info-item"><span class="ci-label">Email</span><span class="ci-val">atencion.promax@gmail.com</span></div>
+      <div class="contact-info-item"><span class="ci-label">WhatsApp</span><span class="ci-val">+52 56 3858 8892</span></div>
+      <div class="contact-info-item"><span class="ci-label">Ciudad</span><span class="ci-val">Ciudad de México, MX</span></div>
+      <div class="contact-info-item"><span class="ci-label">Sistema</span><span class="ci-val" style="color:var(--accent)">ACTIVO · RECIBIENDO PROYECTOS</span></div>
+    </div>
+  </div>
+  <div class="contact-form reveal">
+    <div class="tech-line">FORM · BRIEF · V2</div>
+    <div class="form-field" style="margin-top:24px"><label class="form-label">Nombre completo</label><input class="form-input" id="fName" name="name" type="text" placeholder="Tu nombre"></div>
+    <div class="form-field"><label class="form-label">Correo electrónico</label><input class="form-input" id="fEmail" name="email" type="email" placeholder="correo@ejemplo.com"></div>
+    <div class="form-field"><label class="form-label">Tipo de proyecto</label><input class="form-input" id="fTipo" name="tipo" type="text" placeholder="Exposición / Vitrina / Señalética / Otro"></div>
+    <div class="form-field"><label class="form-label">Descripción técnica</label><textarea class="form-input" id="fDesc" name="message" placeholder="Materiales, dimensiones, plazo, presupuesto estimado..."></textarea></div>
+    <div class="form-field" id="captchaField">
+      <div class="g-recaptcha" data-sitekey="6LdD_tksAAAAAP1NwHlAKZYlCAOhnghjcGYmfCfH"></div>
+    </div>
+    <button class="form-submit" id="submitBtn"><span id="submitLabel">ENVIAR BRIEF</span><span class="form-submit-arrow">→</span></button>
+    <p style="font-size:9px;letter-spacing:0.1em;color:var(--ink2);margin-top:10px;text-transform:uppercase;opacity:0.7">Las solicitudes se envían a: atencion.promax@gmail.com</p>
+  </div>
+</section>
 
-        // REVEALS
-        document.querySelectorAll('.reveal,.reveal-left').forEach(el => {
-            ScrollTrigger.create({
-                trigger: el, start: 'top 88%',
-                onEnter: () => gsap.to(el, { opacity: 1, x: 0, y: 0, duration: .9, ease: 'power3.out' })
-            });
-        });
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">PROMAX<span style="color:var(--accent)">.</span></div>
+  <nav class="footer-links">
+    <a href="#about">Estudio</a><a href="#servicios">Servicios</a><a href="#portafolio">Portafolio</a><a href="#contacto">Contacto</a>
+  </nav>
+  <div class="footer-right"><span>SYS/VERSION · 2025.1</span><br>Ciudad de México<br>Sistemas Museográficos<br><span>PROMAX ©2025</span></div>
+</footer>
 
-        // PARALLAX
-        gsap.to('.hero-panel', { y: -60, scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true } });
-        gsap.to('.hero-panel-2', { y: -40, scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true } });
-        gsap.to('.hero-bg-lines', { y: 80, scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true } });
+<a class="wa-btn" href="https://wa.me/525638588892" target="_blank" title="WhatsApp PROMAX">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
 
-        // SCROLL PROGRESS
-        const secIds = ['hero', 'about', 'servicios', 'proceso', 'portafolio', 'materiales', 'contacto'];
-        const spDots = document.querySelectorAll('.sp-dot');
-        secIds.forEach((id, i) => {
-            ScrollTrigger.create({
-                trigger: '#' + id, start: 'top center', end: 'bottom center',
-                onEnter: () => { spDots.forEach(d => d.classList.remove('active')); spDots[i]?.classList.add('active'); },
-                onEnterBack: () => { spDots.forEach(d => d.classList.remove('active')); spDots[i]?.classList.add('active'); }
-            });
-        });
+<script>
+gsap.registerPlugin(ScrollTrigger);
 
-        // NAV shadow
-        ScrollTrigger.create({
-            start: 'top top-=80',
-            onEnter: () => document.getElementById('mainNav').style.boxShadow = '0 2px 24px rgba(17,17,17,0.08)',
-            onLeaveBack: () => document.getElementById('mainNav').style.boxShadow = 'none'
-        });
+// CURSOR
+const cursor = document.getElementById('cursor');
+const cursorDot = document.getElementById('cursor-dot');
+document.addEventListener('mousemove', e => {
+  gsap.to(cursor,    { x: e.clientX-12, y: e.clientY-12, duration:.15, ease:'power2.out' });
+  gsap.to(cursorDot, { x: e.clientX,    y: e.clientY,    duration:.05 });
+});
+document.querySelectorAll('a,button,.project-card,.servicio-item,.mat-block,.tag,.form-input,.gm-img,.gm-nav-btn').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+  el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+});
 
-        // PROC DOTS
-        document.querySelectorAll('.proc-dot').forEach((dot, i) => {
-            ScrollTrigger.create({
-                trigger: dot, start: 'top 85%',
-                onEnter: () => gsap.from(dot, { scale: 0, duration: .5, delay: i * .15, ease: 'back.out(2)' })
-            });
-        });
+// HERO LINES
+['bl1','bl2','bl3','bl4','bl5','bl6','bl7','bl8','bl9','bl10','bl11'].forEach((id,i) => {
+  const el = document.getElementById(id); if(!el) return;
+  const len = el.getTotalLength ? el.getTotalLength() : 400;
+  gsap.set(el, { strokeDasharray:len, strokeDashoffset:len });
+  gsap.to(el, { strokeDashoffset:0, duration:1.5+i*.2, delay:.3+i*.1, ease:'power2.inOut' });
+});
 
-        // HOVER PROC ITEMS
-        document.querySelectorAll('.proc-item').forEach(item => {
-            item.addEventListener('mouseenter', () => gsap.to(item, { paddingLeft: '16px', duration: .25 }));
-            item.addEventListener('mouseleave', () => gsap.to(item, { paddingLeft: '0px', duration: .3 }));
-        });
+// HERO TITLE
+document.querySelectorAll('.hero-title-inner').forEach((el,i) => {
+  gsap.from(el, { yPercent:105, duration:1.1, delay:.5+i*.15, ease:'power4.out' });
+});
 
-        // CARD STAGGER
-        ScrollTrigger.create({
-            trigger: '.projects-grid', start: 'top 82%',
-            onEnter: () => gsap.from('.project-card', { opacity: 0, y: 40, duration: .8, stagger: .12, ease: 'power3.out' })
-        });
+// REVEALS
+document.querySelectorAll('.reveal,.reveal-left').forEach(el => {
+  ScrollTrigger.create({ trigger:el, start:'top 88%',
+    onEnter: () => gsap.to(el, { opacity:1, x:0, y:0, duration:.9, ease:'power3.out' })
+  });
+});
 
-        // ===================== GALLERY DATA =====================
-        const gData = {
-            wpp: {
-                code: 'PX-01 · 2025', title: 'WORLD PRESS PHOTO',
-                imgs: [
-                    'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673832/wpp_1_hyutx4.jpg',
-                    'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673832/wpp_2_zfpcro.jpg'
-                ],
-                layout: ['s7', 's5']
-            },
-            fm: {
-                code: 'PX-02 · 2025', title: 'MUSEO FRANZ MAYER',
-                imgs: [
-                    'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673822/FM_1_ljra8p.jpg',
-                    'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673822/FM_2_krzhsk.jpg',
-                    'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673822/FM_3_icx1mx.jpg',
-                    'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673822/FM_9_i8nb1i.jpg',
-                    'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673821/FM_6_ddwmdi.jpg'
-                ],
-                layout: ['s12', 's4', 's4', 's4']
-            },
-            cn: {
-                code: 'PX-03 · 2025', title: 'MUSEO COLEGIO NACIONAL',
-                imgs: [
-                    'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673805/jp_1_jwqj46.jpg',
-                    'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673804/jp_2_p0soy2.jpg',
-                    'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673805/jp_3_mvnh79.jpg',
-                    'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777705172/WhatsApp_Image_2026-05-02_at_12.55.51_AM_ntey0q.jpg',
-                    'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777705172/WhatsApp_Image_2026-05-02_at_12.55.51_AM_1_fxiseh.jpg',
-                    'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777705172/WhatsApp_Image_2026-05-02_at_12.55.51_AM_2_hy21v4.jpg',
-                    'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777705164/WhatsApp_Image_2026-05-02_at_12.55.51_AM_3_upsylo.jpg'
-                ],
-                layout: ['s8', 's4', 's4', 's4', 's4', 's6', 's6']
-            },
-            casa: {
-                code: 'PX-04 · 2025', title: 'DE CASA A HOGAR',
-                imgs: [
-                    'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673794/Unacasa_5_sej4pf.jpg',
-                    'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673794/Unacasa_3_k9cftr.jpg',
-                    'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673794/Unacasa_4_tqhul1.jpg',
-                    'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673794/Unacasa_6_tmezoz.jpg'
-                ],
-                layout: ['s7', 's5', 's6', 's6']
-            },
-            atl: {
-                code: 'PX-05 · 2025', title: 'EXPOSICIÓN DR. ATL',
-                imgs: [
-                    'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673777/Dr.Atl_10_wqxc2l.jpg',
-                    'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673777/Dr.Atl_6_lcotmt.jpg',
-                    'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673777/Dr.Atl_7_jd6noz.jpg',
-                    'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673777/Dr.Atl_8_tneafc.jpg',
-                    'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673777/Dr.Atl_9_yz83gg.jpg'
-                ],
-                layout: ['s12', 's6', 's6', 's4', 's4', 's4']
-            }
-        };
+// PARALLAX
+gsap.to('.hero-panel',    { y:-60, scrollTrigger:{ trigger:'#hero', start:'top top', end:'bottom top', scrub:true }});
+gsap.to('.hero-panel-2',  { y:-40, scrollTrigger:{ trigger:'#hero', start:'top top', end:'bottom top', scrub:true }});
+gsap.to('.hero-bg-lines', { y: 80, scrollTrigger:{ trigger:'#hero', start:'top top', end:'bottom top', scrub:true }});
 
-        const projectOrder = ['wpp', 'fm', 'cn', 'casa', 'atl'];
-        let currentProj = null;
-        let viewerImgs = [];
-        let viewerIdx = 0;
+// SCROLL PROGRESS
+const secIds = ['hero','about','servicios','proceso','portafolio','materiales','contacto'];
+const spDots = document.querySelectorAll('.sp-dot');
+secIds.forEach((id,i) => {
+  ScrollTrigger.create({ trigger:'#'+id, start:'top center', end:'bottom center',
+    onEnter:     () => { spDots.forEach(d=>d.classList.remove('active')); spDots[i]?.classList.add('active'); },
+    onEnterBack: () => { spDots.forEach(d=>d.classList.remove('active')); spDots[i]?.classList.add('active'); }
+  });
+});
 
-        function openGallery(key) {
-            currentProj = key;
-            const d = gData[key];
-            document.getElementById('gmCode').textContent = d.code;
-            document.getElementById('gmTitle').textContent = d.title;
-            document.getElementById('gmMeta').textContent = d.meta;
-            document.getElementById('gmCounter').textContent = d.imgs.length + ' IMÁGENES · PROYECTO ' + (projectOrder.indexOf(key) + 1) + ' / ' + projectOrder.length;
+// NAV shadow
+ScrollTrigger.create({ start:'top top-=80',
+  onEnter:     () => document.getElementById('mainNav').style.boxShadow='0 2px 24px rgba(17,17,17,0.08)',
+  onLeaveBack: () => document.getElementById('mainNav').style.boxShadow='none'
+});
 
-            const grid = document.getElementById('gmGrid');
-            grid.innerHTML = '';
-            viewerImgs = d.imgs;
+// PROC DOTS
+document.querySelectorAll('.proc-dot').forEach((dot,i) => {
+  ScrollTrigger.create({ trigger:dot, start:'top 85%',
+    onEnter: () => gsap.from(dot, { scale:0, duration:.5, delay:i*.15, ease:'back.out(2)' })
+  });
+});
 
-            d.imgs.forEach((src, i) => {
-                const cls = d.layout[i] || 's4';
-                const div = document.createElement('div');
-                div.className = 'gm-img ' + cls;
-                div.onclick = () => openViewer(i);
-                const img = document.createElement('img');
-                img.src = src; img.alt = d.title + ' ' + (i + 1); img.loading = 'lazy';
-                div.appendChild(img);
-                grid.appendChild(div);
-                cursor.classList.remove('hover');
-                div.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-                div.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-            });
+// HOVER PROC ITEMS
+document.querySelectorAll('.proc-item').forEach(item => {
+  item.addEventListener('mouseenter', () => gsap.to(item, { paddingLeft:'16px', duration:.25 }));
+  item.addEventListener('mouseleave', () => gsap.to(item, { paddingLeft:'0px',  duration:.3  }));
+});
 
-            const modal = document.getElementById('galleryModal');
-            modal.classList.add('open');
-            document.body.style.overflow = 'hidden';
-            gsap.from('.gm-img', { opacity: 0, y: 24, duration: .5, stagger: .07, ease: 'power2.out', delay: .15 });
-        }
+// CARD STAGGER
+ScrollTrigger.create({ trigger:'.projects-grid', start:'top 82%',
+  onEnter: () => gsap.from('.project-card', { opacity:0, y:40, duration:.8, stagger:.12, ease:'power3.out' })
+});
 
-        function closeGallery() {
-            const m = document.getElementById('galleryModal');
-            gsap.to(m, {
-                opacity: 0, duration: .25, onComplete: () => {
-                    m.classList.remove('open'); m.style.opacity = ''; document.body.style.overflow = '';
-                }
-            });
-        }
+// ===================== GALLERY DATA =====================
+const gData = {
+  wpp: {
+    code:'PX-01 · 2025', title:'WORLD PRESS PHOTO',
+    imgs:[
+      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673832/wpp_1_hyutx4.jpg',
+      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673832/wpp_2_zfpcro.jpg'
+    ],
+    layout:['s7','s5']
+  },
+  fm: {
+    code:'PX-02 · 2025', title:'MUSEO FRANZ MAYER',
+    imgs:[
+      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673822/FM_1_ljra8p.jpg',
+      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673822/FM_2_krzhsk.jpg',
+      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673822/FM_3_icx1mx.jpg',
+      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673822/FM_9_i8nb1i.jpg',
+      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673821/FM_6_ddwmdi.jpg'
+    ],
+    layout:['s12','s4','s4','s4']
+  },
+  cn: {
+    code:'PX-03 · 2025', title:'MUSEO COLEGIO NACIONAL',
+    imgs:[
+      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673805/jp_1_jwqj46.jpg',
+      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673804/jp_2_p0soy2.jpg',
+      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673805/jp_3_mvnh79.jpg',
+      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777705172/WhatsApp_Image_2026-05-02_at_12.55.51_AM_ntey0q.jpg',
+      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777705172/WhatsApp_Image_2026-05-02_at_12.55.51_AM_1_fxiseh.jpg',
+      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777705172/WhatsApp_Image_2026-05-02_at_12.55.51_AM_2_hy21v4.jpg',
+      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777705164/WhatsApp_Image_2026-05-02_at_12.55.51_AM_3_upsylo.jpg'
+    ],
+    layout:['s8','s4','s4','s4','s4','s6','s6']
+  },
+  casa: {
+    code:'PX-04 · 2025', title:'DE CASA A HOGAR',
+    imgs:[
+      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673794/Unacasa_5_sej4pf.jpg',
+      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673794/Unacasa_3_k9cftr.jpg',
+      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673794/Unacasa_4_tqhul1.jpg',
+      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673794/Unacasa_6_tmezoz.jpg'
+    ],
+    layout:['s7','s5','s6','s6']
+  },
+  atl: {
+    code:'PX-05 · 2025', title:'EXPOSICIÓN DR. ATL',
+    imgs:[
+      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673777/Dr.Atl_10_wqxc2l.jpg',
+      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673777/Dr.Atl_6_lcotmt.jpg',
+      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673777/Dr.Atl_7_jd6noz.jpg',
+      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673777/Dr.Atl_8_tneafc.jpg',
+      'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673777/Dr.Atl_9_yz83gg.jpg'
+    ],
+    layout:['s12','s6','s6','s4','s4','s4']
+  }
+};
 
-        function navProject(dir) {
-            const idx = projectOrder.indexOf(currentProj);
-            const next = (idx + dir + projectOrder.length) % projectOrder.length;
-            document.getElementById('galleryModal').querySelector('.gm-body').scrollTop = 0;
-            openGallery(projectOrder[next]);
-        }
+const projectOrder = ['wpp','fm','cn','casa','atl'];
+let currentProj = null;
+let viewerImgs = [];
+let viewerIdx  = 0;
 
-        function openViewer(index) {
-            viewerIdx = index;
-            const v = document.getElementById('imgViewer');
-            document.getElementById('viewerImg').src = viewerImgs[index];
-            document.getElementById('viewerInfo').textContent = (index + 1) + ' / ' + viewerImgs.length;
-            v.classList.add('open');
-            gsap.from('#viewerImg', { opacity: 0, scale: .95, duration: .3, ease: 'power2.out' });
-        }
+function openGallery(key) {
+  currentProj = key;
+  const d = gData[key];
+  document.getElementById('gmCode').textContent    = d.code;
+  document.getElementById('gmTitle').textContent   = d.title;
+  document.getElementById('gmMeta').textContent    = d.meta;
+  document.getElementById('gmCounter').textContent = d.imgs.length + ' IMÁGENES · PROYECTO ' + (projectOrder.indexOf(key)+1) + ' / ' + projectOrder.length;
 
-        function closeViewer() {
-            document.getElementById('imgViewer').classList.remove('open');
-        }
+  const grid = document.getElementById('gmGrid');
+  grid.innerHTML = '';
+  viewerImgs = d.imgs;
 
-        function viewerNav(dir) {
-            viewerIdx = (viewerIdx + dir + viewerImgs.length) % viewerImgs.length;
-            gsap.to('#viewerImg', {
-                opacity: 0, x: dir * -30, duration: .15, onComplete: () => {
-                    document.getElementById('viewerImg').src = viewerImgs[viewerIdx];
-                    document.getElementById('viewerInfo').textContent = (viewerIdx + 1) + ' / ' + viewerImgs.length;
-                    gsap.fromTo('#viewerImg', { opacity: 0, x: dir * 30 }, { opacity: 1, x: 0, duration: .25 });
-                }
-            });
-        }
+  d.imgs.forEach((src, i) => {
+    const cls = d.layout[i] || 's4';
+    const div = document.createElement('div');
+    div.className = 'gm-img ' + cls;
+    div.onclick = () => openViewer(i);
+    const img = document.createElement('img');
+    img.src = src; img.alt = d.title + ' ' + (i+1); img.loading = 'lazy';
+    div.appendChild(img);
+    grid.appendChild(div);
+    cursor.classList.remove('hover');
+    div.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+    div.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+  });
 
-        document.addEventListener('keydown', e => {
-            const v = document.getElementById('imgViewer');
-            const m = document.getElementById('galleryModal');
-            if (v.classList.contains('open')) {
-                if (e.key === 'Escape') closeViewer();
-                if (e.key === 'ArrowRight') viewerNav(1);
-                if (e.key === 'ArrowLeft') viewerNav(-1);
-            } else if (m.classList.contains('open')) {
-                if (e.key === 'Escape') closeGallery();
-                if (e.key === 'ArrowRight') navProject(1);
-                if (e.key === 'ArrowLeft') navProject(-1);
-            }
-        });
+  const modal = document.getElementById('galleryModal');
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  gsap.from('.gm-img', { opacity:0, y:24, duration:.5, stagger:.07, ease:'power2.out', delay:.15 });
+}
 
-        // ---- EMAILJS INIT ----
-        emailjs.init('w2EzKh2wh_jMBFtp7');
+function closeGallery() {
+  const m = document.getElementById('galleryModal');
+  gsap.to(m, { opacity:0, duration:.25, onComplete:() => {
+    m.classList.remove('open'); m.style.opacity=''; document.body.style.overflow='';
+  }});
+}
 
-        // ---- FORM SUBMIT ----
-        document.getElementById('submitBtn').addEventListener('click', function (e) {
-            e.preventDefault();
+function navProject(dir) {
+  const idx = projectOrder.indexOf(currentProj);
+  const next = (idx + dir + projectOrder.length) % projectOrder.length;
+  document.getElementById('galleryModal').querySelector('.gm-body').scrollTop = 0;
+  openGallery(projectOrder[next]);
+}
 
-            const name = document.getElementById('fName').value.trim();
-            const email = document.getElementById('fEmail').value.trim();
-            const tipo = document.getElementById('fTipo').value.trim();
-            const desc = document.getElementById('fDesc').value.trim();
-            const btn = document.getElementById('submitBtn');
-            const lbl = document.getElementById('submitLabel');
+function openViewer(index) {
+  viewerIdx = index;
+  const v = document.getElementById('imgViewer');
+  document.getElementById('viewerImg').src = viewerImgs[index];
+  document.getElementById('viewerInfo').textContent = (index+1) + ' / ' + viewerImgs.length;
+  v.classList.add('open');
+  gsap.from('#viewerImg', { opacity:0, scale:.95, duration:.3, ease:'power2.out' });
+}
 
-            // Validación básica
-            if (!name || !email) {
-                lbl.textContent = 'COMPLETA LOS CAMPOS';
-                setTimeout(() => { lbl.textContent = 'ENVIAR BRIEF'; }, 2500);
-                return;
-            }
+function closeViewer() {
+  document.getElementById('imgViewer').classList.remove('open');
+}
 
-            // Estado: enviando
-            lbl.textContent = 'ENVIANDO...';
-            btn.disabled = true;
-            btn.style.opacity = '0.7';
+function viewerNav(dir) {
+  viewerIdx = (viewerIdx + dir + viewerImgs.length) % viewerImgs.length;
+  gsap.to('#viewerImg', { opacity:0, x:dir*-30, duration:.15, onComplete:() => {
+    document.getElementById('viewerImg').src = viewerImgs[viewerIdx];
+    document.getElementById('viewerInfo').textContent = (viewerIdx+1) + ' / ' + viewerImgs.length;
+    gsap.fromTo('#viewerImg', { opacity:0, x:dir*30 }, { opacity:1, x:0, duration:.25 });
+  }});
+}
 
-            const templateParams = {
-                name: name,
-                email: email,
-                tipo: tipo || '—',
-                message: desc || '—'
-            };
+document.addEventListener('keydown', e => {
+  const v = document.getElementById('imgViewer');
+  const m = document.getElementById('galleryModal');
+  if (v.classList.contains('open')) {
+    if (e.key==='Escape')      closeViewer();
+    if (e.key==='ArrowRight')  viewerNav(1);
+    if (e.key==='ArrowLeft')   viewerNav(-1);
+  } else if (m.classList.contains('open')) {
+    if (e.key==='Escape')      closeGallery();
+    if (e.key==='ArrowRight')  navProject(1);
+    if (e.key==='ArrowLeft')   navProject(-1);
+  }
+});
 
-            emailjs.send('service_l1zeno9', 'template_52q16jo', templateParams)
-                .then(() => {
-                    lbl.textContent = 'BRIEF ENVIADO ✓';
-                    btn.style.opacity = '1';
-                    document.getElementById('fName').value = '';
-                    document.getElementById('fEmail').value = '';
-                    document.getElementById('fTipo').value = '';
-                    document.getElementById('fDesc').value = '';
-                    setTimeout(() => {
-                        lbl.textContent = 'ENVIAR BRIEF';
-                        btn.disabled = false;
-                    }, 3000);
-                })
-                .catch((error) => {
-                    console.error('EmailJS error:', error);
-                    lbl.textContent = 'ERROR — INTENTA DE NUEVO';
-                    btn.disabled = false;
-                    btn.style.opacity = '1';
-                    setTimeout(() => { lbl.textContent = 'ENVIAR BRIEF'; }, 3500);
-                });
-        });
+// ---- EMAILJS INIT ----
+emailjs.init('w2EzKh2wh_jMBFtp7');
 
-        ScrollTrigger.refresh();
-    </script>
+// ---- FORM SUBMIT WITH reCAPTCHA ----
+document.getElementById('submitBtn').addEventListener('click', function(e) {
+  e.preventDefault();
+
+  const name  = document.getElementById('fName').value.trim();
+  const email = document.getElementById('fEmail').value.trim();
+  const tipo  = document.getElementById('fTipo').value.trim();
+  const desc  = document.getElementById('fDesc').value.trim();
+  const btn   = document.getElementById('submitBtn');
+  const lbl   = document.getElementById('submitLabel');
+
+  // 1. Validación de campos obligatorios
+  if (!name || !email) {
+    lbl.textContent = 'COMPLETA LOS CAMPOS';
+    setTimeout(() => { lbl.textContent = 'ENVIAR BRIEF'; }, 2500);
+    return;
+  }
+
+  // 2. Validación reCAPTCHA
+  const captchaResponse = grecaptcha.getResponse();
+  if (!captchaResponse) {
+    lbl.textContent = 'VERIFICA EL CAPTCHA';
+    setTimeout(() => { lbl.textContent = 'ENVIAR BRIEF'; }, 2500);
+    return;
+  }
+
+  // 3. Estado: enviando
+  lbl.textContent   = 'ENVIANDO...';
+  btn.disabled      = true;
+  btn.style.opacity = '0.65';
+
+  // 4. Construir parámetros del template
+  const templateParams = {
+    name:    name,
+    email:   email,
+    tipo:    tipo || '—',
+    message: desc || '—'
+  };
+
+  // 5. Envío con EmailJS
+  emailjs.send('service_l1zeno9', 'template_52q16jo', templateParams)
+    .then(() => {
+      // Éxito
+      lbl.textContent   = 'BRIEF ENVIADO ✓';
+      btn.style.opacity = '1';
+      // Limpiar campos
+      document.getElementById('fName').value  = '';
+      document.getElementById('fEmail').value = '';
+      document.getElementById('fTipo').value  = '';
+      document.getElementById('fDesc').value  = '';
+      // Resetear reCAPTCHA
+      grecaptcha.reset();
+      // Restaurar botón
+      setTimeout(() => {
+        lbl.textContent = 'ENVIAR BRIEF';
+        btn.disabled    = false;
+      }, 3500);
+    })
+    .catch((error) => {
+      // Error
+      console.error('EmailJS error:', error);
+      lbl.textContent   = 'ERROR — INTENTA DE NUEVO';
+      btn.disabled      = false;
+      btn.style.opacity = '1';
+      grecaptcha.reset();
+      setTimeout(() => { lbl.textContent = 'ENVIAR BRIEF'; }, 3500);
+    });
+});
+
+ScrollTrigger.refresh();
+</script>
 </body>
-
 </html>
