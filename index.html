@@ -31,17 +31,19 @@ nav {
   padding:12px 40px;
   display:flex; align-items:center; justify-content:space-between;
   border-bottom:1px solid var(--border);
+  background: transparent;
 }
-/* Backdrop en pseudo-elemento para que NO atrape a los hijos en su stacking context */
-nav::before {
-  content:'';
-  position:absolute; inset:0; z-index:0;
+/* El fondo blur va en un div hermano, NO en el nav, para no crear stacking context sobre los hijos */
+#nav-backdrop {
+  position:fixed; top:0; left:0; right:0; z-index:199;
+  height:61px;
   backdrop-filter:blur(12px);
   -webkit-backdrop-filter:blur(12px);
   background:rgba(245,245,243,0.88);
+  border-bottom:1px solid var(--border);
+  pointer-events:none;
 }
-/* Todo el contenido del nav por encima del backdrop */
-nav > * { position:relative; z-index:1; }
+nav > * { position:relative; z-index:200; }
 
 /* NAV LOGO */
 .nav-logo { display:inline-flex; align-items:center; text-decoration:none; position:relative; line-height:1; }
@@ -357,6 +359,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
 /* RESPONSIVE */
 @media(max-width:900px){
   nav { padding:10px 20px; }
+  #nav-backdrop { height:52px; }
   .nav-links { display:none; }
   .nav-logo-img { height:28px; max-width:120px; }
   #hero { padding:80px 20px 48px; }
@@ -423,6 +426,9 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
   <div class="sp-dot"></div><div class="sp-line"></div>
   <div class="sp-dot"></div>
 </div>
+
+<!-- NAV BACKDROP (separado del nav para evitar stacking context sobre el logo) -->
+<div id="nav-backdrop"></div>
 
 <!-- NAV -->
 <nav id="mainNav">
