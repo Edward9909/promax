@@ -984,12 +984,25 @@ document.getElementById('submitBtn').addEventListener('click', function(e) {
       }, 3500);
     })
     .catch((error) => {
-      console.error('EmailJS error:', error);
-      lbl.textContent   = 'ERROR — INTENTA DE NUEVO';
+      // Log detallado para diagnóstico
+      console.error('EmailJS error completo:', error);
+      console.error('Status:', error.status);
+      console.error('Texto:', error.text);
+      console.error('Template params enviados:', templateParams);
+
+      // Mensaje de error específico según código
+      let msg = 'ERROR — INTENTA DE NUEVO';
+      if (error.status === 400) msg = 'ERROR 400 — VERIFICA TEMPLATE ID';
+      if (error.status === 401) msg = 'ERROR 401 — PUBLIC KEY INVÁLIDA';
+      if (error.status === 403) msg = 'ERROR 403 — DOMINIO NO AUTORIZADO';
+      if (error.status === 404) msg = 'ERROR 404 — SERVICE/TEMPLATE NO EXISTE';
+      if (error.status === 422) msg = 'ERROR 422 — VARIABLES DEL TEMPLATE';
+
+      lbl.textContent   = msg;
       btn.disabled      = false;
       btn.style.opacity = '1';
       grecaptcha.reset(recaptchaWidgetId);
-      setTimeout(() => { lbl.textContent = 'ENVIAR BRIEF'; }, 3500);
+      setTimeout(() => { lbl.textContent = 'ENVIAR BRIEF'; }, 5000);
     });
 });
 
