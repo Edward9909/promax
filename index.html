@@ -272,21 +272,30 @@ textarea.form-input { resize:none; height:100px; }
 .form-submit:hover::before { transform:translateX(0); }
 .form-submit:hover { color:var(--ink); }
 .form-submit span, .form-submit-arrow { position:relative; z-index:1; }
-/* reCAPTCHA — espacio garantizado, visible independientemente del estado de animación del padre */
+/* reCAPTCHA — sin recuadros residuales */
 #captchaField {
   margin-top: 24px;
   margin-bottom: 16px;
-  min-height: 80px;
   border: none;
   padding: 0;
+  background: transparent;
+  line-height: 0;
 }
-#captchaField .g-recaptcha {
-  display: block;
-  min-height: 78px;
+#captchaField > div,
+#recaptchaWidget {
+  line-height: 0;
+  font-size: 0;
+  border: none;
+  background: transparent;
 }
 #captchaField iframe {
   display: block !important;
   visibility: visible !important;
+  border: none !important;
+}
+/* Elimina cualquier div interno vacío que reCAPTCHA inyecta */
+#recaptchaWidget > div:not(:first-child) {
+  display: none !important;
 }
 
 /* FOOTER */
