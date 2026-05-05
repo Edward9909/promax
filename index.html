@@ -26,7 +26,23 @@ body { background: var(--bg); color: var(--ink); font-family: var(--mono); font-
 .grid-overlay { position:fixed; inset:0; pointer-events:none; z-index:1; background-image: linear-gradient(rgba(17,17,17,0.04) 1px,transparent 1px), linear-gradient(90deg,rgba(17,17,17,0.04) 1px,transparent 1px); background-size:64px 64px; }
 
 /* NAV */
-nav { position:fixed; top:0; left:0; right:0; z-index:200; padding:12px 40px; display:flex; align-items:center; justify-content:space-between; backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); background:rgba(245,245,243,0.88); border-bottom:1px solid var(--border); }
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  padding:12px 40px;
+  display:flex; align-items:center; justify-content:space-between;
+  border-bottom:1px solid var(--border);
+}
+/* Backdrop en pseudo-elemento para que NO atrape a los hijos en su stacking context */
+nav::before {
+  content:'';
+  position:absolute; inset:0; z-index:0;
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  background:rgba(245,245,243,0.88);
+}
+/* Todo el contenido del nav por encima del backdrop */
+nav > * { position:relative; z-index:1; }
+
 /* NAV LOGO */
 .nav-logo { display:inline-flex; align-items:center; text-decoration:none; position:relative; line-height:1; }
 .nav-logo-img { height:36px; width:auto; max-width:160px; display:block; transition:opacity 0.2s; object-fit:contain; }
