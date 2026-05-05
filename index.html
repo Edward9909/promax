@@ -272,9 +272,20 @@ textarea.form-input { resize:none; height:100px; }
 .form-submit:hover::before { transform:translateX(0); }
 .form-submit:hover { color:var(--ink); }
 .form-submit span, .form-submit-arrow { position:relative; z-index:1; }
-/* reCAPTCHA widget styling */
-#captchaField { margin-top:24px; margin-bottom:8px; }
-#captchaField .g-recaptcha { transform-origin:left top; }
+/* reCAPTCHA — espacio garantizado, visible independientemente del estado de animación del padre */
+#captchaField {
+  margin-top: 24px;
+  margin-bottom: 16px;
+  min-height: 80px;
+}
+#captchaField .g-recaptcha {
+  display: block;
+  min-height: 78px;
+}
+#captchaField iframe {
+  display: block !important;
+  visibility: visible !important;
+}
 
 /* FOOTER */
 footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-template-columns:1fr 1fr 1fr; gap:40px; align-items:center; }
@@ -345,7 +356,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
 }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit" async defer></script>
 </head>
 <body>
 
@@ -666,7 +677,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
     <div class="form-field"><label class="form-label">Tipo de proyecto</label><input class="form-input" id="fTipo" name="tipo" type="text" placeholder="Exposición / Vitrina / Señalética / Otro"></div>
     <div class="form-field"><label class="form-label">Descripción técnica</label><textarea class="form-input" id="fDesc" name="message" placeholder="Materiales, dimensiones, plazo, presupuesto estimado..."></textarea></div>
     <div class="form-field" id="captchaField">
-      <div class="g-recaptcha" data-sitekey="6LdD_tksAAAAAP1NwHlAKZYlCAOhnghjcGYmfCfH"></div>
+      <div id="recaptchaWidget"></div>
     </div>
     <button class="form-submit" id="submitBtn"><span id="submitLabel">ENVIAR BRIEF</span><span class="form-submit-arrow">→</span></button>
     <p style="font-size:9px;letter-spacing:0.1em;color:var(--ink2);margin-top:10px;text-transform:uppercase;opacity:0.7">Las solicitudes se envían a: atencion.promax@gmail.com</p>
@@ -904,6 +915,17 @@ document.addEventListener('keydown', e => {
   }
 });
 
+// ---- reCAPTCHA EXPLICIT RENDER ----
+// Se renderiza con callback para evitar conflictos con animaciones GSAP (opacity:0 al cargar)
+var recaptchaWidgetId;
+function onRecaptchaLoad() {
+  recaptchaWidgetId = grecaptcha.render('recaptchaWidget', {
+    sitekey: '6LdD_tksAAAAAP1NwHlAKZYlCAOhnghjcGYmfCfH',
+    theme:   'light',
+    size:    'normal'
+  });
+}
+
 // ---- EMAILJS INIT ----
 emailjs.init('w2EzKh2wh_jMBFtp7');
 
@@ -926,7 +948,7 @@ document.getElementById('submitBtn').addEventListener('click', function(e) {
   }
 
   // 2. Validación reCAPTCHA
-  const captchaResponse = grecaptcha.getResponse();
+  const captchaResponse = grecaptcha.getResponse(recaptchaWidgetId);
   if (!captchaResponse) {
     lbl.textContent = 'VERIFICA EL CAPTCHA';
     setTimeout(() => { lbl.textContent = 'ENVIAR BRIEF'; }, 2500);
@@ -938,7 +960,7 @@ document.getElementById('submitBtn').addEventListener('click', function(e) {
   btn.disabled      = true;
   btn.style.opacity = '0.65';
 
-  // 4. Construir parámetros del template
+  // 4. Parámetros del template
   const templateParams = {
     name:    name,
     email:   email,
@@ -949,29 +971,24 @@ document.getElementById('submitBtn').addEventListener('click', function(e) {
   // 5. Envío con EmailJS
   emailjs.send('service_l1zeno9', 'template_52q16jo', templateParams)
     .then(() => {
-      // Éxito
       lbl.textContent   = 'BRIEF ENVIADO ✓';
       btn.style.opacity = '1';
-      // Limpiar campos
       document.getElementById('fName').value  = '';
       document.getElementById('fEmail').value = '';
       document.getElementById('fTipo').value  = '';
       document.getElementById('fDesc').value  = '';
-      // Resetear reCAPTCHA
-      grecaptcha.reset();
-      // Restaurar botón
+      grecaptcha.reset(recaptchaWidgetId);
       setTimeout(() => {
         lbl.textContent = 'ENVIAR BRIEF';
         btn.disabled    = false;
       }, 3500);
     })
     .catch((error) => {
-      // Error
       console.error('EmailJS error:', error);
       lbl.textContent   = 'ERROR — INTENTA DE NUEVO';
       btn.disabled      = false;
       btn.style.opacity = '1';
-      grecaptcha.reset();
+      grecaptcha.reset(recaptchaWidgetId);
       setTimeout(() => { lbl.textContent = 'ENVIAR BRIEF'; }, 3500);
     });
 });
