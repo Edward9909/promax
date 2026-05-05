@@ -681,18 +681,18 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
       <div class="contact-info-item"><span class="ci-label">Sistema</span><span class="ci-val" style="color:var(--accent)">ACTIVO · RECIBIENDO PROYECTOS</span></div>
     </div>
   </div>
-  <div class="contact-form reveal">
+  <form id="contactForm" class="contact-form reveal" onsubmit="return false;">
     <div class="tech-line">FORM · BRIEF · V2</div>
-    <div class="form-field" style="margin-top:24px"><label class="form-label">Nombre completo</label><input class="form-input" id="fName" name="name" type="text" placeholder="Tu nombre"></div>
-    <div class="form-field"><label class="form-label">Correo electrónico</label><input class="form-input" id="fEmail" name="email" type="email" placeholder="correo@ejemplo.com"></div>
+    <div class="form-field" style="margin-top:24px"><label class="form-label">Nombre completo</label><input class="form-input" id="fName" name="from_name" type="text" placeholder="Tu nombre"></div>
+    <div class="form-field"><label class="form-label">Correo electrónico</label><input class="form-input" id="fEmail" name="reply_to" type="email" placeholder="correo@ejemplo.com"></div>
     <div class="form-field"><label class="form-label">Tipo de proyecto</label><input class="form-input" id="fTipo" name="tipo" type="text" placeholder="Exposición / Vitrina / Señalética / Otro"></div>
     <div class="form-field"><label class="form-label">Descripción técnica</label><textarea class="form-input" id="fDesc" name="message" placeholder="Materiales, dimensiones, plazo, presupuesto estimado..."></textarea></div>
     <div class="form-field" id="captchaField">
       <div id="recaptchaWidget"></div>
     </div>
-    <button class="form-submit" id="submitBtn"><span id="submitLabel">ENVIAR BRIEF</span><span class="form-submit-arrow">→</span></button>
+    <button class="form-submit" id="submitBtn" type="submit"><span id="submitLabel">ENVIAR BRIEF</span><span class="form-submit-arrow">→</span></button>
     <p style="font-size:9px;letter-spacing:0.1em;color:var(--ink2);margin-top:10px;text-transform:uppercase;opacity:0.7">Las solicitudes se envían a: atencion.promax@gmail.com</p>
-  </div>
+  </form>
 </section>
 
 <!-- FOOTER -->
@@ -935,8 +935,6 @@ document.getElementById('submitBtn').addEventListener('click', function(e) {
 
   const name  = document.getElementById('fName').value.trim();
   const email = document.getElementById('fEmail').value.trim();
-  const tipo  = document.getElementById('fTipo').value.trim();
-  const desc  = document.getElementById('fDesc').value.trim();
   const btn   = document.getElementById('submitBtn');
   const lbl   = document.getElementById('submitLabel');
 
@@ -960,23 +958,12 @@ document.getElementById('submitBtn').addEventListener('click', function(e) {
   btn.disabled      = true;
   btn.style.opacity = '0.65';
 
-  // 4. Parámetros del template
-  const templateParams = {
-    name:    name,
-    email:   email,
-    tipo:    tipo || '—',
-    message: desc || '—'
-  };
-
-  // 5. Envío con EmailJS
-  emailjs.send('service_l1zeno9', 'template_52q16jo', templateParams)
+  // 4. sendForm lee los atributos name del HTML directamente
+  emailjs.sendForm('service_l1zeno9', 'template_52q16jo', '#contactForm')
     .then(() => {
       lbl.textContent   = 'BRIEF ENVIADO ✓';
       btn.style.opacity = '1';
-      document.getElementById('fName').value  = '';
-      document.getElementById('fEmail').value = '';
-      document.getElementById('fTipo').value  = '';
-      document.getElementById('fDesc').value  = '';
+      document.getElementById('contactForm').reset();
       grecaptcha.reset(recaptchaWidgetId);
       setTimeout(() => {
         lbl.textContent = 'ENVIAR BRIEF';
@@ -984,15 +971,12 @@ document.getElementById('submitBtn').addEventListener('click', function(e) {
       }, 3500);
     })
     .catch((error) => {
-      // Log detallado para diagnóstico
       console.error('EmailJS error completo:', error);
       console.error('Status:', error.status);
       console.error('Texto:', error.text);
-      console.error('Template params enviados:', templateParams);
 
-      // Mensaje de error específico según código
       let msg = 'ERROR — INTENTA DE NUEVO';
-      if (error.status === 400) msg = 'ERROR 400 — VERIFICA TEMPLATE ID';
+      if (error.status === 400) msg = 'ERROR 400 — VERIFICA TEMPLATE';
       if (error.status === 401) msg = 'ERROR 401 — PUBLIC KEY INVÁLIDA';
       if (error.status === 403) msg = 'ERROR 403 — DOMINIO NO AUTORIZADO';
       if (error.status === 404) msg = 'ERROR 404 — SERVICE/TEMPLATE NO EXISTE';
