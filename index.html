@@ -277,6 +277,8 @@ textarea.form-input { resize:none; height:100px; }
   margin-top: 24px;
   margin-bottom: 16px;
   min-height: 80px;
+  border: none;
+  padding: 0;
 }
 #captchaField .g-recaptcha {
   display: block;
@@ -687,7 +689,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
     <div class="form-field"><label class="form-label">Correo electrónico</label><input class="form-input" id="fEmail" name="email" type="email" placeholder="correo@ejemplo.com"></div>
     <div class="form-field"><label class="form-label">Tipo de proyecto</label><input class="form-input" id="fTipo" name="title" type="text" placeholder="Exposición / Vitrina / Señalética / Otro"></div>
     <div class="form-field"><label class="form-label">Descripción técnica</label><textarea class="form-input" id="fDesc" name="message" placeholder="Materiales, dimensiones, plazo, presupuesto estimado..."></textarea></div>
-    <div class="form-field" id="captchaField">
+    <div id="captchaField">
       <div id="recaptchaWidget"></div>
     </div>
     <button class="form-submit" id="submitBtn" type="submit"><span id="submitLabel">ENVIAR BRIEF</span><span class="form-submit-arrow">→</span></button>
