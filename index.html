@@ -27,9 +27,16 @@ body { background: var(--bg); color: var(--ink); font-family: var(--mono); font-
 
 /* NAV */
 nav { position:fixed; top:0; left:0; right:0; z-index:200; padding:20px 40px; display:flex; align-items:center; justify-content:space-between; backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); background:rgba(245,245,243,0.88); border-bottom:1px solid var(--border); }
-.nav-logo { font-family:Impact,'Arial Narrow',sans-serif; font-size:22px; letter-spacing:0.18em; text-transform:uppercase; color:var(--ink); text-decoration:none; position:relative; }
-.nav-logo::after { content:''; position:absolute; bottom:-2px; left:0; width:100%; height:2px; background:var(--accent); transform:scaleX(0); transform-origin:left; transition:transform 0.3s; }
+/* NAV LOGO */
+.nav-logo { display:inline-flex; align-items:center; text-decoration:none; position:relative; }
+.nav-logo-img { height:32px; width:auto; display:block; transition:opacity 0.2s; }
+.nav-logo:hover .nav-logo-img { opacity:0.75; }
+.nav-logo::after { content:''; position:absolute; bottom:-4px; left:0; width:100%; height:2px; background:var(--accent); transform:scaleX(0); transform-origin:left; transition:transform 0.3s; }
 .nav-logo:hover::after { transform:scaleX(1); }
+
+/* FOOTER LOGO */
+.footer-logo { display:flex; align-items:center; }
+.footer-logo-img { height:40px; width:auto; display:block; }
 .nav-links { display:flex; gap:32px; list-style:none; }
 .nav-links a { font-family:var(--mono); font-size:11px; letter-spacing:0.15em; text-transform:uppercase; color:var(--ink2); text-decoration:none; position:relative; transition:color 0.2s; }
 .nav-links a::before { content:attr(data-code); position:absolute; top:-12px; left:0; font-size:8px; color:var(--accent); letter-spacing:0.1em; opacity:0; transition:opacity 0.2s; }
@@ -300,7 +307,6 @@ textarea.form-input { resize:none; height:100px; }
 
 /* FOOTER */
 footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-template-columns:1fr 1fr 1fr; gap:40px; align-items:center; }
-.footer-logo { font-family:Impact,sans-serif; font-size:28px; letter-spacing:0.15em; text-transform:uppercase; }
 .footer-links { display:flex; gap:24px; justify-content:center; }
 .footer-links a { font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink2); text-decoration:none; transition:color 0.2s; }
 .footer-links a:hover { color:var(--accent); }
@@ -331,8 +337,9 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
 
 /* RESPONSIVE */
 @media(max-width:900px){
-  nav { padding:16px 20px; }
+  nav { padding:14px 20px; }
   .nav-links { display:none; }
+  .nav-logo-img { height:26px; }
   #hero { padding:80px 20px 48px; }
   .hero-panel,.hero-panel-2 { display:none; }
   .hero-bottom { grid-template-columns:1fr 1fr; gap:24px; }
@@ -353,6 +360,8 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
   #materiales { grid-template-columns:1fr; gap:40px; }
   #contacto { grid-template-columns:1fr; gap:48px; }
   footer { grid-template-columns:1fr; text-align:center; }
+  .footer-logo { justify-content:center; }
+  .footer-logo-img { height:32px; }
   .footer-links { justify-content:center; }
   .footer-right { text-align:center; }
   .scroll-progress { display:none; }
@@ -398,7 +407,9 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
 
 <!-- NAV -->
 <nav id="mainNav">
-  <a class="nav-logo" href="#">PROMAX</a>
+  <a class="nav-logo" href="#">
+    <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777967786/PROMAX_wmoxn8.svg" alt="PROMAX" class="nav-logo-img">
+  </a>
   <ul class="nav-links">
     <li><a href="#about"      data-code="SYS/01">Estudio</a></li>
     <li><a href="#servicios"  data-code="SYS/02">Servicios</a></li>
@@ -708,7 +719,9 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">PROMAX<span style="color:var(--accent)">.</span></div>
+  <div class="footer-logo">
+    <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777967786/PROMAX_wmoxn8.svg" alt="PROMAX" class="footer-logo-img">
+  </div>
   <nav class="footer-links">
     <a href="#about">Estudio</a><a href="#servicios">Servicios</a><a href="#portafolio">Portafolio</a><a href="#contacto">Contacto</a>
   </nav>
