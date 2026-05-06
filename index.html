@@ -51,6 +51,66 @@ body { background: var(--bg); color: var(--ink); font-family: var(--mono); font-
 .nav-links a:hover::before { opacity:1; }
 .nav-sys { font-size:9px; letter-spacing:0.2em; color:var(--ink2); border:1px solid var(--border); padding:4px 10px; }
 
+/* HAMBURGER */
+.nav-hamburger {
+  display:none;
+  flex-direction:column;
+  gap:5px;
+  background:none;
+  border:none;
+  cursor:pointer;
+  padding:4px;
+  z-index:300;
+}
+.nav-hamburger span {
+  display:block;
+  width:24px;
+  height:1.5px;
+  background:var(--ink);
+  transition:transform 0.3s, opacity 0.3s;
+  transform-origin:center;
+}
+.nav-hamburger.open span:nth-child(1) { transform:translateY(6.5px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity:0; transform:scaleX(0); }
+.nav-hamburger.open span:nth-child(3) { transform:translateY(-6.5px) rotate(-45deg); }
+
+/* MOBILE MENU OVERLAY */
+.nav-mobile-menu {
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:190;
+  background:rgba(245,245,243,0.98);
+  flex-direction:column;
+  justify-content:center;
+  align-items:flex-start;
+  padding:40px 24px;
+  gap:0;
+}
+.nav-mobile-menu.open { display:flex; }
+.nav-mobile-menu a {
+  font-family:Impact,'Arial Narrow',sans-serif;
+  font-size:clamp(36px,10vw,52px);
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+  color:var(--ink);
+  text-decoration:none;
+  line-height:1.1;
+  padding:10px 0;
+  border-bottom:1px solid var(--border);
+  width:100%;
+  transition:color 0.2s;
+}
+.nav-mobile-menu a:hover { color:var(--accent); }
+.nav-mobile-menu a:first-child { border-top:1px solid var(--border); }
+.nav-mobile-footer {
+  margin-top:32px;
+  font-size:9px;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--ink2);
+}
+
 section { position:relative; z-index:10; }
 
 /* HERO */
@@ -361,6 +421,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
   nav { padding:12px 20px; }
   .nav-links { display:none; }
   .nav-sys { display:none; }
+  .nav-hamburger { display:flex; }
 
   /* HERO */
   #hero { padding:72px 20px 48px; min-height:100svh; }
@@ -512,7 +573,35 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
   <div class="sp-dot"></div>
 </div>
 
-<!-- NAV BACKDROP (separado del nav para evitar stacking context sobre el logo) -->
+<!-- NAV -->
+<nav id="mainNav">
+  <a class="nav-logo" href="#">PROMAX</a>
+  <ul class="nav-links">
+    <li><a href="#about"      data-code="SYS/01">Estudio</a></li>
+    <li><a href="#servicios"  data-code="SYS/02">Servicios</a></li>
+    <li><a href="#proceso"    data-code="SYS/03">Proceso</a></li>
+    <li><a href="#portafolio" data-code="SYS/04">Portafolio</a></li>
+    <li><a href="#materiales" data-code="SYS/05">Materiales</a></li>
+    <li><a href="#contacto"   data-code="SYS/06">Contacto</a></li>
+  </ul>
+  <div class="nav-sys">SYS · ACTIVO · PX-2025</div>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="nav-mobile-menu" id="navMobileMenu">
+  <a href="#about"      onclick="closeMobileMenu()">Estudio</a>
+  <a href="#servicios"  onclick="closeMobileMenu()">Servicios</a>
+  <a href="#proceso"    onclick="closeMobileMenu()">Proceso</a>
+  <a href="#portafolio" onclick="closeMobileMenu()">Portafolio</a>
+  <a href="#materiales" onclick="closeMobileMenu()">Materiales</a>
+  <a href="#contacto"   onclick="closeMobileMenu()">Contacto</a>
+  <div class="nav-mobile-footer">SYS · ACTIVO · PX-2025</div>
+</div>
+
+<!-- NAV BACKDROP -->
 <div id="nav-backdrop"></div>
 
 
@@ -1119,6 +1208,27 @@ document.getElementById('submitBtn').addEventListener('click', function(e) {
       grecaptcha.reset(recaptchaWidgetId);
       setTimeout(() => { lbl.textContent = 'ENVIAR BRIEF'; }, 5000);
     });
+});
+
+// ---- HAMBURGER MENU ----
+const hamburger = document.getElementById('navHamburger');
+const mobileMenu = document.getElementById('navMobileMenu');
+
+function closeMobileMenu() {
+  hamburger.classList.remove('open');
+  mobileMenu.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+hamburger.addEventListener('click', () => {
+  const isOpen = mobileMenu.classList.contains('open');
+  if (isOpen) {
+    closeMobileMenu();
+  } else {
+    hamburger.classList.add('open');
+    mobileMenu.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
 });
 
 ScrollTrigger.refresh();
