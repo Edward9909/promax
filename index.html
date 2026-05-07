@@ -771,6 +771,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
   </div>
 
   <div class="projects-grid">
+    <!-- FILA SUPERIOR — 2 cards grandes -->
     <div class="project-card reveal" onclick="openGallery('wpp')">
       <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673832/wpp_1_hyutx4.jpg" alt="World Press Photo" loading="lazy">
       <div class="project-overlay">
@@ -781,53 +782,54 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
       </div>
       <div class="project-cta">VER PROYECTO</div>
     </div>
-    <div class="project-card reveal" style="transition-delay:.1s" onclick="openGallery('elizondo')">
-      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1778171288/20260506_154226_dek35g.jpg" alt="Homenaje a Salvador Elizondo" loading="lazy">
-      <div class="project-overlay">
-        <div class="project-code">PX-02 · 2025</div>
-        <div class="project-name">Homenaje<br>Salvador Elizondo</div>
-        <div class="project-meta">Colegio Nacional · Museografía</div>
-        <div class="project-count">09 imágenes</div>
-      </div>
-      <div class="project-cta">VER PROYECTO</div>
-    </div>
-    <div class="project-card reveal" style="transition-delay:.2s" onclick="openGallery('fm')">
+    <div class="project-card reveal" style="transition-delay:.1s" onclick="openGallery('fm')">
       <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673822/FM_1_ljra8p.jpg" alt="Franz Mayer" loading="lazy">
       <div class="project-overlay">
-        <div class="project-code">PX-03 · 2025</div>
+        <div class="project-code">PX-02 · 2025</div>
         <div class="project-name">Museo<br>Franz Mayer</div>
         <div class="project-meta">Montaje · Adecuación de espacio</div>
         <div class="project-count">05 imágenes</div>
       </div>
       <div class="project-cta">VER PROYECTO</div>
     </div>
-    <div class="project-card reveal" style="transition-delay:.3s" onclick="openGallery('cn')">
+    <!-- FILA INFERIOR — 4 cards medianas -->
+    <div class="project-card reveal" style="transition-delay:.2s" onclick="openGallery('cn')">
       <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673805/jp_1_jwqj46.jpg" alt="Colegio Nacional" loading="lazy">
       <div class="project-overlay">
-        <div class="project-code">PX-04 · 2025</div>
+        <div class="project-code">PX-03 · 2025</div>
         <div class="project-name">Museo Colegio<br>Nacional</div>
         <div class="project-meta">Exposición · Biblioteca</div>
         <div class="project-count">07 imágenes</div>
       </div>
       <div class="project-cta">VER PROYECTO</div>
     </div>
-    <div class="project-card reveal" style="transition-delay:.4s" onclick="openGallery('casa')">
+    <div class="project-card reveal" style="transition-delay:.3s" onclick="openGallery('casa')">
       <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673794/Unacasa_5_sej4pf.jpg" alt="De Casa a Hogar" loading="lazy">
       <div class="project-overlay">
-        <div class="project-code">PX-05 · 2025</div>
+        <div class="project-code">PX-04 · 2025</div>
         <div class="project-name">De Casa<br>a Hogar</div>
         <div class="project-meta">Montaje expositivo · Concepto</div>
         <div class="project-count">04 imágenes</div>
       </div>
       <div class="project-cta">VER PROYECTO</div>
     </div>
-    <div class="project-card reveal" style="transition-delay:.5s" onclick="openGallery('atl')">
+    <div class="project-card reveal" style="transition-delay:.4s" onclick="openGallery('atl')">
       <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673777/Dr.Atl_10_wqxc2l.jpg" alt="Dr. Atl" loading="lazy">
       <div class="project-overlay">
-        <div class="project-code">PX-06 · 2025</div>
+        <div class="project-code">PX-05 · 2025</div>
         <div class="project-name">Exposición<br>Dr. Atl</div>
         <div class="project-meta">Colegio Nacional · Museografía</div>
         <div class="project-count">05 imágenes</div>
+      </div>
+      <div class="project-cta">VER PROYECTO</div>
+    </div>
+    <div class="project-card reveal" style="transition-delay:.5s" onclick="openGallery('elizondo')">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1778171288/20260506_154226_dek35g.jpg" alt="Homenaje a Salvador Elizondo" loading="lazy">
+      <div class="project-overlay">
+        <div class="project-code">PX-06 · 2025</div>
+        <div class="project-name">Homenaje<br>S. Elizondo</div>
+        <div class="project-meta">Colegio Nacional · Museografía</div>
+        <div class="project-count">09 imágenes</div>
       </div>
       <div class="project-cta">VER PROYECTO</div>
     </div>
@@ -1037,7 +1039,7 @@ const gData = {
     layout:['s7','s5']
   },
   elizondo: {
-    code:'PX-02 · 2025', title:'HOMENAJE A SALVADOR ELIZONDO',
+    code:'PX-06 · 2025', title:'HOMENAJE A SALVADOR ELIZONDO',
     meta:'Colegio Nacional · Museografía · Montaje expositivo',
     imgs:[
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1778171288/20260506_154226_dek35g.jpg',
@@ -1053,7 +1055,7 @@ const gData = {
     layout:['s12','s4','s4','s4','s6','s6','s4','s4','s4']
   },
   fm: {
-    code:'PX-03 · 2025', title:'MUSEO FRANZ MAYER',
+    code:'PX-02 · 2025', title:'MUSEO FRANZ MAYER',
     imgs:[
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673822/FM_1_ljra8p.jpg',
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673822/FM_2_krzhsk.jpg',
@@ -1064,7 +1066,7 @@ const gData = {
     layout:['s12','s4','s4','s4']
   },
   cn: {
-    code:'PX-04 · 2025', title:'MUSEO COLEGIO NACIONAL',
+    code:'PX-03 · 2025', title:'MUSEO COLEGIO NACIONAL',
     imgs:[
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673805/jp_1_jwqj46.jpg',
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673804/jp_2_p0soy2.jpg',
@@ -1077,7 +1079,7 @@ const gData = {
     layout:['s8','s4','s4','s4','s4','s6','s6']
   },
   casa: {
-    code:'PX-05 · 2025', title:'DE CASA A HOGAR',
+    code:'PX-04 · 2025', title:'DE CASA A HOGAR',
     imgs:[
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673794/Unacasa_5_sej4pf.jpg',
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673794/Unacasa_3_k9cftr.jpg',
@@ -1087,7 +1089,7 @@ const gData = {
     layout:['s7','s5','s6','s6']
   },
   atl: {
-    code:'PX-06 · 2025', title:'EXPOSICIÓN DR. ATL',
+    code:'PX-05 · 2025', title:'EXPOSICIÓN DR. ATL',
     imgs:[
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673777/Dr.Atl_10_wqxc2l.jpg',
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673777/Dr.Atl_6_lcotmt.jpg',
@@ -1099,7 +1101,7 @@ const gData = {
   }
 };
 
-const projectOrder = ['wpp','elizondo','fm','cn','casa','atl'];
+const projectOrder = ['wpp','fm','cn','casa','atl','elizondo'];
 let currentProj = null;
 let viewerImgs = [];
 let viewerIdx  = 0;
