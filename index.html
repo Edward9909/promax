@@ -189,7 +189,22 @@ section { position:relative; z-index:10; }
 
 /* HERO */
 #hero { min-height:100vh; display:flex; flex-direction:column; justify-content:flex-end; padding:72px 40px 60px; overflow:hidden; position:relative; }
-.hero-bg-lines { position:absolute; inset:0; pointer-events:none; z-index:0; }
+/* HERO VIDEO BACKGROUND */
+.hero-video-bg {
+  position:absolute; inset:0; z-index:0; overflow:hidden; pointer-events:none;
+}
+.hero-video-bg video {
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; opacity:0.22; filter:grayscale(20%);
+}
+.hero-video-overlay {
+  position:absolute; inset:0; z-index:1;
+  background:
+    linear-gradient(to top, rgba(245,245,243,0.97) 0%, rgba(245,245,243,0.55) 45%, rgba(245,245,243,0.25) 100%),
+    linear-gradient(to right, rgba(245,245,243,0.5) 0%, transparent 65%);
+}
+
+.hero-bg-lines { position:absolute; inset:0; pointer-events:none; z-index:2; }
 .hero-tag { font-size:9px; letter-spacing:0.25em; text-transform:uppercase; color:var(--accent); margin-bottom:24px; display:flex; align-items:center; gap:12px; }
 .hero-tag::before { content:''; display:block; width:32px; height:1px; background:var(--accent); }
 .hero-title { font-family:Impact,'Arial Narrow',sans-serif; font-size:clamp(72px,13vw,180px); line-height:0.88; letter-spacing:-0.01em; text-transform:uppercase; color:var(--ink); position:relative; z-index:2; }
@@ -197,6 +212,21 @@ section { position:relative; z-index:10; }
 .hero-title-line { overflow:hidden; display:block; }
 .hero-title-inner { display:block; }
 .hero-bottom { display:grid; grid-template-columns:1fr 1fr 1fr; gap:40px; margin-top:48px; padding-top:32px; border-top:1px solid var(--border); position:relative; z-index:2; }
+/* HERO SCROLL INDICATOR */
+.hero-scroll-hint {
+  position:absolute; bottom:24px; left:50%; transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:6px;
+  z-index:2; opacity:0; animation:fadeHint 1s ease 2s forwards;
+}
+.hero-scroll-hint span { font-size:8px; letter-spacing:0.25em; text-transform:uppercase; color:var(--ink2); }
+.hero-scroll-line { width:1px; height:36px; background:var(--border); position:relative; overflow:hidden; }
+.hero-scroll-line::after {
+  content:''; position:absolute; top:-100%; left:0; width:100%; height:50%;
+  background:var(--accent); animation:scrollDrop 1.5s ease 2.2s infinite;
+}
+@keyframes fadeHint { to { opacity:1; } }
+@keyframes scrollDrop { 0%{top:-100%} 100%{top:200%} }
+
 .hero-stat-val { font-family:Impact,sans-serif; font-size:32px; letter-spacing:0.04em; color:var(--ink); display:block; }
 .hero-stat-label { font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink2); margin-top:4px; display:block; }
 .hero-desc { font-size:12px; line-height:1.7; color:var(--ink2); max-width:320px; }
@@ -684,6 +714,14 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
 
 <!-- HERO -->
 <section id="hero">
+
+  <!-- Video de fondo -->
+  <div class="hero-video-bg">
+    <video autoplay muted loop playsinline preload="none">
+      <source src="https://raw.githubusercontent.com/Edward9909/promax/main/videohome" type="video/mp4">
+    </video>
+    <div class="hero-video-overlay"></div>
+  </div>
   <svg class="hero-bg-lines" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" fill="none">
     <line id="bl1" x1="360" y1="0" x2="360" y2="900" stroke="#F4DB09" stroke-width="0.5" opacity="0.3"/>
     <line id="bl2" x1="720" y1="0" x2="720" y2="900" stroke="#111" stroke-width="0.5" opacity="0.08"/>
@@ -726,10 +764,17 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
     <span class="hero-title-line"><span class="hero-title-inner">FICOS</span></span>
   </div>
   <div class="hero-bottom">
-    <div class="reveal"><span class="hero-stat-val">+40</span><span class="hero-stat-label">Proyectos ejecutados</span></div>
-    <div class="reveal" style="transition-delay:.1s"><span class="hero-stat-val">05</span><span class="hero-stat-label">Proyectos en portafolio</span></div>
+    <div class="reveal"><span class="hero-stat-val" id="statCount1">+40</span><span class="hero-stat-label">Proyectos ejecutados</span></div>
+    <div class="reveal" style="transition-delay:.1s"><span class="hero-stat-val" id="statCount2">05</span><span class="hero-stat-label">Proyectos en portafolio</span></div>
     <div class="hero-desc reveal" style="transition-delay:.2s">Sistemas expositivos basados en control material y ejecución precisa. Lenguaje artístico con soluciones constructivas reales.</div>
   </div>
+
+  <!-- Scroll hint -->
+  <div class="hero-scroll-hint">
+    <span>SCROLL</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+
 </section>
 
 <!-- ABOUT -->
@@ -1323,6 +1368,43 @@ document.getElementById('submitBtn').addEventListener('click', function(e) {
       setTimeout(() => { lbl.textContent = 'ENVIAR BRIEF'; }, 5000);
     });
 });
+
+// ---- COUNTER ANIMATION ----
+function animateCounter(el, target, prefix, suffix, duration) {
+  let start = 0;
+  const step = target / (duration / 16);
+  const timer = setInterval(() => {
+    start = Math.min(start + step, target);
+    el.textContent = prefix + Math.floor(start) + suffix;
+    if (start >= target) clearInterval(timer);
+  }, 16);
+}
+
+ScrollTrigger.create({
+  trigger: '#hero',
+  start: 'top 80%',
+  once: true,
+  onEnter: () => {
+    setTimeout(() => {
+      animateCounter(document.getElementById('statCount1'), 40, '+', '', 1200);
+      animateCounter(document.getElementById('statCount2'),  5,  '', '', 900);
+    }, 600);
+  }
+});
+
+// ---- TYPEWRITER — hero tag ----
+const heroTagEl = document.querySelector('.hero-tag-label');
+if (heroTagEl) {
+  const originalText = heroTagEl.textContent;
+  heroTagEl.textContent = '';
+  let i = 0;
+  setTimeout(() => {
+    const tw = setInterval(() => {
+      heroTagEl.textContent = originalText.slice(0, ++i);
+      if (i >= originalText.length) clearInterval(tw);
+    }, 40);
+  }, 800);
+}
 
 // ---- HAMBURGER MENU ----
 const hamburger = document.getElementById('navHamburger');
