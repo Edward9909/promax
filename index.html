@@ -3,7 +3,75 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>PROMAX — Sistemas Museográficos</title>
+
+<!-- ═══ SEO BÁSICO ═══ -->
+<title>PROMAX — Sistemas Museográficos · Ciudad de México</title>
+<meta name="description" content="Estudio especializado en diseño y producción museográfica en CDMX. Más de 10 años en montaje de exposiciones, fabricación técnica, enmarcado, traslado de obra y diseño gráfico para museos e instituciones culturales.">
+<meta name="keywords" content="museografía, producción museográfica, montaje de exposiciones, diseño de exposiciones, Ciudad de México, CDMX, museos, fabricación CNC, carpintería técnica, herrería, enmarcado, traslado de obra, señalética, gigantografías">
+<meta name="author" content="PROMAX">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://edward9909.github.io/promax/">
+<link rel="sitemap" type="application/xml" href="https://edward9909.github.io/promax/sitemap.xml">
+
+<!-- Google Search Console — reemplaza el content con tu código de verificación -->
+<!-- <meta name="google-site-verification" content="TU_CÓDIGO_AQUÍ"> -->
+
+<!-- ═══ OPEN GRAPH — WhatsApp, Facebook, LinkedIn ═══ -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PROMAX">
+<meta property="og:title" content="PROMAX — Sistemas Museográficos · Ciudad de México">
+<meta property="og:description" content="Más de 10 años en diseño y producción museográfica. Montaje de exposiciones, fabricación técnica y producción gráfica para museos e instituciones culturales en CDMX.">
+<meta property="og:url" content="https://edward9909.github.io/promax/">
+<meta property="og:image" content="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673832/wpp_1_hyutx4.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="es_MX">
+
+<!-- ═══ TWITTER CARD ═══ -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PROMAX — Sistemas Museográficos · CDMX">
+<meta name="twitter:description" content="Más de 10 años en diseño y producción museográfica en Ciudad de México.">
+<meta name="twitter:image" content="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673832/wpp_1_hyutx4.jpg">
+
+<!-- ═══ DATOS ESTRUCTURADOS — Google ═══ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "PROMAX",
+  "description": "Estudio especializado en diseño y producción museográfica. Montaje de exposiciones, fabricación técnica, enmarcado, traslado de obra y producción gráfica para museos e instituciones culturales.",
+  "url": "https://edward9909.github.io/promax/",
+  "telephone": "+5215561809113",
+  "email": "atencion.promax@gmail.com",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Ciudad de México",
+    "addressRegion": "CDMX",
+    "addressCountry": "MX"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "19.4326",
+    "longitude": "-99.1332"
+  },
+  "openingHours": "Mo-Fr 09:00-18:00",
+  "sameAs": [
+    "https://wa.me/5215561809113"
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Servicios museográficos",
+    "itemListElement": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Diseño Museográfico" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Producción y Mobiliario" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Diseño y Producción Gráfica" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Instalación y Montaje" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Enmarcado" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Traslado de Obra" } }
+    ]
+  }
+}
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <style>
@@ -121,7 +189,28 @@ section { position:relative; z-index:10; }
 
 /* HERO */
 #hero { min-height:100vh; display:flex; flex-direction:column; justify-content:flex-end; padding:72px 40px 60px; overflow:hidden; position:relative; }
-.hero-bg-lines { position:absolute; inset:0; pointer-events:none; z-index:0; }
+/* HERO VIDEO BACKGROUND */
+.hero-video-bg {
+  position:absolute; inset:0; z-index:0; overflow:hidden; pointer-events:none;
+}
+/* Dos videos superpuestos para crossfade suave */
+.hero-video-bg video {
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; filter:grayscale(20%);
+  transition: opacity 1.8s ease;
+}
+.hero-video-bg video.vid-a { opacity:0.22; }
+.hero-video-bg video.vid-b { opacity:0; }
+.hero-video-bg video.fading-out { opacity:0 !important; }
+.hero-video-bg video.fading-in  { opacity:0.22 !important; }
+.hero-video-overlay {
+  position:absolute; inset:0; z-index:1;
+  background:
+    linear-gradient(to top, rgba(245,245,243,0.97) 0%, rgba(245,245,243,0.55) 45%, rgba(245,245,243,0.25) 100%),
+    linear-gradient(to right, rgba(245,245,243,0.5) 0%, transparent 65%);
+}
+
+.hero-bg-lines { position:absolute; inset:0; pointer-events:none; z-index:2; }
 .hero-tag { font-size:9px; letter-spacing:0.25em; text-transform:uppercase; color:var(--accent); margin-bottom:24px; display:flex; align-items:center; gap:12px; }
 .hero-tag::before { content:''; display:block; width:32px; height:1px; background:var(--accent); }
 .hero-title { font-family:Impact,'Arial Narrow',sans-serif; font-size:clamp(72px,13vw,180px); line-height:0.88; letter-spacing:-0.01em; text-transform:uppercase; color:var(--ink); position:relative; z-index:2; }
@@ -129,6 +218,21 @@ section { position:relative; z-index:10; }
 .hero-title-line { overflow:hidden; display:block; }
 .hero-title-inner { display:block; }
 .hero-bottom { display:grid; grid-template-columns:1fr 1fr 1fr; gap:40px; margin-top:48px; padding-top:32px; border-top:1px solid var(--border); position:relative; z-index:2; }
+/* HERO SCROLL INDICATOR */
+.hero-scroll-hint {
+  position:absolute; bottom:24px; left:50%; transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:6px;
+  z-index:2; opacity:0; animation:fadeHint 1s ease 2s forwards;
+}
+.hero-scroll-hint span { font-size:8px; letter-spacing:0.25em; text-transform:uppercase; color:var(--ink2); }
+.hero-scroll-line { width:1px; height:36px; background:var(--border); position:relative; overflow:hidden; }
+.hero-scroll-line::after {
+  content:''; position:absolute; top:-100%; left:0; width:100%; height:50%;
+  background:var(--accent); animation:scrollDrop 1.5s ease 2.2s infinite;
+}
+@keyframes fadeHint { to { opacity:1; } }
+@keyframes scrollDrop { 0%{top:-100%} 100%{top:200%} }
+
 .hero-stat-val { font-family:Impact,sans-serif; font-size:32px; letter-spacing:0.04em; color:var(--ink); display:block; }
 .hero-stat-label { font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink2); margin-top:4px; display:block; }
 .hero-desc { font-size:12px; line-height:1.7; color:var(--ink2); max-width:320px; }
@@ -258,41 +362,11 @@ section { position:relative; z-index:10; }
 .project-card:nth-child(5) { grid-column:7/10; height:280px; }
 .project-card:nth-child(6) { grid-column:10/13;height:280px; }
 
-/* Project card mask — cinematic reveal */
-.project-card .card-mask {
-  position:absolute; inset:0; z-index:4;
-  background:var(--bg);
-  will-change:transform;
-  pointer-events:none;
-}
-
-/* Hover premium — imagen con zoom suave + overlay más profundo */
-.project-card img {
-  position:absolute; inset:0; width:100%; height:100%;
-  object-fit:cover;
-  transition:transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94);
-  will-change:transform;
-}
+.project-card img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
 .project-card:hover img { transform:scale(1.05); }
 
-.project-overlay {
-  position:absolute; inset:0;
-  background:linear-gradient(to top, rgba(17,17,17,0.88) 0%, rgba(17,17,17,0.2) 55%, transparent 100%);
-  display:flex; flex-direction:column; justify-content:flex-end;
-  padding:28px;
-  transition:background 0.5s ease;
-}
-.project-card:hover .project-overlay {
-  background:linear-gradient(to top, rgba(17,17,17,0.95) 0%, rgba(17,17,17,0.5) 65%, rgba(17,17,17,0.15) 100%);
-}
-
-/* Línea acento que crece desde izquierda en hover */
-.project-overlay::before {
-  content:''; position:absolute; bottom:0; left:0;
-  height:2px; width:0; background:var(--accent);
-  transition:width 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
-}
-.project-card:hover .project-overlay::before { width:100%; }
+.project-overlay { position:absolute; inset:0; background:linear-gradient(to top, rgba(17,17,17,0.85) 0%, rgba(17,17,17,0.15) 55%, transparent 100%); display:flex; flex-direction:column; justify-content:flex-end; padding:28px; transition:background 0.4s; }
+.project-card:hover .project-overlay { background:linear-gradient(to top, rgba(17,17,17,0.92) 0%, rgba(17,17,17,0.4) 65%, rgba(17,17,17,0.1) 100%); }
 
 .project-code { font-size:9px; letter-spacing:0.25em; color:var(--accent); text-transform:uppercase; margin-bottom:8px; }
 .project-name { font-family:Impact,sans-serif; font-size:clamp(20px,2.2vw,28px); letter-spacing:0.04em; text-transform:uppercase; color:#fff; line-height:1; margin-bottom:8px; }
@@ -440,15 +514,6 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
 /* REVEALS */
 .reveal { opacity:0; transform:translateY(24px); }
 .reveal-left { opacity:0; transform:translateX(-32px); }
-
-/* Portfolio cards — estado inicial visible para evitar blank on refresh */
-.project-card { opacity:1; transform:none; }
-
-/* Reduced motion — sin animaciones */
-@media (prefers-reduced-motion: reduce) {
-  .reveal, .reveal-left { opacity:1 !important; transform:none !important; }
-  .project-card .card-mask { display:none; }
-}
 
 /* RESPONSIVE */
 /* ---- TOUCH / MOBILE SPECIFICS ---- */
@@ -604,9 +669,6 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
   }
 </script>
 <script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit" async defer></script>
-<!-- Preload LCP portfolio images -->
-<link rel="preload" as="image" href="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673832/wpp_1_hyutx4.jpg">
-<link rel="preload" as="image" href="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673822/FM_1_ljra8p.jpg">
 </head>
 <body>
 
@@ -658,6 +720,17 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
 
 <!-- HERO -->
 <section id="hero">
+
+  <!-- Video de fondo -->
+  <div class="hero-video-bg" id="heroBg">
+    <video class="vid-a" id="vidA" muted playsinline preload="auto">
+      <source src="https://raw.githubusercontent.com/Edward9909/promax/main/videohome" type="video/mp4">
+    </video>
+    <video class="vid-b" id="vidB" muted playsinline preload="auto">
+      <source src="https://raw.githubusercontent.com/Edward9909/promax/main/videohome" type="video/mp4">
+    </video>
+    <div class="hero-video-overlay"></div>
+  </div>
   <svg class="hero-bg-lines" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" fill="none">
     <line id="bl1" x1="360" y1="0" x2="360" y2="900" stroke="#F4DB09" stroke-width="0.5" opacity="0.3"/>
     <line id="bl2" x1="720" y1="0" x2="720" y2="900" stroke="#111" stroke-width="0.5" opacity="0.08"/>
@@ -700,10 +773,17 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
     <span class="hero-title-line"><span class="hero-title-inner">FICOS</span></span>
   </div>
   <div class="hero-bottom">
-    <div class="reveal"><span class="hero-stat-val">+40</span><span class="hero-stat-label">Proyectos ejecutados</span></div>
-    <div class="reveal" data-delay="0.1"><span class="hero-stat-val">05</span><span class="hero-stat-label">Proyectos en portafolio</span></div>
-    <div class="hero-desc reveal" data-delay="0.2">Sistemas expositivos basados en control material y ejecución precisa. Lenguaje artístico con soluciones constructivas reales.</div>
+    <div class="reveal"><span class="hero-stat-val" id="statCount1">+40</span><span class="hero-stat-label">Proyectos ejecutados</span></div>
+    <div class="reveal" style="transition-delay:.1s"><span class="hero-stat-val" id="statCount2">05</span><span class="hero-stat-label">Proyectos en portafolio</span></div>
+    <div class="hero-desc reveal" style="transition-delay:.2s">Sistemas expositivos basados en control material y ejecución precisa. Lenguaje artístico con soluciones constructivas reales.</div>
   </div>
+
+  <!-- Scroll hint -->
+  <div class="hero-scroll-hint">
+    <span>SCROLL</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+
 </section>
 
 <!-- ABOUT -->
@@ -745,7 +825,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
 
   <div class="servicios-grid">
     <!-- PX/02 Producción + Mobiliario -->
-    <div class="servicio-item wide reveal" data-delay="0.1">
+    <div class="servicio-item wide reveal" style="transition-delay:.1s">
           <svg class="serv-icon" style="position:relative;top:auto;right:auto;margin-bottom:20px;display:block" viewBox="0 0 40 40"><circle cx="20" cy="20" r="14" stroke="#111" stroke-width="1.5" fill="none"/><line x1="6" y1="20" x2="34" y2="20" stroke="#111" stroke-width="1"/><line x1="20" y1="6" x2="20" y2="34" stroke="#111" stroke-width="1"/></svg>
           <span class="serv-num">PX / 02</span>
           <div class="serv-name">Producción y<br>Mobiliario</div>
@@ -758,31 +838,31 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
       <p class="serv-desc">Desarrollo integral de sistemas expositivos. Desde concepto hasta instalación. Coherencia visual y constructiva en cada fase del proyecto.</p>
     </div>
     <!-- PX/03 Diseño y Producción Gráfica -->
-    <div class="servicio-item reveal" data-delay="0.2">
+    <div class="servicio-item reveal" style="transition-delay:.2s">
       <svg class="serv-icon" viewBox="0 0 40 40"><rect x="4" y="10" width="32" height="20" stroke="#111" stroke-width="1.5" fill="none"/><line x1="4" y1="18" x2="36" y2="18" stroke="#111" stroke-width="0.8"/><line x1="4" y1="26" x2="36" y2="26" stroke="#111" stroke-width="0.8"/><line x1="12" y1="10" x2="12" y2="30" stroke="#111" stroke-width="0.8"/></svg>
       <span class="serv-num">PX / 03</span><div class="serv-name">Diseño y Producción<br>Gráfica</div>
       <p class="serv-desc">Gigantografías, cédulas, vinil adhesivo, impresión en cama plana sobre materiales rígidos y señalética. Producción gráfica integral para exposiciones y espacios culturales.</p>
     </div>
     <!-- PX/04 Impresión 3D -->
-    <div class="servicio-item reveal" data-delay="0.3">
+    <div class="servicio-item reveal" style="transition-delay:.3s">
       <svg class="serv-icon" viewBox="0 0 40 40"><polygon points="20,4 36,34 4,34" stroke="#111" stroke-width="1.5" fill="none"/></svg>
       <span class="serv-num">PX / 04</span><div class="serv-name">Impresión<br>3D + Prototipo</div>
       <p class="serv-desc">Prototipado rápido y producción de piezas únicas. Geometrías complejas, materialización directa de diseño digital en 24–48 hrs.</p>
     </div>
     <!-- PX/05 Instalación y Montaje -->
-    <div class="servicio-item reveal" data-delay="0.4">
+    <div class="servicio-item reveal" style="transition-delay:.4s">
       <svg class="serv-icon" viewBox="0 0 40 40"><rect x="4" y="4" width="14" height="14" stroke="#111" stroke-width="1.5" fill="none"/><rect x="22" y="4" width="14" height="14" stroke="#111" stroke-width="1.5" fill="none"/><rect x="4" y="22" width="14" height="14" stroke="#111" stroke-width="1.5" fill="none"/><rect x="22" y="22" width="14" height="14" stroke="#111" stroke-width="1.5" fill="none"/></svg>
       <span class="serv-num">PX / 05</span><div class="serv-name">Instalación<br>+ Montaje</div>
       <p class="serv-desc">Coordinación técnica de instalación in situ. Supervisión de montaje, ajuste dimensional y entrega documentada con más de 10 años de experiencia en manejo de obra.</p>
     </div>
     <!-- PX/06 Enmarcado -->
-    <div class="servicio-item reveal" data-delay="0.5">
+    <div class="servicio-item reveal" style="transition-delay:.5s">
       <svg class="serv-icon" viewBox="0 0 40 40"><rect x="4" y="4" width="32" height="32" stroke="#111" stroke-width="1.5" fill="none"/><rect x="11" y="11" width="18" height="18" stroke="#111" stroke-width="0.8" fill="none"/></svg>
       <span class="serv-num">PX / 06</span><div class="serv-name">Enmarcado</div>
       <p class="serv-desc">Producción de marcos y bastidores para obra artística. Materiales seleccionados por proyecto. Acabados de nivel museográfico y manejo profesional de piezas.</p>
     </div>
     <!-- PX/07 Traslado de Obra -->
-    <div class="servicio-item reveal" data-delay="0.6">
+    <div class="servicio-item reveal" style="transition-delay:.6s">
       <svg class="serv-icon" viewBox="0 0 40 40"><rect x="2" y="14" width="28" height="18" stroke="#111" stroke-width="1.5" fill="none" rx="1"/><circle cx="10" cy="33" r="4" stroke="#111" stroke-width="1.5" fill="none"/><circle cx="24" cy="33" r="4" stroke="#111" stroke-width="1.5" fill="none"/><line x1="30" y1="22" x2="38" y2="22" stroke="#111" stroke-width="1.5"/><line x1="34" y1="18" x2="38" y2="22" stroke="#111" stroke-width="1"/><line x1="34" y1="26" x2="38" y2="22" stroke="#111" stroke-width="1"/></svg>
       <span class="serv-num">PX / 07</span><div class="serv-name">Traslado<br>de Obra</div>
       <p class="serv-desc">Logística y transporte especializado de obra artística. Embalaje técnico, manejo cuidadoso y coordinación de entrega en destino con protocolo de seguridad.</p>
@@ -798,10 +878,10 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
   </div>
   <div class="proceso-diagram">
     <div class="proc-step reveal"><div class="proc-dot"></div><span class="proc-num">FASE / 01</span><div class="proc-name">Brief<br>Técnico</div><p class="proc-desc">Levantamiento de requerimientos. Definición de materiales, escala, plazos y presupuesto.</p></div>
-    <div class="proc-step reveal" data-delay="0.1"><div class="proc-dot"></div><span class="proc-num">FASE / 02</span><div class="proc-name">Diseño<br>+ Planos</div><p class="proc-desc">Desarrollo conceptual y documentación técnica. Renders, planos acotados y especificaciones de fabricación.</p></div>
-    <div class="proc-step reveal" data-delay="0.2"><div class="proc-dot"></div><span class="proc-num">FASE / 03</span><div class="proc-name">Producción<br>CNC/3D</div><p class="proc-desc">Fabricación con control de calidad en proceso. Tolerancias verificadas en cada elemento.</p></div>
-    <div class="proc-step reveal" data-delay="0.3"><div class="proc-dot"></div><span class="proc-num">FASE / 04</span><div class="proc-name">Acabados<br>+ QC</div><p class="proc-desc">Pintura, ensamble, verificación dimensional. Control de calidad previo a entrega.</p></div>
-    <div class="proc-step reveal" data-delay="0.4"><div class="proc-dot"></div><span class="proc-num">FASE / 05</span><div class="proc-name">Instalación<br>In Situ</div><p class="proc-desc">Montaje supervisado. Ajuste final. Entrega con documentación técnica completa.</p></div>
+    <div class="proc-step reveal" style="transition-delay:.1s"><div class="proc-dot"></div><span class="proc-num">FASE / 02</span><div class="proc-name">Diseño<br>+ Planos</div><p class="proc-desc">Desarrollo conceptual y documentación técnica. Renders, planos acotados y especificaciones de fabricación.</p></div>
+    <div class="proc-step reveal" style="transition-delay:.2s"><div class="proc-dot"></div><span class="proc-num">FASE / 03</span><div class="proc-name">Producción<br>CNC/3D</div><p class="proc-desc">Fabricación con control de calidad en proceso. Tolerancias verificadas en cada elemento.</p></div>
+    <div class="proc-step reveal" style="transition-delay:.3s"><div class="proc-dot"></div><span class="proc-num">FASE / 04</span><div class="proc-name">Acabados<br>+ QC</div><p class="proc-desc">Pintura, ensamble, verificación dimensional. Control de calidad previo a entrega.</p></div>
+    <div class="proc-step reveal" style="transition-delay:.4s"><div class="proc-dot"></div><span class="proc-num">FASE / 05</span><div class="proc-name">Instalación<br>In Situ</div><p class="proc-desc">Montaje supervisado. Ajuste final. Entrega con documentación técnica completa.</p></div>
   </div>
 </section>
 
@@ -814,64 +894,65 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
 
   <div class="projects-grid">
     <!-- FILA SUPERIOR — 2 cards grandes -->
-    <div class="project-card" onclick="openGallery('wpp')">
-      <div class="card-mask" aria-hidden="true"></div>
-      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673832/wpp_1_hyutx4.jpg" alt="World Press Photo" loading="eager" fetchpriority="high">
+    <div class="project-card reveal" onclick="openGallery('wpp')">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673832/wpp_1_hyutx4.jpg" alt="World Press Photo" loading="lazy">
       <div class="project-overlay">
         <div class="project-code">PX-01 · 2025</div>
         <div class="project-name">World Press<br>Photo</div>
-
+        <div class="project-meta">Franz Mayer · Montaje expositivo</div>
+        <div class="project-count">02 imágenes</div>
       </div>
       <div class="project-cta">VER PROYECTO</div>
     </div>
-    <div class="project-card" style="transition-delay:.1s" onclick="openGallery('fm')">
-      <div class="card-mask" aria-hidden="true"></div>
-      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673822/FM_1_ljra8p.jpg" alt="Franz Mayer" loading="eager" fetchpriority="high">
+    <div class="project-card reveal" style="transition-delay:.1s" onclick="openGallery('fm')">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673822/FM_1_ljra8p.jpg" alt="Franz Mayer" loading="lazy">
       <div class="project-overlay">
         <div class="project-code">PX-02 · 2025</div>
         <div class="project-name">Museo<br>Franz Mayer</div>
-   
+        <div class="project-meta">Montaje expositivo · Adecuación de espacio</div>
+        <div class="project-count">05 imágenes</div>
       </div>
       <div class="project-cta">VER PROYECTO</div>
     </div>
     <!-- FILA INFERIOR — 4 cards medianas -->
-    <div class="project-card" style="transition-delay:.2s" onclick="openGallery('cn')">
-      <div class="card-mask" aria-hidden="true"></div>
-      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673805/jp_1_jwqj46.jpg" alt="Colegio Nacional" loading="lazy" decoding="async">
+    <div class="project-card reveal" style="transition-delay:.2s" onclick="openGallery('cn')">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673805/jp_1_jwqj46.jpg" alt="Colegio Nacional" loading="lazy">
       <div class="project-overlay">
         <div class="project-code">PX-03 · 2025</div>
         <div class="project-name">Museo Colegio<br>Nacional</div>
-
+        <div class="project-meta">Montaje expositivo</div>
+        <div class="project-count">07 imágenes</div>
       </div>
       <div class="project-cta">VER PROYECTO</div>
     </div>
-    <div class="project-card" style="transition-delay:.3s" onclick="openGallery('casa')">
-      <div class="card-mask" aria-hidden="true"></div>
-      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673794/Unacasa_5_sej4pf.jpg" alt="De Casa a Hogar" loading="lazy" decoding="async">
+    <div class="project-card reveal" style="transition-delay:.3s" onclick="openGallery('casa')">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673794/Unacasa_5_sej4pf.jpg" alt="De Casa a Hogar" loading="lazy">
       <div class="project-overlay">
         <div class="project-code">PX-04 · 2025</div>
         <div class="project-name">De Casa<br>a Hogar</div>
-
+        <div class="project-meta">Colegio Nacional · Montaje expositivo</div>
+        <div class="project-meta">Franz Mayer · Montaje expositivo</div>
+        <div class="project-count">04 imágenes</div>
       </div>
       <div class="project-cta">VER PROYECTO</div>
     </div>
-    <div class="project-card" style="transition-delay:.4s" onclick="openGallery('atl')">
-      <div class="card-mask" aria-hidden="true"></div>
-      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673777/Dr.Atl_10_wqxc2l.jpg" alt="Dr. Atl" loading="lazy" decoding="async">
+    <div class="project-card reveal" style="transition-delay:.4s" onclick="openGallery('atl')">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673777/Dr.Atl_10_wqxc2l.jpg" alt="Dr. Atl" loading="lazy">
       <div class="project-overlay">
         <div class="project-code">PX-05 · 2025</div>
         <div class="project-name">Exposición<br>Dr. Atl</div>
- 
+        <div class="project-meta">Colegio Nacional · Montaje expositivo</div>
+        <div class="project-count">05 imágenes</div>
       </div>
       <div class="project-cta">VER PROYECTO</div>
     </div>
-    <div class="project-card" style="transition-delay:.5s" onclick="openGallery('elizondo')">
-      <div class="card-mask" aria-hidden="true"></div>
-      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1778171288/20260506_154226_dek35g.jpg" alt="Homenaje a Salvador Elizondo" loading="lazy" decoding="async">
+    <div class="project-card reveal" style="transition-delay:.5s" onclick="openGallery('elizondo')">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1778171288/20260506_154226_dek35g.jpg" alt="Homenaje a Salvador Elizondo" loading="lazy">
       <div class="project-overlay">
         <div class="project-code">PX-06 · 2025</div>
         <div class="project-name">Homenaje<br>S. Elizondo</div>
-
+        <div class="project-meta">Colegio Nacional · Montaje expositivo</div>
+        <div class="project-count">09 imágenes</div>
       </div>
       <div class="project-cta">VER PROYECTO</div>
     </div>
@@ -1024,118 +1105,11 @@ document.querySelectorAll('.hero-title-inner').forEach((el,i) => {
 });
 
 // REVEALS
-// ============================================================
-// REVEAL SYSTEM — IntersectionObserver (no ScrollTrigger)
-// Más estable que ScrollTrigger para refresh en mitad de página
-// ============================================================
-const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-if (!reducedMotion) {
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      const el = entry.target;
-      gsap.to(el, { opacity:1, x:0, y:0, duration:.8, ease:'power3.out',
-        delay: parseFloat(el.dataset.delay || 0)
-      });
-      revealObserver.unobserve(el);
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
-
-  // Observa todos los reveals EXCEPTO project-cards (tienen su propio sistema)
-  document.querySelectorAll('.reveal, .reveal-left').forEach(el => {
-    revealObserver.observe(el);
+document.querySelectorAll('.reveal,.reveal-left').forEach(el => {
+  ScrollTrigger.create({ trigger:el, start:'top 88%',
+    onEnter: () => gsap.to(el, { opacity:1, x:0, y:0, duration:.9, ease:'power3.out' })
   });
-} else {
-  // Reduced motion: todo visible inmediatamente
-  document.querySelectorAll('.reveal, .reveal-left').forEach(el => {
-    el.style.opacity = '1';
-    el.style.transform = 'none';
-  });
-}
-
-// ============================================================
-// PORTFOLIO — Cinematic mask reveal con IntersectionObserver
-// Las cards están en el DOM desde el inicio (no dependen de scroll)
-// La animación es una máscara deslizante que se retira de izq a der
-// ============================================================
-function initPortfolioReveal() {
-  if (reducedMotion) return;
-
-  const cards = document.querySelectorAll('.project-card');
-  const masks = document.querySelectorAll('.card-mask');
-
-  // Estado inicial — masks cubren las cards, pero las cards YA están visibles
-  gsap.set(masks, { scaleX: 1, transformOrigin: 'left center' });
-
-  // Preload todas las imágenes del portfolio antes de animar
-  const images = [...document.querySelectorAll('.project-card img')];
-  let loaded = 0;
-  const total = images.length;
-
-  function onAllLoaded() {
-    // Una vez cargadas, observar con IntersectionObserver
-    const portfolioObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        portfolioObserver.unobserve(entry.target);
-        revealSection();
-      });
-    }, { threshold: 0.1 });
-
-    portfolioObserver.observe(document.getElementById('portafolio'));
-  }
-
-  function revealSection() {
-    // Stagger: las máscaras se retiran de izquierda a derecha
-    // Efecto: la imagen "emerge" desde detrás de un panel deslizante
-    gsap.to(masks, {
-      scaleX: 0,
-      transformOrigin: 'right center',
-      duration: 0.9,
-      ease: 'expo.inOut',
-      stagger: {
-        amount: 0.7,
-        from: 'start'
-      },
-      onComplete: () => {
-        // Limpia las máscaras del DOM tras la animación
-        masks.forEach(m => m.remove());
-      }
-    });
-
-    // Subtle scale-up en las imágenes mientras se revela
-    gsap.from(images, {
-      scale: 1.06,
-      duration: 1.1,
-      ease: 'power2.out',
-      stagger: { amount: 0.7, from: 'start' }
-    });
-  }
-
-  // Manejar carga de imágenes
-  if (total === 0) { onAllLoaded(); return; }
-
-  images.forEach(img => {
-    if (img.complete && img.naturalWidth > 0) {
-      loaded++;
-      if (loaded >= total) onAllLoaded();
-    } else {
-      img.addEventListener('load',  () => { loaded++; if (loaded >= total) onAllLoaded(); }, { once: true });
-      img.addEventListener('error', () => { loaded++; if (loaded >= total) onAllLoaded(); }, { once: true });
-    }
-  });
-
-  // Fallback: si en 3s no cargaron todas, anima de todas formas
-  setTimeout(onAllLoaded, 3000);
-}
-
-// Inicializa DESPUÉS de que el DOM y GSAP estén listos
-if (document.readyState === 'complete') {
-  initPortfolioReveal();
-} else {
-  window.addEventListener('load', initPortfolioReveal, { once: true });
-}
+});
 
 // PARALLAX
 gsap.to('.hero-panel',    { y:-60, scrollTrigger:{ trigger:'#hero', start:'top top', end:'bottom top', scrub:true }});
@@ -1205,6 +1179,7 @@ const gData = {
   },
   fm: {
     code:'PX-02 · 2025', title:'MUSEO FRANZ MAYER',
+    meta:'Montaje y adecuación de espacio · Herrería · Carpintería',
     imgs:[
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673822/FM_1_ljra8p.jpg',
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673822/FM_2_krzhsk.jpg',
@@ -1216,6 +1191,7 @@ const gData = {
   },
   cn: {
     code:'PX-03 · 2025', title:'MUSEO COLEGIO NACIONAL',
+    meta:'Exposición permanente · Museografía · Sistema modular · Biblioteca',
     imgs:[
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673805/jp_1_jwqj46.jpg',
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673804/jp_2_p0soy2.jpg',
@@ -1229,6 +1205,7 @@ const gData = {
   },
   casa: {
     code:'PX-04 · 2025', title:'DE CASA A HOGAR',
+    meta:'Montaje expositivo · Concepto curatorial · Instalación',
     imgs:[
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673794/Unacasa_5_sej4pf.jpg',
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673794/Unacasa_3_k9cftr.jpg',
@@ -1239,6 +1216,7 @@ const gData = {
   },
   atl: {
     code:'PX-05 · 2025', title:'EXPOSICIÓN DR. ATL',
+    meta:'Colegio Nacional · Museografía completa · Acrílico · Metal · Madera',
     imgs:[
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673777/Dr.Atl_10_wqxc2l.jpg',
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673777/Dr.Atl_6_lcotmt.jpg',
@@ -1400,6 +1378,121 @@ document.getElementById('submitBtn').addEventListener('click', function(e) {
       setTimeout(() => { lbl.textContent = 'ENVIAR BRIEF'; }, 5000);
     });
 });
+
+// ---- VIDEO CROSSFADE LOOP ----
+(function() {
+  const vidA = document.getElementById('vidA');
+  const vidB = document.getElementById('vidB');
+  if (!vidA || !vidB) return;
+
+  const FADE_BEFORE = 1.8; // segundos antes del final para iniciar crossfade
+  let active = vidA;
+  let standby = vidB;
+  let crossfading = false;
+
+  function startVideo(v) {
+    v.currentTime = 0;
+    v.play().catch(() => {});
+  }
+
+  function crossfade() {
+    if (crossfading) return;
+    crossfading = true;
+
+    // Prepara el video standby desde el inicio
+    standby.currentTime = 0;
+    standby.play().catch(() => {});
+
+    // Aplica clases de transición
+    active.classList.add('fading-out');
+    standby.classList.add('fading-in');
+    standby.classList.remove('vid-b');
+    standby.classList.add('vid-a');
+    active.classList.remove('vid-a');
+    active.classList.add('vid-b');
+
+    // Después del fade, el standby se convierte en activo
+    setTimeout(() => {
+      active.classList.remove('fading-out');
+      standby.classList.remove('fading-in');
+
+      // Intercambia roles
+      const temp = active;
+      active   = standby;
+      standby  = temp;
+
+      // El standby (anterior activo) se pausa y oculta
+      standby.pause();
+      standby.classList.remove('vid-a');
+      standby.classList.add('vid-b');
+
+      crossfading = false;
+    }, 1900);
+  }
+
+  // Inicia el primer video
+  vidA.addEventListener('canplaythrough', () => { vidA.play().catch(() => {}); }, { once: true });
+  vidA.load();
+
+  // Monitorea el tiempo para iniciar el crossfade antes del final
+  vidA.addEventListener('timeupdate', function monitor() {
+    if (!vidA.duration) return;
+    if (vidA.currentTime >= vidA.duration - FADE_BEFORE) {
+      vidA.removeEventListener('timeupdate', monitor);
+      crossfade();
+    }
+  });
+
+  // Cada vez que el video activo se acerque al final, crossfade de nuevo
+  function watchActive() {
+    if (!active.duration) return;
+    const check = setInterval(() => {
+      if (active.currentTime >= active.duration - FADE_BEFORE) {
+        clearInterval(check);
+        crossfade();
+        setTimeout(watchActive, 500);
+      }
+    }, 250);
+  }
+  setTimeout(watchActive, 2000);
+})();
+
+// ---- COUNTER ANIMATION ----
+function animateCounter(el, target, prefix, suffix, duration) {
+  let start = 0;
+  const step = target / (duration / 16);
+  const timer = setInterval(() => {
+    start = Math.min(start + step, target);
+    el.textContent = prefix + Math.floor(start) + suffix;
+    if (start >= target) clearInterval(timer);
+  }, 16);
+}
+
+ScrollTrigger.create({
+  trigger: '#hero',
+  start: 'top 80%',
+  once: true,
+  onEnter: () => {
+    setTimeout(() => {
+      animateCounter(document.getElementById('statCount1'), 40, '+', '', 1200);
+      animateCounter(document.getElementById('statCount2'),  5,  '', '', 900);
+    }, 600);
+  }
+});
+
+// ---- TYPEWRITER — hero tag ----
+const heroTagEl = document.querySelector('.hero-tag-label');
+if (heroTagEl) {
+  const originalText = heroTagEl.textContent;
+  heroTagEl.textContent = '';
+  let i = 0;
+  setTimeout(() => {
+    const tw = setInterval(() => {
+      heroTagEl.textContent = originalText.slice(0, ++i);
+      if (i >= originalText.length) clearInterval(tw);
+    }, 40);
+  }, 800);
+}
 
 // ---- HAMBURGER MENU ----
 const hamburger = document.getElementById('navHamburger');
