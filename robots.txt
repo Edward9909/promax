@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://promax-mx.com/sitemap.xml
