@@ -6,19 +6,24 @@
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-<url>
+  <url>
     <loc>https://promax-mx.com/servicios/diseno-museografico.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-</url>
+  </url>
   <url>
   <loc>https://promax-mx.com/servicios/produccion-mobiliario-museografico.html</loc>
   <changefreq>monthly</changefreq>
   <priority>0.9</priority>
-</url>
+  </url>
   <url>
   <loc>https://promax-mx.com/servicios/montaje-expositivo.html</loc>
   <changefreq>monthly</changefreq>
   <priority>0.9</priority>
-</url>
+  </url>
+  <url>
+  <loc>https://promax-mx.com/servicios/diseno-produccion-grafica.html</loc>
+  <changefreq>monthly</changefreq>
+  <priority>0.9</priority>
+  </url>
 </urlset>
