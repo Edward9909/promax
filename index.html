@@ -1212,15 +1212,17 @@ document.querySelectorAll('.proc-item').forEach(item => {
 });
 
 // CARD STAGGER
-ScrollTrigger.create({ trigger:'.projects-grid', start:'top 82%',
-  onEnter: () => gsap.from('.project-card', { opacity:0, y:40, duration:.8, stagger:.12, ease:'power3.out' })
-});
+// Portfolio cards — sin animación de entrada, visibles desde el inicio para máxima estabilidad
 
 // ===================== GALLERY DATA =====================
 const gData = {
   wpp: {
     code:'PX-01 · 2025', title:'WORLD PRESS PHOTO',
     meta:'Museografía · Sistema expositivo · Impresión',
+    alts:[
+      'Instalación y montaje de impresiones fotográficas de gran formato en la exposición World Press Photo, Ciudad de México',
+      'Vista general del sistema expositivo para World Press Photo — producción e instalación PROMAX'
+    ],
     imgs:[
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673832/wpp_1_hyutx4.jpg',
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673832/wpp_2_zfpcro.jpg'
@@ -1230,6 +1232,17 @@ const gData = {
   elizondo: {
     code:'PX-06 · 2025', title:'HOMENAJE A SALVADOR ELIZONDO',
     meta:'Colegio Nacional · Museografía · Montaje expositivo',
+    alts:[
+      'Montaje museográfico de la exposición Homenaje a Salvador Elizondo en el Colegio Nacional, CDMX',
+      'Diseño y producción de sistema expositivo para homenaje a Salvador Elizondo — PROMAX',
+      'Detalle del montaje expositivo Homenaje a Salvador Elizondo, Colegio Nacional',
+      'Vista de sala en la exposición Homenaje a Salvador Elizondo — museografía PROMAX CDMX',
+      'Instalación de piezas en la exposición Homenaje a Salvador Elizondo, Ciudad de México',
+      'Producción museográfica para exposición Salvador Elizondo — herrería y carpintería técnica',
+      'Detalle constructivo del montaje en exposición Homenaje a Salvador Elizondo',
+      'Sistema expositivo y señalética para la exposición Homenaje a Salvador Elizondo',
+      'Proceso de instalación y montaje en exposición Salvador Elizondo — PROMAX CDMX'
+    ],
     imgs:[
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1778171288/20260506_154226_dek35g.jpg',
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1778171288/20260506_154250_jawoet.jpg',
@@ -1246,6 +1259,13 @@ const gData = {
   fm: {
     code:'PX-02 · 2025', title:'MUSEO FRANZ MAYER',
     meta:'Montaje y adecuación de espacio · Herrería · Carpintería',
+    alts:[
+      'Adecuación de espacio y diseño museográfico en el Museo Franz Mayer de Ciudad de México — PROMAX',
+      'Producción de mobiliario museográfico y sistema expositivo para el Museo Franz Mayer',
+      'Montaje de exposición en el Museo Franz Mayer — carpintería técnica y herrería PROMAX',
+      'Detalle de vitrinas y pedestales fabricados para exposición en Museo Franz Mayer CDMX',
+      'Vista general de sala con instalación museográfica completa en Museo Franz Mayer'
+    ],
     imgs:[
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673822/FM_1_ljra8p.jpg',
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673822/FM_2_krzhsk.jpg',
@@ -1258,6 +1278,15 @@ const gData = {
   cn: {
     code:'PX-03 · 2025', title:'MUSEO COLEGIO NACIONAL',
     meta:'Exposición permanente · Museografía · Sistema modular · Biblioteca',
+    alts:[
+      'Montaje de exposición permanente en el Museo Colegio Nacional — PROMAX Ciudad de México',
+      'Sistema expositivo modular instalado en el Colegio Nacional CDMX — producción PROMAX',
+      'Detalle de producción museográfica en galería del Colegio Nacional, Ciudad de México',
+      'Adecuación y montaje de la Biblioteca del Colegio Nacional — mobiliario museográfico PROMAX',
+      'Diseño de mobiliario y señalética para la Biblioteca del Colegio Nacional CDMX',
+      'Vista de estantería y sistema de almacenamiento museográfico en Colegio Nacional',
+      'Detalle constructivo de mobiliario a medida para la Biblioteca Colegio Nacional'
+    ],
     imgs:[
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673805/jp_1_jwqj46.jpg',
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673804/jp_2_p0soy2.jpg',
@@ -1272,6 +1301,12 @@ const gData = {
   casa: {
     code:'PX-04 · 2025', title:'DE CASA A HOGAR',
     meta:'Montaje expositivo · Concepto curatorial · Instalación',
+    alts:[
+      'Montaje de la exposición De Casa a Hogar — concepto curatorial y producción museográfica PROMAX',
+      'Instalación de piezas expositivas en muestra De Casa a Hogar, Ciudad de México',
+      'Vista lateral del montaje y sistema expositivo en exposición De Casa a Hogar',
+      'Panorámica del espacio expositivo De Casa a Hogar — producción integral PROMAX CDMX'
+    ],
     imgs:[
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673794/Unacasa_5_sej4pf.jpg',
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673794/Unacasa_3_k9cftr.jpg',
@@ -1283,6 +1318,13 @@ const gData = {
   atl: {
     code:'PX-05 · 2025', title:'EXPOSICIÓN DR. ATL',
     meta:'Colegio Nacional · Museografía completa · Acrílico · Metal · Madera',
+    alts:[
+      'Montaje museográfico de la Exposición Dr. Atl en el Colegio Nacional de Ciudad de México',
+      'Vista panorámica de la sala en la exposición Dr. Atl — producción PROMAX CDMX',
+      'Sistema expositivo en acrílico, metal y madera para la Exposición Dr. Atl',
+      'Estructura de montaje y vitrinas para la exposición Dr. Atl, Colegio Nacional',
+      'Detalle de fabricación técnica y acabados en la Exposición Dr. Atl — PROMAX'
+    ],
     imgs:[
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673777/Dr.Atl_10_wqxc2l.jpg',
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673777/Dr.Atl_6_lcotmt.jpg',
@@ -1297,6 +1339,7 @@ const gData = {
 const projectOrder = ['wpp','fm','cn','casa','atl','elizondo'];
 let currentProj = null;
 let viewerImgs = [];
+let viewerAlts = [];
 let viewerIdx  = 0;
 
 function openGallery(key) {
@@ -1310,14 +1353,19 @@ function openGallery(key) {
   const grid = document.getElementById('gmGrid');
   grid.innerHTML = '';
   viewerImgs = d.imgs;
+  viewerAlts = d.alts || d.imgs.map((_, i) => d.title + ' — imagen ' + (i+1));
 
   d.imgs.forEach((src, i) => {
     const cls = d.layout[i] || 's4';
+    const altText = (d.alts && d.alts[i]) ? d.alts[i] : d.title + ' — imagen ' + (i+1);
     const div = document.createElement('div');
     div.className = 'gm-img ' + cls;
     div.onclick = () => openViewer(i);
     const img = document.createElement('img');
-    img.src = src; img.alt = d.title + ' ' + (i+1); img.loading = 'lazy';
+    img.src = src;
+    img.alt = altText;
+    img.loading = 'lazy';
+    img.decoding = 'async';
     div.appendChild(img);
     grid.appendChild(div);
     cursor.classList.remove('hover');
@@ -1348,7 +1396,9 @@ function navProject(dir) {
 function openViewer(index) {
   viewerIdx = index;
   const v = document.getElementById('imgViewer');
-  document.getElementById('viewerImg').src = viewerImgs[index];
+  const img = document.getElementById('viewerImg');
+  img.src = viewerImgs[index];
+  img.alt = viewerAlts[index] || '';
   document.getElementById('viewerInfo').textContent = (index+1) + ' / ' + viewerImgs.length;
   v.classList.add('open');
   gsap.from('#viewerImg', { opacity:0, scale:.95, duration:.3, ease:'power2.out' });
