@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
+<!-- Preconnects para mejorar carga -->
+<link rel="preconnect" href="https://res.cloudinary.com">
+<link rel="dns-prefetch" href="https://res.cloudinary.com">
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="shortcut icon" href="/favicon.ico" />
@@ -73,12 +81,6 @@
 
 <meta name="twitter:image"
       content="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673832/wpp_1_hyutx4.jpg">
-<!-- ═══ TWITTER CARD ═══ -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="PROMAX — Servicios Museográficos · CDMX">
-<meta name="twitter:description" content="Más de 10 años en diseño y producción museográfica en Ciudad de México.">
-<meta name="twitter:image" content="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673832/wpp_1_hyutx4.jpg">
-
 <!-- ═══ DATOS ESTRUCTURADOS — Google ═══ -->
 <script type="application/ld+json">
 {
@@ -128,8 +130,8 @@
 <!-- Preload LCP — primeras imágenes del portafolio -->
 <link rel="preload" as="image" href="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673832/wpp_1_hyutx4.jpg">
 <link rel="preload" as="image" href="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673822/FM_1_ljra8p.jpg">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
@@ -801,7 +803,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
   .iv-nav { font-size:32px; padding:8px; }
 }
 </style>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <script>
   /* onRecaptchaLoad debe existir en window ANTES de que api.js termine de cargar */
   var recaptchaWidgetId;
@@ -811,6 +813,11 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
       theme:   'light',
       size:    'normal'
     });
+    setTimeout(function () {
+      document.querySelectorAll('#recaptchaWidget iframe, #captchaField iframe').forEach(function (iframe, index) {
+        if (!iframe.title) iframe.title = index === 0 ? 'Verificación reCAPTCHA' : 'Verificación reCAPTCHA auxiliar';
+      });
+    }, 800);
   }
 </script>
 <script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit" async defer></script>
@@ -842,7 +849,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
     <li><a href="#contacto"   data-code="SYS/06">Contacto</a></li>
   </ul>
   <div class="nav-sys">SYS · ACTIVO · PX-2025</div>
-  <button class="nav-hamburger" id="navHamburger" aria-label="Menú">
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menú" aria-controls="navMobileMenu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
 </nav>
@@ -861,17 +868,17 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
 <!-- NAV BACKDROP -->
 <div id="nav-backdrop"></div>
 
-
+<main id="main-content">
 
 <!-- HERO -->
 <section id="hero">
 
   <!-- Video de fondo -->
   <div class="hero-video-bg" id="heroBg">
-    <video class="vid-a" id="vidA" muted playsinline preload="auto">
+    <video class="vid-a" id="vidA" muted playsinline preload="metadata" aria-hidden="true" tabindex="-1">
       <source src="https://raw.githubusercontent.com/Edward9909/promax/main/videohome" type="video/mp4">
     </video>
-    <video class="vid-b" id="vidB" muted playsinline preload="auto">
+    <video class="vid-b" id="vidB" muted playsinline preload="metadata" aria-hidden="true" tabindex="-1">
       <source src="https://raw.githubusercontent.com/Edward9909/promax/main/videohome" type="video/mp4">
     </video>
     <div class="hero-video-overlay"></div>
@@ -907,6 +914,8 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
   <div class="hero-identity reveal">
     <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777967786/PROMAX_wmoxn8.svg"
          alt="PROMAX"
+         width="320" height="80"
+         decoding="async"
          class="hero-logo-img"
          onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
     <span class="hero-logo-fallback">PROMAX<span style="color:var(--accent)">.</span></span>
@@ -948,7 +957,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
 </section>
 
 <!-- SERVICIOS -->
-<section id="servicios ">
+<section id="servicios">
   <div class="section-header">
     <div>
       <div class="section-kicker reveal">SYS/02 · Módulos de servicio</div>
@@ -1098,7 +1107,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
   <div class="projects-grid">
     <!-- FILA SUPERIOR — 2 cards grandes -->
     <div class="project-card reveal" onclick="openGallery('wpp')">
-      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673832/wpp_1_hyutx4.jpg" alt="Montaje museográfico de la exposición World Press Photo — producción PROMAX, Ciudad de México" loading="eager" fetchpriority="high">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673832/wpp_1_hyutx4.jpg" alt="Montaje museográfico de la exposición World Press Photo — producción PROMAX, Ciudad de México" loading="eager" fetchpriority="high" width="1200" height="800" decoding="async">
       <div class="project-overlay">
         <div class="project-code">PX-01 · 2025</div>
         <div class="project-name">World Press<br>Photo</div>
@@ -1108,7 +1117,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
       <div class="project-cta">VER PROYECTO</div>
     </div>
     <div class="project-card reveal" style="transition-delay:.1s" onclick="openGallery('fm')">
-      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673822/FM_1_ljra8p.jpg" alt="Adecuación de espacio y montaje museográfico realizado en el Museo Franz Mayer de Ciudad de México" loading="eager" fetchpriority="high">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673822/FM_1_ljra8p.jpg" alt="Adecuación de espacio y montaje museográfico realizado en el Museo Franz Mayer de Ciudad de México" loading="eager" fetchpriority="high" width="1200" height="800" decoding="async">
       <div class="project-overlay">
         <div class="project-code">PX-02 · 2025</div>
         <div class="project-name">Museo<br>Franz Mayer</div>
@@ -1119,7 +1128,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
     </div>
     <!-- FILA INFERIOR — 4 cards medianas -->
     <div class="project-card reveal" style="transition-delay:.2s" onclick="openGallery('cn')">
-      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673805/jp_1_jwqj46.jpg" alt="Montaje expositivo y producción museográfica en el Colegio Nacional de Ciudad de México" loading="lazy">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673805/jp_1_jwqj46.jpg" alt="Montaje expositivo y producción museográfica en el Colegio Nacional de Ciudad de México" loading="lazy" width="1200" height="800" decoding="async">
       <div class="project-overlay">
         <div class="project-code">PX-03 · 2025</div>
         <div class="project-name">Museo Colegio<br>Nacional</div>
@@ -1129,7 +1138,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
       <div class="project-cta">VER PROYECTO</div>
     </div>
     <div class="project-card reveal" style="transition-delay:.3s" onclick="openGallery('casa')">
-      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673794/Unacasa_5_sej4pf.jpg" alt="Montaje museográfico de la exposición De Casa a Hogar en el Museo Franz Mayer" loading="lazy">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673794/Unacasa_5_sej4pf.jpg" alt="Montaje museográfico de la exposición De Casa a Hogar en el Museo Franz Mayer" loading="lazy" width="1200" height="800" decoding="async">
       <div class="project-overlay">
         <div class="project-code">PX-04 · 2025</div>
         <div class="project-name">De Casa<br>a Hogar</div>
@@ -1139,7 +1148,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
       <div class="project-cta">VER PROYECTO</div>
     </div>
     <div class="project-card reveal" style="transition-delay:.4s" onclick="openGallery('atl')">
-      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673777/Dr.Atl_10_wqxc2l.jpg" alt="Producción y montaje museográfico de la exposición Dr. Atl en el Colegio Nacional" loading="lazy">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673777/Dr.Atl_10_wqxc2l.jpg" alt="Producción y montaje museográfico de la exposición Dr. Atl en el Colegio Nacional" loading="lazy" width="1200" height="800" decoding="async">
       <div class="project-overlay">
         <div class="project-code">PX-05 · 2025</div>
         <div class="project-name">Exposición<br>Dr. Atl</div>
@@ -1149,7 +1158,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
       <div class="project-cta">VER PROYECTO</div>
     </div>
     <div class="project-card reveal" style="transition-delay:.5s" onclick="openGallery('elizondo')">
-      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1778171288/20260506_154226_dek35g.jpg" alt="Diseño y montaje museográfico de la exposición homenaje a Salvador Elizondo en el Colegio Nacional" loading="lazy">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1778171288/20260506_154226_dek35g.jpg" alt="Diseño y montaje museográfico de la exposición homenaje a Salvador Elizondo en el Colegio Nacional" loading="lazy" width="1200" height="800" decoding="async">
       <div class="project-overlay">
         <div class="project-code">PX-06 · 2025</div>
         <div class="project-name">Homenaje<br>S. Elizondo</div>
@@ -1283,11 +1292,15 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
   </form>
 </section>
 
+</main>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">
     <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777967786/PROMAX_wmoxn8.svg"
          alt="PROMAX"
+         width="320" height="80"
+         loading="lazy" decoding="async"
          class="footer-logo-img"
          onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
     <span class="footer-logo-fallback">PROMAX<span class="footer-logo-dot">.</span></span>
@@ -1792,6 +1805,19 @@ hamburger.addEventListener('click', () => {
 });
 
 ScrollTrigger.refresh();
+</script>
+
+<script>
+  // Sincroniza atributo de accesibilidad del menú móvil
+  (function syncNavAriaExpanded(){
+    var btn = document.getElementById('navHamburger');
+    var menu = document.getElementById('navMobileMenu');
+    if (!btn || !menu) return;
+    var update = function(){ btn.setAttribute('aria-expanded', menu.classList.contains('open') ? 'true' : 'false'); };
+    btn.addEventListener('click', function(){ setTimeout(update, 0); });
+    document.querySelectorAll('#navMobileMenu a').forEach(function(link){ link.addEventListener('click', function(){ setTimeout(update, 0); }); });
+    update();
+  })();
 </script>
 </body>
 </html>
