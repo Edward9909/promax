@@ -743,6 +743,54 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
 .related-card p { font-size:11px; line-height:1.8; color:var(--ink2); }
 @media(max-width:900px){ .service-hero{padding:92px 20px 56px; min-height:78vh;} .service-meta-grid{grid-template-columns:1fr 1fr;} .service-meta-item:nth-child(2){border-right:none;} .service-meta-item{border-bottom:1px solid var(--border);} .service-content{padding:72px 20px;} .service-content-inner{grid-template-columns:1fr; gap:40px;} .service-list{grid-template-columns:1fr;} .service-cta{padding:72px 20px;} .service-cta-inner{grid-template-columns:1fr;} .service-related{padding:72px 20px;} .service-related-grid{grid-template-columns:1fr;} }
 @media(max-width:560px){ .service-title{font-size:clamp(52px,17vw,82px);} .service-meta-grid{grid-template-columns:1fr;} .service-meta-item{border-right:none;} }
+
+/* FIX CTA SECUNDARIA — evita que #contacto herede el grid del formulario principal */
+#contacto.service-cta {
+  display: block;
+  grid-template-columns: none;
+  gap: 0;
+  padding: 100px 40px;
+  background: var(--ink);
+  color: var(--bg);
+}
+
+#contacto.service-cta .service-cta-inner {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(420px, 0.85fr) minmax(640px, 1.45fr);
+  gap: 96px;
+  align-items: center;
+}
+
+#contacto.service-cta .service-cta-inner > div:last-child {
+  width: 100%;
+  max-width: 900px;
+}
+
+#contacto.service-cta p {
+  width: 100%;
+  max-width: 900px;
+}
+
+@media(max-width:900px){
+  #contacto.service-cta {
+    padding: 72px 20px;
+  }
+  #contacto.service-cta .service-cta-inner {
+    max-width: 100%;
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+@media(max-width:560px){
+  #contacto.service-cta {
+    padding: 56px 16px;
+  }
+}
+
 </style>
 </head>
 <body>
