@@ -159,7 +159,6 @@ nav {
 .nav-links a::before { content:attr(data-code); position:absolute; top:-12px; left:0; font-size:8px; color:var(--accent); letter-spacing:0.1em; opacity:0; transition:opacity 0.2s; }
 .nav-links a:hover { color:var(--ink); }
 .nav-links a:hover::before { opacity:1; }
-.nav-sys { font-size:9px; letter-spacing:0.2em; color:var(--ink2); border:1px solid var(--border); padding:4px 10px; position:absolute; right:40px; }
 #cursor svg { width:100%; height:100%; }
 #cursor-dot { position:fixed; top:0; left:0; width:4px; height:4px; background:var(--accent); pointer-events:none; z-index:10000; transform:translate(-50%,-50%); }
 #cursor.hover { transform:scale(2.2) translate(-50%,-50%); }
@@ -169,12 +168,9 @@ nav {
 
 
 
-/* HERO IDENTITY BLOCK — logo sobre el título */
 .hero-identity { display:flex; align-items:center; gap:24px; margin-bottom:20px; position:relative; z-index:2; }
 .hero-logo-img { height:52px; width:auto; display:block; }
 .hero-logo-fallback { display:none; font-family:Impact,'Arial Narrow',sans-serif; font-size:clamp(32px,4vw,52px); letter-spacing:0.1em; text-transform:uppercase; color:var(--ink); line-height:1; }
-.hero-tag-label { font-size:9px; letter-spacing:0.25em; text-transform:uppercase; color:var(--accent); display:flex; align-items:center; gap:10px; }
-.hero-tag-label::before { content:''; display:block; width:28px; height:1px; background:var(--accent); }
 
 /* FOOTER LOGO */
 .footer-logo { display:flex; align-items:center; }
@@ -267,8 +263,6 @@ section { position:relative; z-index:10; }
 }
 
 .hero-bg-lines { position:absolute; inset:0; pointer-events:none; z-index:2; }
-.hero-tag { font-size:9px; letter-spacing:0.25em; text-transform:uppercase; color:var(--accent); margin-bottom:24px; display:flex; align-items:center; gap:12px; }
-.hero-tag::before { content:''; display:block; width:32px; height:1px; background:var(--accent); }
 .hero-title { font-family:Impact,'Arial Narrow',sans-serif; font-size:clamp(72px,13vw,180px); line-height:0.88; letter-spacing:-0.01em; text-transform:uppercase; color:var(--ink); position:relative; z-index:2; }
 .hero-title .accent { color:var(--accent); }
 .hero-title-line { overflow:hidden; display:block; }
@@ -648,10 +642,6 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
 .wa-btn svg path { fill:var(--bg); transition:fill 0.3s; }
 .wa-btn:hover svg path { fill:var(--ink); }
 
-/* UTILS */
-.tech-line { display:flex; align-items:center; gap:12px; font-size:8px; letter-spacing:0.25em; color:var(--ink2); text-transform:uppercase; margin-bottom:12px; }
-.tech-line::before, .tech-line::after { content:''; flex:1; height:1px; background:var(--border); }
-.tech-line::before { max-width:40px; }
 
 /* SCROLL PROGRESS */
 .scroll-progress { position:fixed; left:16px; top:50%; transform:translateY(-50%); z-index:300; display:flex; flex-direction:column; gap:8px; align-items:center; }
@@ -681,8 +671,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
   /* NAV */
   nav { padding:12px 20px; }
   .nav-links { display:none; }
-  .nav-sys { display:none; }
-  .nav-hamburger { display:flex; position:absolute; right:20px; }
+    .nav-hamburger { display:flex; position:absolute; right:20px; }
 
   /* HERO */
   #hero { padding:72px 20px 48px; min-height:100svh; }
@@ -844,7 +833,6 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
     <li><a href="#materiales" data-code="SYS/05">Materiales</a></li>
     <li><a href="#contacto"   data-code="SYS/06">Contacto</a></li>
   </ul>
-  <div class="nav-sys">SYS · ACTIVO · PX-2025</div>
   <button class="nav-hamburger" id="navHamburger" aria-label="Menú">
     <span></span><span></span><span></span>
   </button>
@@ -858,7 +846,6 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
   <a href="#portafolio" onclick="closeMobileMenu()">Portafolio</a>
   <a href="#materiales" onclick="closeMobileMenu()">Materiales</a>
   <a href="#contacto"   onclick="closeMobileMenu()">Contacto</a>
-  <div class="nav-mobile-footer">SYS · ACTIVO · PX-2025</div>
 </div>
 
 <!-- NAV BACKDROP -->
@@ -913,7 +900,6 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
          class="hero-logo-img"
          onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
     <span class="hero-logo-fallback">PROMAX<span style="color:var(--accent)">.</span></span>
-    <span class="hero-tag-label">MOD/SYS · 2025</span>
   </div>
   <div class="hero-title">
     <span class="hero-title-line"><span class="hero-title-inner">SISTEMAS</span></span>
@@ -937,10 +923,9 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
 <!-- ABOUT -->
 <section id="about">
   <div class="about-label reveal-left">
-    <span>SYS/01</span><span class="about-label-code">ESTUDIO</span>
+    <span class="about-label-code">ESTUDIO</span>
   </div>
   <div>
-    <div class="tech-line reveal">MOD · IDENTIDAD · V2</div>
     <h2 class="about-h2 reveal">CONTROL<br>MATERIAL<br><em>+ DISEÑO</em></h2>
     <p class="about-body reveal">PROMAX desarrolla proyectos museográficos con enfoque técnico y profesional. Combinamos lenguaje artístico con soluciones constructivas documentadas, procesos verificables y materiales seleccionados por función y estética.</p>
     <p class="about-body reveal" style="margin-top:-24px">No ofrecemos experiencias. Ofrecemos sistemas: estructuras físicas que comunican, permanecen y funcionan.</p>
@@ -954,7 +939,6 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
 <section id="servicios">
   <div class="section-header">
     <div>
-      <div class="section-kicker reveal">SYS/02 · Módulos de servicio</div>
       <h2 class="section-title reveal">SERVICIOS</h2>
     </div>
     <div class="section-num reveal">02</div>
@@ -1079,7 +1063,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
 <!-- PROCESO -->
 <section id="proceso">
   <div class="section-header">
-    <div><div class="section-kicker" style="color:rgba(245,245,243,0.4)">SYS/03 · Flujo de trabajo</div><h2 class="section-title" style="color:#f5f5f3">PROCESO</h2></div>
+    <div><h2 class="section-title" style="color:#f5f5f3">PROCESO</h2></div>
     <div class="section-num">03</div>
   </div>
   <div class="proceso-diagram">
@@ -1094,7 +1078,8 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
 <!-- PORTAFOLIO -->
 <section id="portafolio">
   <div class="section-header">
-    <div><div class="section-kicker reveal">SYS/04 · Archivo de proyectos</div><h2 class="section-title reveal">PORTAFOLIO</h2></div>
+    <div>
+      <h2 class="section-title reveal">PORTAFOLIO</h2></div>
     <div class="section-num reveal">04</div>
   </div>
 
@@ -1192,7 +1177,6 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
 <!-- MATERIALES -->
 <section id="materiales">
   <div class="mat-left">
-    <div class="tech-line reveal">SYS/05 · MATERIALES · V3</div>
     <h2 class="section-title reveal" style="margin-bottom:16px">MATERIALES<br><em style="color:var(--accent)">+ PROCESOS</em></h2>
     <p class="reveal" style="font-size:12px;line-height:1.9;color:var(--ink2);max-width:420px;margin-top:16px">Selección material basada en función, durabilidad y estética. Cada proyecto define su propio sistema constructivo. Sin atajos. Sin soluciones genéricas.</p>
     <div class="proc-list reveal">
@@ -1204,7 +1188,6 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
     </div>
   </div>
   <div>
-    <div class="tech-line reveal">MAT · SISTEMA · V2</div>
     <div class="mat-right">
       <div class="mat-block reveal">
         <div class="mat-icon"><svg width="32" height="32" viewBox="0 0 32 32"><rect x="4" y="4" width="24" height="24" stroke="#111" stroke-width="1.5" fill="none" rx="1"/><line x1="4" y1="16" x2="28" y2="16" stroke="#111" stroke-width="0.8"/></svg></div>
@@ -1262,7 +1245,6 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
 <!-- CONTACTO -->
 <section id="contacto">
   <div class="contact-left">
-    <div class="tech-line reveal">SYS/06 · CONTACTO</div>
     <h2 class="contact-h2 reveal">INICIAR<br><em>PROYECTO</em></h2>
     <p class="reveal" style="font-size:12px;line-height:1.9;color:var(--ink2);max-width:360px">Cada proyecto comienza con un brief técnico. Cuéntanos qué necesitas construir.</p>
     <div class="contact-info reveal">
@@ -1273,7 +1255,6 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
     </div>
   </div>
   <form id="contactForm" class="contact-form reveal" onsubmit="return false;">
-    <div class="tech-line">FORM · BRIEF · V2</div>
     <div class="form-field" style="margin-top:24px"><label class="form-label">Nombre completo</label><input class="form-input" id="fName" name="name" type="text" placeholder="Tu nombre"></div>
     <div class="form-field"><label class="form-label">Correo electrónico</label><input class="form-input" id="fEmail" name="email" type="email" placeholder="correo@ejemplo.com"></div>
     <div class="form-field"><label class="form-label">Tipo de proyecto</label><input class="form-input" id="fTipo" name="title" type="text" placeholder="Exposición / Vitrina / Señalética / Otro"></div>
@@ -1298,7 +1279,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
   <nav class="footer-links">
     <a href="#about">Estudio</a><a href="#servicios">Servicios</a><a href="#portafolio">Portafolio</a><a href="#contacto">Contacto</a>
   </nav>
-  <div class="footer-right"><span>SYS/VERSION · 2025.1</span><br>Ciudad de México<br>Sistemas Museográficos<br><span>PROMAX ©2025</span></div>
+  <div class="footer-right">Ciudad de México<br>Sistemas Museográficos<br><span>PROMAX ©2025</span></div>
 </footer>
 
 <a class="wa-btn" href="https://wa.me/5215561809113" target="_blank" title="WhatsApp PROMAX">
@@ -1759,19 +1740,7 @@ ScrollTrigger.create({
   }
 });
 
-// ---- TYPEWRITER — hero tag ----
-const heroTagEl = document.querySelector('.hero-tag-label');
-if (heroTagEl) {
-  const originalText = heroTagEl.textContent;
-  heroTagEl.textContent = '';
-  let i = 0;
-  setTimeout(() => {
-    const tw = setInterval(() => {
-      heroTagEl.textContent = originalText.slice(0, ++i);
-      if (i >= originalText.length) clearInterval(tw);
-    }, 40);
-  }, 800);
-}
+// Typewriter eliminado — hero-tag-label removido
 
 // ---- HAMBURGER MENU ----
 const hamburger = document.getElementById('navHamburger');
