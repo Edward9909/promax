@@ -159,6 +159,7 @@ nav {
 .nav-links a::before { content:attr(data-code); position:absolute; top:-12px; left:0; font-size:8px; color:var(--accent); letter-spacing:0.1em; opacity:0; transition:opacity 0.2s; }
 .nav-links a:hover { color:var(--ink); }
 .nav-links a:hover::before { opacity:1; }
+.nav-sys { font-size:9px; letter-spacing:0.2em; color:var(--ink2); border:1px solid var(--border); padding:4px 10px; position:absolute; right:40px; }
 #cursor svg { width:100%; height:100%; }
 #cursor-dot { position:fixed; top:0; left:0; width:4px; height:4px; background:var(--accent); pointer-events:none; z-index:10000; transform:translate(-50%,-50%); }
 #cursor.hover { transform:scale(2.2) translate(-50%,-50%); }
@@ -168,9 +169,12 @@ nav {
 
 
 
+/* HERO IDENTITY BLOCK — logo sobre el título */
 .hero-identity { display:flex; align-items:center; gap:24px; margin-bottom:20px; position:relative; z-index:2; }
 .hero-logo-img { height:52px; width:auto; display:block; }
 .hero-logo-fallback { display:none; font-family:Impact,'Arial Narrow',sans-serif; font-size:clamp(32px,4vw,52px); letter-spacing:0.1em; text-transform:uppercase; color:var(--ink); line-height:1; }
+.hero-tag-label { font-size:9px; letter-spacing:0.25em; text-transform:uppercase; color:var(--accent); display:flex; align-items:center; gap:10px; }
+.hero-tag-label::before { content:''; display:block; width:28px; height:1px; background:var(--accent); }
 
 /* FOOTER LOGO */
 .footer-logo { display:flex; align-items:center; }
@@ -263,6 +267,8 @@ section { position:relative; z-index:10; }
 }
 
 .hero-bg-lines { position:absolute; inset:0; pointer-events:none; z-index:2; }
+.hero-tag { font-size:9px; letter-spacing:0.25em; text-transform:uppercase; color:var(--accent); margin-bottom:24px; display:flex; align-items:center; gap:12px; }
+.hero-tag::before { content:''; display:block; width:32px; height:1px; background:var(--accent); }
 .hero-title { font-family:Impact,'Arial Narrow',sans-serif; font-size:clamp(72px,13vw,180px); line-height:0.88; letter-spacing:-0.01em; text-transform:uppercase; color:var(--ink); position:relative; z-index:2; }
 .hero-title .accent { color:var(--accent); }
 .hero-title-line { overflow:hidden; display:block; }
@@ -286,11 +292,11 @@ section { position:relative; z-index:10; }
 .hero-stat-val { font-family:Impact,sans-serif; font-size:32px; letter-spacing:0.04em; color:var(--ink); display:block; }
 .hero-stat-label { font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink2); margin-top:4px; display:block; }
 .hero-desc { font-size:12px; line-height:1.7; color:var(--ink2); max-width:320px; }
-.hero-panel { position:absolute; top:140px; right:40px; width:220px; background:var(--ink); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid var(--border); padding:20px; z-index:10; box-shadow:0 8px 32px rgba(17,17,17,0.08); }
+.hero-panel { position:absolute; top:140px; right:40px; width:220px; background:var(--glass); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid var(--border); padding:20px; z-index:10; box-shadow:0 8px 32px rgba(17,17,17,0.08); }
 .panel-header { font-size:8px; letter-spacing:0.25em; text-transform:uppercase; color:var(--accent); border-bottom:1px solid var(--border); padding-bottom:10px; margin-bottom:14px; display:flex; justify-content:space-between; }
 .panel-row { display:flex; justify-content:space-between; align-items:center; padding:5px 0; border-bottom:1px solid rgba(17,17,17,0.06); font-size:9px; letter-spacing:0.1em; }
-.panel-row-key { color:rgba(245,245,243,0.5); text-transform:uppercase; }
-.panel-row-val { color:#f5f5f3; font-weight:bold; }
+.panel-row-key { color:var(--ink2); text-transform:uppercase; }
+.panel-row-val { color:var(--ink); font-weight:bold; }
 .panel-row-val.active { color:var(--accent); }
 .hero-panel-2 { position:absolute; bottom:160px; right:40px; width:140px; background:var(--ink); color:var(--bg); padding:16px; z-index:10; font-size:9px; letter-spacing:0.12em; line-height:1.8; text-transform:uppercase; }
 .hero-panel-2 .p2-tag { color:var(--accent); font-size:8px; margin-bottom:8px; display:block; }
@@ -471,14 +477,19 @@ section { position:relative; z-index:10; }
 .projects-grid { margin-top:64px; display:grid; grid-template-columns:repeat(12,1fr); gap:3px; }
 
 .project-card { position:relative; overflow:hidden; cursor:none; background:#bbb; }
-/* Fila 1 — 2 cards grandes */
+/* Fila 1 — 2 grandes */
 .project-card:nth-child(1) { grid-column:1/7;  height:420px; }
 .project-card:nth-child(2) { grid-column:7/13; height:420px; }
-/* Fila 2 — 4 cards medianas */
+/* Fila 2 — 4 medianas */
 .project-card:nth-child(3) { grid-column:1/4;  height:280px; }
 .project-card:nth-child(4) { grid-column:4/7;  height:280px; }
 .project-card:nth-child(5) { grid-column:7/10; height:280px; }
 .project-card:nth-child(6) { grid-column:10/13;height:280px; }
+/* Fila 3 — 4 medianas */
+.project-card:nth-child(7) { grid-column:1/4;  height:280px; }
+.project-card:nth-child(8) { grid-column:4/7;  height:280px; }
+.project-card:nth-child(9) { grid-column:7/10; height:280px; }
+.project-card:nth-child(10){ grid-column:10/13;height:280px; }
 
 .project-card img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
 .project-card:hover img { transform:scale(1.05); }
@@ -642,6 +653,10 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
 .wa-btn svg path { fill:var(--bg); transition:fill 0.3s; }
 .wa-btn:hover svg path { fill:var(--ink); }
 
+/* UTILS */
+.tech-line { display:flex; align-items:center; gap:12px; font-size:8px; letter-spacing:0.25em; color:var(--ink2); text-transform:uppercase; margin-bottom:12px; }
+.tech-line::before, .tech-line::after { content:''; flex:1; height:1px; background:var(--border); }
+.tech-line::before { max-width:40px; }
 
 /* SCROLL PROGRESS */
 .scroll-progress { position:fixed; left:16px; top:50%; transform:translateY(-50%); z-index:300; display:flex; flex-direction:column; gap:8px; align-items:center; }
@@ -671,7 +686,8 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
   /* NAV */
   nav { padding:12px 20px; }
   .nav-links { display:none; }
-    .nav-hamburger { display:flex; position:absolute; right:20px; }
+  .nav-sys { display:none; }
+  .nav-hamburger { display:flex; position:absolute; right:20px; }
 
   /* HERO */
   #hero { padding:72px 20px 48px; min-height:100svh; }
@@ -833,6 +849,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
     <li><a href="#materiales" data-code="SYS/05">Materiales</a></li>
     <li><a href="#contacto"   data-code="SYS/06">Contacto</a></li>
   </ul>
+  <div class="nav-sys">SYS · ACTIVO · PX-2025</div>
   <button class="nav-hamburger" id="navHamburger" aria-label="Menú">
     <span></span><span></span><span></span>
   </button>
@@ -846,6 +863,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
   <a href="#portafolio" onclick="closeMobileMenu()">Portafolio</a>
   <a href="#materiales" onclick="closeMobileMenu()">Materiales</a>
   <a href="#contacto"   onclick="closeMobileMenu()">Contacto</a>
+  <div class="nav-mobile-footer">SYS · ACTIVO · PX-2025</div>
 </div>
 
 <!-- NAV BACKDROP -->
@@ -900,11 +918,12 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
          class="hero-logo-img"
          onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
     <span class="hero-logo-fallback">PROMAX<span style="color:var(--accent)">.</span></span>
+    <span class="hero-tag-label">MOD/SYS · 2025</span>
   </div>
   <div class="hero-title">
-    <span class="hero-title-line"><span class="hero-title-inner">SERVICIOS</span></span>
-    <span class="hero-title-line"><span class="hero-title-inner"><span class="accent">MUSEO</span></span></span>
-    <span class="hero-title-line"><span class="hero-title-inner">GRÁFICOS</span></span>
+    <span class="hero-title-line"><span class="hero-title-inner">SISTEMAS</span></span>
+    <span class="hero-title-line"><span class="hero-title-inner">MUSEO<span class="accent">GRÁ</span></span></span>
+    <span class="hero-title-line"><span class="hero-title-inner">FICOS</span></span>
   </div>
   <div class="hero-bottom">
     <div class="reveal"><span class="hero-stat-val" id="statCount1">+40</span><span class="hero-stat-label">Proyectos ejecutados</span></div>
@@ -923,9 +942,10 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
 <!-- ABOUT -->
 <section id="about">
   <div class="about-label reveal-left">
-    <span class="about-label-code">ESTUDIO</span>
+    <span>SYS/01</span><span class="about-label-code">ESTUDIO</span>
   </div>
   <div>
+    <div class="tech-line reveal">MOD · IDENTIDAD · V2</div>
     <h2 class="about-h2 reveal">CONTROL<br>MATERIAL<br><em>+ DISEÑO</em></h2>
     <p class="about-body reveal">PROMAX desarrolla proyectos museográficos con enfoque técnico y profesional. Combinamos lenguaje artístico con soluciones constructivas documentadas, procesos verificables y materiales seleccionados por función y estética.</p>
     <p class="about-body reveal" style="margin-top:-24px">No ofrecemos experiencias. Ofrecemos sistemas: estructuras físicas que comunican, permanecen y funcionan.</p>
@@ -939,6 +959,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
 <section id="servicios">
   <div class="section-header">
     <div>
+      <div class="section-kicker reveal">SYS/02 · Módulos de servicio</div>
       <h2 class="section-title reveal">SERVICIOS</h2>
     </div>
     <div class="section-num reveal">02</div>
@@ -1063,7 +1084,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
 <!-- PROCESO -->
 <section id="proceso">
   <div class="section-header">
-    <div><h2 class="section-title" style="color:#f5f5f3">PROCESO</h2></div>
+    <div><div class="section-kicker" style="color:rgba(245,245,243,0.4)">SYS/03 · Flujo de trabajo</div><h2 class="section-title" style="color:#f5f5f3">PROCESO</h2></div>
     <div class="section-num">03</div>
   </div>
   <div class="proceso-diagram">
@@ -1078,45 +1099,85 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
 <!-- PORTAFOLIO -->
 <section id="portafolio">
   <div class="section-header">
-    <div>
-      <h2 class="section-title reveal">PORTAFOLIO</h2></div>
+    <div><div class="section-kicker reveal">SYS/04 · Archivo de proyectos</div><h2 class="section-title reveal">PORTAFOLIO</h2></div>
     <div class="section-num reveal">04</div>
   </div>
 
   <div class="projects-grid">
-    <!-- FILA SUPERIOR — 2 cards grandes -->
-    <div class="project-card reveal" onclick="openGallery('wpp')">
-      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673832/wpp_1_hyutx4.jpg" alt="Montaje museográfico de la exposición World Press Photo — producción PROMAX, Ciudad de México" loading="eager" fetchpriority="high">
+    <!-- FILA 1 — 2 grandes: proyectos destacados 2026 -->
+    <div class="project-card" onclick="openGallery('wpp26')">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1782254796/wpp_2026_recorrido_7_ixkdpg.jpg" alt="Producción e instalación de gigantografías y textos gráficos para World Press Photo 2026, Museo Franz Mayer CDMX" loading="eager" fetchpriority="high">
+      <div class="project-overlay">
+        <div class="project-code">PX-07 · 2026</div>
+        <div class="project-name">World Press<br>Photo 2026</div>
+        <div class="project-meta">Franz Mayer · Gigantografías · Textos y gráfica</div>
+        <div class="project-count">15 imágenes</div>
+      </div>
+      <div class="project-cta">VER PROYECTO</div>
+    </div>
+    <div class="project-card" onclick="openGallery('alemania')">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1782254800/alemania_titulo_franzmayer_1_uxufdm.jpg" alt="Producción e instalación de textos y gráfica para la exposición Alemania Revoluciones Arte y Ciencia, Museo Franz Mayer 2026" loading="eager" fetchpriority="high">
+      <div class="project-overlay">
+        <div class="project-code">PX-08 · 2026</div>
+        <div class="project-name">Alemania:<br>Revoluciones</div>
+        <div class="project-meta">Franz Mayer · Producción y textos gráficos</div>
+        <div class="project-count">11 imágenes</div>
+      </div>
+      <div class="project-cta">VER PROYECTO</div>
+    </div>
+    <!-- FILA 2 — 4 medianas -->
+    <div class="project-card" onclick="openGallery('durero')">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1782254799/durero_titulo_franzmayer_1_ibq1d9.jpg" alt="Producción e instalación de textos y gráfica para la exposición Durero El Primer Artista Viral, Museo Franz Mayer 2026" loading="lazy">
+      <div class="project-overlay">
+        <div class="project-code">PX-09 · 2026</div>
+        <div class="project-name">Durero: El Primer<br>Artista Viral</div>
+        <div class="project-meta">Franz Mayer · Producción y textos gráficos</div>
+        <div class="project-count">09 imágenes</div>
+      </div>
+      <div class="project-cta">VER PROYECTO</div>
+    </div>
+    <div class="project-card" onclick="openGallery('silla')">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1782254794/silla_atraves_del_tiempo_titulo_franz_mayer_1_rwrjsk.jpg" alt="Producción e instalación de textos, gráfica y laminado en material rígido para La Silla a Través del Tiempo, Museo Franz Mayer" loading="lazy">
+      <div class="project-overlay">
+        <div class="project-code">PX-10 · 2026</div>
+        <div class="project-name">La Silla a Través<br>del Tiempo</div>
+        <div class="project-meta">Franz Mayer · Exposición permanente</div>
+        <div class="project-count">06 imágenes</div>
+      </div>
+      <div class="project-cta">VER PROYECTO</div>
+    </div>
+    <div class="project-card" onclick="openGallery('wpp')">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673832/wpp_1_hyutx4.jpg" alt="Montaje museográfico de la exposición World Press Photo — producción PROMAX, Ciudad de México" loading="lazy">
       <div class="project-overlay">
         <div class="project-code">PX-01 · 2025</div>
-        <div class="project-name">World Press<br>Photo</div>
-        <div class="project-meta">Franz Mayer · Montaje expositivo</div>
+        <div class="project-name">World Press<br>Photo 2025</div>
+        <div class="project-meta">Museografía · Sistema expositivo</div>
         <div class="project-count">02 imágenes</div>
       </div>
       <div class="project-cta">VER PROYECTO</div>
     </div>
-    <div class="project-card reveal" style="transition-delay:.1s" onclick="openGallery('fm')">
-      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673822/FM_1_ljra8p.jpg" alt="Adecuación de espacio y montaje museográfico realizado en el Museo Franz Mayer de Ciudad de México" loading="eager" fetchpriority="high">
+    <div class="project-card" onclick="openGallery('fm')">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673822/FM_1_ljra8p.jpg" alt="Adecuación de espacio y montaje museográfico realizado en el Museo Franz Mayer de Ciudad de México" loading="lazy">
       <div class="project-overlay">
         <div class="project-code">PX-02 · 2025</div>
         <div class="project-name">Museo<br>Franz Mayer</div>
-        <div class="project-meta">Montaje expositivo · Adecuación de espacio</div>
+        <div class="project-meta">Montaje · Adecuación de espacio</div>
         <div class="project-count">05 imágenes</div>
       </div>
       <div class="project-cta">VER PROYECTO</div>
     </div>
-    <!-- FILA INFERIOR — 4 cards medianas -->
-    <div class="project-card reveal" style="transition-delay:.2s" onclick="openGallery('cn')">
+    <!-- FILA 3 — 4 medianas -->
+    <div class="project-card" onclick="openGallery('cn')">
       <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673805/jp_1_jwqj46.jpg" alt="Montaje expositivo y producción museográfica en el Colegio Nacional de Ciudad de México" loading="lazy">
       <div class="project-overlay">
         <div class="project-code">PX-03 · 2025</div>
         <div class="project-name">Museo Colegio<br>Nacional</div>
-        <div class="project-meta">Montaje expositivo</div>
+        <div class="project-meta">Exposición · Biblioteca</div>
         <div class="project-count">07 imágenes</div>
       </div>
       <div class="project-cta">VER PROYECTO</div>
     </div>
-    <div class="project-card reveal" style="transition-delay:.3s" onclick="openGallery('casa')">
+    <div class="project-card" onclick="openGallery('casa')">
       <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673794/Unacasa_5_sej4pf.jpg" alt="Montaje museográfico de la exposición De Casa a Hogar en el Museo Franz Mayer" loading="lazy">
       <div class="project-overlay">
         <div class="project-code">PX-04 · 2025</div>
@@ -1126,7 +1187,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
       </div>
       <div class="project-cta">VER PROYECTO</div>
     </div>
-    <div class="project-card reveal" style="transition-delay:.4s" onclick="openGallery('atl')">
+    <div class="project-card" onclick="openGallery('atl')">
       <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673777/Dr.Atl_10_wqxc2l.jpg" alt="Producción y montaje museográfico de la exposición Dr. Atl en el Colegio Nacional" loading="lazy">
       <div class="project-overlay">
         <div class="project-code">PX-05 · 2025</div>
@@ -1136,7 +1197,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
       </div>
       <div class="project-cta">VER PROYECTO</div>
     </div>
-    <div class="project-card reveal" style="transition-delay:.5s" onclick="openGallery('elizondo')">
+    <div class="project-card" onclick="openGallery('elizondo')">
       <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1778171288/20260506_154226_dek35g.jpg" alt="Diseño y montaje museográfico de la exposición homenaje a Salvador Elizondo en el Colegio Nacional" loading="lazy">
       <div class="project-overlay">
         <div class="project-code">PX-06 · 2025</div>
@@ -1177,6 +1238,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
 <!-- MATERIALES -->
 <section id="materiales">
   <div class="mat-left">
+    <div class="tech-line reveal">SYS/05 · MATERIALES · V3</div>
     <h2 class="section-title reveal" style="margin-bottom:16px">MATERIALES<br><em style="color:var(--accent)">+ PROCESOS</em></h2>
     <p class="reveal" style="font-size:12px;line-height:1.9;color:var(--ink2);max-width:420px;margin-top:16px">Selección material basada en función, durabilidad y estética. Cada proyecto define su propio sistema constructivo. Sin atajos. Sin soluciones genéricas.</p>
     <div class="proc-list reveal">
@@ -1188,6 +1250,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
     </div>
   </div>
   <div>
+    <div class="tech-line reveal">MAT · SISTEMA · V2</div>
     <div class="mat-right">
       <div class="mat-block reveal">
         <div class="mat-icon"><svg width="32" height="32" viewBox="0 0 32 32"><rect x="4" y="4" width="24" height="24" stroke="#111" stroke-width="1.5" fill="none" rx="1"/><line x1="4" y1="16" x2="28" y2="16" stroke="#111" stroke-width="0.8"/></svg></div>
@@ -1245,6 +1308,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
 <!-- CONTACTO -->
 <section id="contacto">
   <div class="contact-left">
+    <div class="tech-line reveal">SYS/06 · CONTACTO</div>
     <h2 class="contact-h2 reveal">INICIAR<br><em>PROYECTO</em></h2>
     <p class="reveal" style="font-size:12px;line-height:1.9;color:var(--ink2);max-width:360px">Cada proyecto comienza con un brief técnico. Cuéntanos qué necesitas construir.</p>
     <div class="contact-info reveal">
@@ -1255,6 +1319,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
     </div>
   </div>
   <form id="contactForm" class="contact-form reveal" onsubmit="return false;">
+    <div class="tech-line">FORM · BRIEF · V2</div>
     <div class="form-field" style="margin-top:24px"><label class="form-label">Nombre completo</label><input class="form-input" id="fName" name="name" type="text" placeholder="Tu nombre"></div>
     <div class="form-field"><label class="form-label">Correo electrónico</label><input class="form-input" id="fEmail" name="email" type="email" placeholder="correo@ejemplo.com"></div>
     <div class="form-field"><label class="form-label">Tipo de proyecto</label><input class="form-input" id="fTipo" name="title" type="text" placeholder="Exposición / Vitrina / Señalética / Otro"></div>
@@ -1279,7 +1344,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
   <nav class="footer-links">
     <a href="#about">Estudio</a><a href="#servicios">Servicios</a><a href="#portafolio">Portafolio</a><a href="#contacto">Contacto</a>
   </nav>
-  <div class="footer-right">Ciudad de México<br>Sistemas Museográficos<br><span>PROMAX ©2025</span></div>
+  <div class="footer-right"><span>SYS/VERSION · 2025.1</span><br>Ciudad de México<br>Sistemas Museográficos<br><span>PROMAX ©2025</span></div>
 </footer>
 
 <a class="wa-btn" href="https://wa.me/5215561809113" target="_blank" title="WhatsApp PROMAX">
@@ -1740,7 +1805,19 @@ ScrollTrigger.create({
   }
 });
 
-// Typewriter eliminado — hero-tag-label removido
+// ---- TYPEWRITER — hero tag ----
+const heroTagEl = document.querySelector('.hero-tag-label');
+if (heroTagEl) {
+  const originalText = heroTagEl.textContent;
+  heroTagEl.textContent = '';
+  let i = 0;
+  setTimeout(() => {
+    const tw = setInterval(() => {
+      heroTagEl.textContent = originalText.slice(0, ++i);
+      if (i >= originalText.length) clearInterval(tw);
+    }, 40);
+  }, 800);
+}
 
 // ---- HAMBURGER MENU ----
 const hamburger = document.getElementById('navHamburger');
