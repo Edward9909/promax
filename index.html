@@ -506,6 +506,15 @@ section { position:relative; z-index:10; }
 .project-card::after  { content:''; position:absolute; bottom:0; right:0; width:20px; height:20px; border-bottom:1px solid var(--accent); border-right:1px solid var(--accent); opacity:0; transition:opacity 0.3s; z-index:3; }
 .project-card:hover::before, .project-card:hover::after { opacity:1; }
 
+.portfolio-rights-note { margin-top:28px; max-width:900px; font-size:10px; line-height:1.8; letter-spacing:0.08em; color:var(--ink2); text-transform:uppercase; border-top:1px solid var(--border); padding-top:18px; }
+.portfolio-rights-note strong { color:var(--ink); font-weight:normal; }
+
+.legal-note { padding:56px 40px; border-top:1px solid var(--border); background:rgba(17,17,17,0.03); }
+.legal-note-inner { max-width:960px; margin:0 auto; }
+.legal-note-title { font-family:Impact,sans-serif; font-size:clamp(24px,3vw,40px); text-transform:uppercase; letter-spacing:0.04em; line-height:1; margin:14px 0 22px; }
+.legal-note p { font-size:10px; line-height:1.9; color:var(--ink2); margin-top:12px; }
+.legal-note strong { color:var(--ink); font-weight:normal; }
+
 /* ===================== GALLERY MODAL ===================== */
 #galleryModal { position:fixed; inset:0; z-index:3000; background:rgba(17,17,17,0.97); display:flex; flex-direction:column; opacity:0; pointer-events:none; transition:opacity 0.3s; }
 #galleryModal.open { opacity:1; pointer-events:all; }
@@ -514,6 +523,9 @@ section { position:relative; z-index:10; }
 .gm-code { font-size:9px; letter-spacing:0.25em; color:var(--accent); text-transform:uppercase; margin-bottom:4px; }
 .gm-title { font-family:Impact,sans-serif; font-size:26px; letter-spacing:0.06em; text-transform:uppercase; color:#f5f5f3; }
 .gm-meta { font-size:10px; letter-spacing:0.12em; color:rgba(245,245,243,0.4); text-transform:uppercase; margin-top:4px; }
+.gm-rights { max-width:760px; margin-top:10px; padding-top:10px; border-top:1px solid rgba(245,245,243,0.08); font-size:9px; line-height:1.65; letter-spacing:0.08em; color:rgba(245,245,243,0.42); text-transform:uppercase; }
+.gm-rights strong { color:rgba(245,245,243,0.72); font-weight:normal; }
+.gm-rights span { display:block; }
 .gm-close { background:none; border:1px solid rgba(245,245,243,0.2); color:#f5f5f3; font-family:var(--mono); font-size:10px; letter-spacing:0.2em; text-transform:uppercase; padding:10px 20px; cursor:none; transition:border-color 0.2s,color 0.2s; }
 .gm-close:hover { border-color:var(--accent); color:var(--accent); }
 
@@ -729,6 +741,8 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
   /* GALLERY MODAL */
   .gm-header { padding:16px 20px; flex-direction:column; gap:10px; align-items:flex-start; }
   .gm-title { font-size:20px; }
+  .gm-rights { font-size:8px; max-width:100%; }
+  .portfolio-rights-note, .legal-note { padding-left:20px; padding-right:20px; }
   .gm-body { padding:12px 20px; }
   .gm-footer { padding:10px 20px; }
   .gm-img { grid-column:span 12!important; height:200px!important; }
@@ -1102,7 +1116,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
   <div class="projects-grid">
     <!-- FILA 1 — 2 grandes: proyectos destacados 2026 -->
     <div class="project-card" onclick="openGallery('wpp26')">
-      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1782254796/wpp_2026_recorrido_7_ixkdpg.jpg" alt="Producción e instalación de gigantografías y textos gráficos para World Press Photo 2026, Museo Franz Mayer CDMX" loading="eager" fetchpriority="high">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1782254796/wpp_2026_recorrido_7_ixkdpg.jpg" alt="Documentación de producción e instalación gráfica realizada por PROMAX para World Press Photo 2026 en Museo Franz Mayer; fotografías exhibidas con derechos de sus respectivos autores y titulares" loading="eager" fetchpriority="high">
       <div class="project-overlay">
         <div class="project-code">PX-07 · 2026</div>
         <div class="project-name">World Press<br>Photo 2026</div>
@@ -1112,7 +1126,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
       <div class="project-cta">VER PROYECTO</div>
     </div>
     <div class="project-card" onclick="openGallery('alemania')">
-      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1782254800/alemania_titulo_franzmayer_1_uxufdm.jpg" alt="Producción e instalación de textos y gráfica para la exposición Alemania Revoluciones Arte y Ciencia, Museo Franz Mayer 2026" loading="eager" fetchpriority="high">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1782254800/alemania_titulo_franzmayer_1_uxufdm.jpg" alt="Documentación de producción e instalación gráfica realizada por PROMAX para Alemania: Revoluciones, Arte y Ciencia en Museo Franz Mayer; obras y contenidos con derechos de sus respectivos titulares" loading="eager" fetchpriority="high">
       <div class="project-overlay">
         <div class="project-code">PX-08 · 2026</div>
         <div class="project-name">Alemania:<br>Revoluciones</div>
@@ -1123,7 +1137,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
     </div>
     <!-- FILA 2 — 4 medianas -->
     <div class="project-card" onclick="openGallery('durero')">
-      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1782254799/durero_titulo_franzmayer_1_ibq1d9.jpg" alt="Producción e instalación de textos y gráfica para la exposición Durero El Primer Artista Viral, Museo Franz Mayer 2026" loading="lazy">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1782254799/durero_titulo_franzmayer_1_ibq1d9.jpg" alt="Documentación de producción e instalación gráfica realizada por PROMAX para Durero: El Primer Artista Viral en Museo Franz Mayer; obras y contenidos con derechos de sus respectivos titulares" loading="lazy">
       <div class="project-overlay">
         <div class="project-code">PX-09 · 2026</div>
         <div class="project-name">Durero: El Primer<br>Artista Viral</div>
@@ -1133,7 +1147,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
       <div class="project-cta">VER PROYECTO</div>
     </div>
     <div class="project-card" onclick="openGallery('silla')">
-      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1782254794/silla_atraves_del_tiempo_titulo_franz_mayer_1_rwrjsk.jpg" alt="Producción e instalación de textos, gráfica y laminado en material rígido para La Silla a Través del Tiempo, Museo Franz Mayer" loading="lazy">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1782254794/silla_atraves_del_tiempo_titulo_franz_mayer_1_rwrjsk.jpg" alt="Documentación de producción gráfica y laminado en material rígido realizada por PROMAX para La Silla a Través del Tiempo en Museo Franz Mayer; obras y contenidos con derechos de sus respectivos titulares" loading="lazy">
       <div class="project-overlay">
         <div class="project-code">PX-10 · 2026</div>
         <div class="project-name">La Silla a Través<br>del Tiempo</div>
@@ -1143,7 +1157,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
       <div class="project-cta">VER PROYECTO</div>
     </div>
     <div class="project-card" onclick="openGallery('wpp')">
-      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673832/wpp_1_hyutx4.jpg" alt="Montaje museográfico de la exposición World Press Photo — producción PROMAX, Ciudad de México" loading="lazy">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673832/wpp_1_hyutx4.jpg" alt="Documentación de montaje museográfico y sistema expositivo realizado por PROMAX para World Press Photo; fotografías exhibidas con derechos de sus respectivos autores y titulares" loading="lazy">
       <div class="project-overlay">
         <div class="project-code">PX-01 · 2025</div>
         <div class="project-name">World Press<br>Photo 2025</div>
@@ -1153,7 +1167,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
       <div class="project-cta">VER PROYECTO</div>
     </div>
     <div class="project-card" onclick="openGallery('fm')">
-      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673822/FM_1_ljra8p.jpg" alt="Adecuación de espacio y montaje museográfico realizado en el Museo Franz Mayer de Ciudad de México" loading="lazy">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673822/FM_1_ljra8p.jpg" alt="Documentación de adecuación de espacio y montaje museográfico realizado por PROMAX en Museo Franz Mayer; obras exhibidas con derechos de sus respectivos titulares" loading="lazy">
       <div class="project-overlay">
         <div class="project-code">PX-02 · 2025</div>
         <div class="project-name">Museo<br>Franz Mayer</div>
@@ -1164,7 +1178,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
     </div>
     <!-- FILA 3 — 4 medianas -->
     <div class="project-card" onclick="openGallery('cn')">
-      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673805/jp_1_jwqj46.jpg" alt="Montaje expositivo y producción museográfica en el Colegio Nacional de Ciudad de México" loading="lazy">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673805/jp_1_jwqj46.jpg" alt="Documentación de montaje expositivo y producción museográfica realizada por PROMAX en el Colegio Nacional; obras y contenidos con derechos de sus respectivos titulares" loading="lazy">
       <div class="project-overlay">
         <div class="project-code">PX-03 · 2025</div>
         <div class="project-name">Museo Colegio<br>Nacional</div>
@@ -1174,7 +1188,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
       <div class="project-cta">VER PROYECTO</div>
     </div>
     <div class="project-card" onclick="openGallery('casa')">
-      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673794/Unacasa_5_sej4pf.jpg" alt="Montaje museográfico de la exposición De Casa a Hogar en el Museo Franz Mayer" loading="lazy">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673794/Unacasa_5_sej4pf.jpg" alt="Documentación de montaje museográfico realizado por PROMAX para De Casa a Hogar en Museo Franz Mayer; obras y contenidos con derechos de sus respectivos titulares" loading="lazy">
       <div class="project-overlay">
         <div class="project-code">PX-04 · 2025</div>
         <div class="project-name">De Casa<br>a Hogar</div>
@@ -1204,12 +1218,16 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
       <div class="project-cta">VER PROYECTO</div>
     </div>
   </div>
+
+  <div class="portfolio-rights-note reveal">
+    <strong>Nota sobre derechos:</strong> las imágenes del portafolio documentan trabajos de producción, montaje, instalación, gráfica, mobiliario y soluciones museográficas realizadas por PROMAX. Las obras artísticas, fotografías, textos curatoriales, marcas, nombres de exposiciones e instituciones visibles pertenecen a sus respectivos autores, titulares y entidades correspondientes.
+  </div>
 </section>
 
 <!-- GALLERY MODAL -->
 <div id="galleryModal">
   <div class="gm-header">
-    <div><div class="gm-code" id="gmCode"></div><div class="gm-title" id="gmTitle"></div><div class="gm-meta" id="gmMeta"></div></div>
+    <div><div class="gm-code" id="gmCode"></div><div class="gm-title" id="gmTitle"></div><div class="gm-meta" id="gmMeta"></div><div class="gm-rights" id="gmRights"></div></div>
     <button class="gm-close" onclick="closeGallery()">CERRAR ×</button>
   </div>
   <div class="gm-body"><div class="gm-grid" id="gmGrid"></div></div>
@@ -1301,6 +1319,20 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
     </p>
   </div>
 </section>
+
+<!-- AVISO LEGAL / DERECHOS -->
+<section class="legal-note" id="derechos">
+  <div class="legal-note-inner">
+    <div class="section-kicker reveal">SYS/LEGAL · Derechos de imagen y obra</div>
+    <div class="legal-note-title reveal">Aviso sobre documentación de proyectos</div>
+    <p class="reveal">
+      Las imágenes presentadas en este sitio tienen fines documentales y muestran proyectos de producción, montaje, instalación, mobiliario, gráfica y soluciones museográficas realizadas por <strong>PROMAX</strong>. Las obras artísticas, fotografías, textos curatoriales, identidades de exposición, marcas, nombres de museos e instituciones visibles pertenecen a sus respectivos autores, titulares y entidades correspondientes.
+    </p>
+    <p class="reveal">
+      PROMAX no reclama derechos de autor sobre las obras exhibidas ni sobre contenidos curatoriales de terceros. Si alguna imagen requiere ajuste, crédito adicional o retiro, puede solicitarse a través de nuestros canales de contacto.
+    </p>
+  </div>
+</section>
 <!-- CONTACTO -->
 <section id="contacto">
   <div class="contact-left">
@@ -1338,7 +1370,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
     <span class="footer-logo-fallback">PROMAX<span class="footer-logo-dot">.</span></span>
   </div>
   <nav class="footer-links">
-    <a href="#about">Estudio</a><a href="#servicios">Servicios</a><a href="#portafolio">Portafolio</a><a href="#contacto">Contacto</a>
+    <a href="#about">Estudio</a><a href="#servicios">Servicios</a><a href="#portafolio">Portafolio</a><a href="#derechos">Derechos</a><a href="#contacto">Contacto</a>
   </nav>
   <div class="footer-right"><span>SYS/VERSION · 2025.1</span><br>Ciudad de México<br>Sistemas Museográficos<br><span>PROMAX ©2025</span></div>
 </footer>
@@ -1424,6 +1456,7 @@ const gData = {
   wpp26: {
     code:'PX-07 · 2026', title:'WORLD PRESS PHOTO 2026',
     meta:'Museo Franz Mayer · Gigantografías · Producción y textos gráficos',
+    credits:{ client:'Museo Franz Mayer / World Press Photo', role:'Producción e instalación de gigantografías, textos y gráfica expositiva', photo:'Fotografía documental: PROMAX', artwork:'Fotografías de exposición: derechos de sus respectivos fotógrafos, agencias, World Press Photo y/o titulares correspondientes.', note:'Las imágenes se publican únicamente para documentar el trabajo de producción e instalación realizado por PROMAX. PROMAX no reclama derechos sobre las obras exhibidas.' },
     alts:['World Press Photo 2026 Franz Mayer','WPP 2026 recorrido 2','WPP 2026 recorrido 3','WPP 2026 recorrido 4','WPP 2026 recorrido 5','WPP 2026 recorrido 6','WPP 2026 recorrido 7','WPP 2026 recorrido 8','WPP 2026 recorrido 9','WPP 2026 recorrido 10','WPP 2026 recorrido 11','WPP 2026 recorrido 12','WPP 2026 recorrido 13','WPP 2026 recorrido 14','WPP 2026 recorrido 15'],
     imgs:[
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1782254796/wpp_2026_recorrido_7_ixkdpg.jpg',
@@ -1447,6 +1480,7 @@ const gData = {
   alemania: {
     code:'PX-08 · 2026', title:'ALEMANIA: REVOLUCIONES',
     meta:'Museo Franz Mayer · Producción e instalación de textos y gráfica',
+    credits:{ client:'Museo Franz Mayer', role:'Producción e instalación de textos, cédulas y gráfica expositiva', photo:'Fotografía documental: PROMAX', artwork:'Obras, imágenes, textos curatoriales e identidad de exposición: derechos de sus respectivos autores, titulares e instituciones.', note:'Imágenes utilizadas únicamente como documentación del trabajo museográfico y de producción gráfica realizado por PROMAX.' },
     alts:['Alemania Revoluciones Arte y Ciencia título Franz Mayer','Alemania recorrido 1','Alemania recorrido 2','Alemania recorrido 3','Alemania recorrido 4','Alemania recorrido 5','Alemania recorrido 6','Alemania recorrido 7','Alemania recorrido 8','Alemania recorrido 9','Alemania créditos'],
     imgs:[
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1782254800/alemania_titulo_franzmayer_1_uxufdm.jpg',
@@ -1466,6 +1500,7 @@ const gData = {
   durero: {
     code:'PX-09 · 2026', title:'DURERO: EL PRIMER ARTISTA VIRAL',
     meta:'Museo Franz Mayer · Producción e instalación de textos y gráfica',
+    credits:{ client:'Museo Franz Mayer', role:'Producción e instalación de textos, cédulas y gráfica expositiva', photo:'Fotografía documental: PROMAX', artwork:'Obras, imágenes, textos curatoriales e identidad de exposición: derechos de sus respectivos autores, titulares e instituciones.', note:'Imágenes utilizadas únicamente como documentación del trabajo museográfico y de producción gráfica realizado por PROMAX.' },
     alts:['Durero El Primer Artista Viral título Franz Mayer','Durero recorrido 1','Durero recorrido 2','Durero recorrido 3','Durero recorrido 4','Durero recorrido 5','Durero recorrido 6','Durero recorrido 7','Durero recorrido 8','Durero créditos'],
     imgs:[
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1782254799/durero_titulo_franzmayer_1_ibq1d9.jpg',
@@ -1484,6 +1519,7 @@ const gData = {
   silla: {
     code:'PX-10 · 2026', title:'LA SILLA A TRAVÉS DEL TIEMPO',
     meta:'Museo Franz Mayer · Exposición permanente · Textos, gráfica y laminado en material rígido',
+    credits:{ client:'Museo Franz Mayer', role:'Producción gráfica, laminado en material rígido e instalación de contenidos expositivos', photo:'Fotografía documental: PROMAX', artwork:'Piezas, diseño curatorial, textos e imágenes exhibidas: derechos de sus respectivos autores, titulares e instituciones.', note:'Las imágenes documentan la intervención técnica de PROMAX y no implican titularidad sobre las obras o contenidos exhibidos.' },
     alts:['La Silla a Través del Tiempo título Franz Mayer','La Silla recorrido 1','La Silla recorrido 2','La Silla recorrido 3','La Silla recorrido 4','La Silla recorrido 5'],
     imgs:[
       'https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1782254794/silla_atraves_del_tiempo_titulo_franz_mayer_1_rwrjsk.jpg',
@@ -1498,6 +1534,7 @@ const gData = {
   wpp: {
     code:'PX-01 · 2025', title:'WORLD PRESS PHOTO',
     meta:'Museografía · Sistema expositivo · Impresión',
+    credits:{ client:'World Press Photo / sede expositiva correspondiente', role:'Producción, impresión, instalación y montaje de sistema expositivo', photo:'Fotografía documental: PROMAX', artwork:'Fotografías de exposición: derechos de sus respectivos fotógrafos, agencias, World Press Photo y/o titulares correspondientes.', note:'Las imágenes se muestran únicamente como documentación del trabajo de producción e instalación realizado por PROMAX.' },
     alts:[
       'Instalación y montaje de impresiones fotográficas de gran formato en la exposición World Press Photo, Ciudad de México',
       'Vista general del sistema expositivo para World Press Photo — producción e instalación PROMAX'
@@ -1511,6 +1548,7 @@ const gData = {
   elizondo: {
     code:'PX-06 · 2025', title:'HOMENAJE A SALVADOR ELIZONDO',
     meta:'Colegio Nacional · Museografía · Montaje expositivo',
+    credits:{ client:'El Colegio Nacional', role:'Producción, montaje e instalación museográfica', photo:'Fotografía documental: PROMAX', artwork:'Obras, archivo, imágenes, textos curatoriales y contenidos exhibidos: derechos de sus respectivos autores, titulares e instituciones.', note:'PROMAX documenta su intervención técnica; no reclama derechos sobre obras o contenidos de terceros.' },
     alts:[
       'Montaje museográfico de la exposición Homenaje a Salvador Elizondo en el Colegio Nacional, CDMX',
       'Diseño y producción de sistema expositivo para homenaje a Salvador Elizondo — PROMAX',
@@ -1538,6 +1576,7 @@ const gData = {
   fm: {
     code:'PX-02 · 2025', title:'MUSEO FRANZ MAYER',
     meta:'Montaje y adecuación de espacio · Herrería · Carpintería',
+    credits:{ client:'Museo Franz Mayer', role:'Montaje, adecuación de espacio, herrería, carpintería y soluciones museográficas', photo:'Fotografía documental: PROMAX', artwork:'Obras, piezas, textos curatoriales e imágenes visibles: derechos de sus respectivos autores, titulares e instituciones.', note:'Las imágenes se usan como registro del trabajo técnico realizado por PROMAX.' },
     alts:[
       'Adecuación de espacio y diseño museográfico en el Museo Franz Mayer de Ciudad de México — PROMAX',
       'Producción de mobiliario museográfico y sistema expositivo para el Museo Franz Mayer',
@@ -1557,6 +1596,7 @@ const gData = {
   cn: {
     code:'PX-03 · 2025', title:'MUSEO COLEGIO NACIONAL',
     meta:'Exposición permanente · Museografía · Sistema modular · Biblioteca',
+    credits:{ client:'El Colegio Nacional', role:'Producción e instalación de sistema modular, mobiliario y soluciones expositivas', photo:'Fotografía documental: PROMAX', artwork:'Obras, acervo, imágenes, textos y contenidos exhibidos: derechos de sus respectivos autores, titulares e instituciones.', note:'Documentación del trabajo museográfico realizado por PROMAX.' },
     alts:[
       'Montaje de exposición permanente en el Museo Colegio Nacional — PROMAX Ciudad de México',
       'Sistema expositivo modular instalado en el Colegio Nacional CDMX — producción PROMAX',
@@ -1580,6 +1620,7 @@ const gData = {
   casa: {
     code:'PX-04 · 2025', title:'DE CASA A HOGAR',
     meta:'Montaje expositivo · Concepto curatorial · Instalación',
+    credits:{ client:'Museo Franz Mayer / sede expositiva correspondiente', role:'Montaje expositivo, instalación y apoyo de producción museográfica', photo:'Fotografía documental: PROMAX', artwork:'Obras, piezas, textos curatoriales e identidad de exposición: derechos de sus respectivos autores, titulares e instituciones.', note:'Imágenes usadas exclusivamente para documentar el trabajo de montaje realizado por PROMAX.' },
     alts:[
       'Montaje de la exposición De Casa a Hogar — concepto curatorial y producción museográfica PROMAX',
       'Instalación de piezas expositivas en muestra De Casa a Hogar, Ciudad de México',
@@ -1597,6 +1638,7 @@ const gData = {
   atl: {
     code:'PX-05 · 2025', title:'EXPOSICIÓN DR. ATL',
     meta:'Colegio Nacional · Museografía completa · Acrílico · Metal · Madera',
+    credits:{ client:'El Colegio Nacional', role:'Producción museográfica, montaje, acrílico, metal, madera y acabados técnicos', photo:'Fotografía documental: PROMAX', artwork:'Obras, archivo, documentos, imágenes y contenidos exhibidos: derechos de sus respectivos autores, titulares e instituciones.', note:'Las imágenes documentan la intervención técnica de PROMAX y no implican titularidad sobre obras de terceros.' },
     alts:[
       'Montaje museográfico de la Exposición Dr. Atl en el Colegio Nacional de Ciudad de México',
       'Vista panorámica de la sala en la exposición Dr. Atl — producción PROMAX CDMX',
@@ -1621,22 +1663,39 @@ let viewerImgs = [];
 let viewerAlts = [];
 let viewerIdx  = 0;
 
+function safePortfolioAlt(d, index) {
+  const base = (d.alts && d.alts[index]) ? d.alts[index] : d.title + ' — imagen ' + (index + 1);
+  const alreadySafe = base.toLowerCase().includes('derechos') || base.toLowerCase().includes('documentación');
+  if (alreadySafe) return base;
+  return 'Documentación del trabajo museográfico realizado por PROMAX: ' + base + '. Obras, fotografías y contenidos visibles con derechos de sus respectivos titulares.';
+}
+
 function openGallery(key) {
   currentProj = key;
   const d = gData[key];
   document.getElementById('gmCode').textContent    = d.code;
   document.getElementById('gmTitle').textContent   = d.title;
   document.getElementById('gmMeta').textContent    = d.meta;
+  const rights = document.getElementById('gmRights');
+  const c = d.credits || {};
+  rights.innerHTML = `
+    <strong>CRÉDITOS Y DERECHOS</strong>
+    <span>${c.role || 'Documentación del trabajo museográfico, de producción e instalación realizado por PROMAX.'}</span>
+    <span>Cliente / sede: ${c.client || 'Institución o sede correspondiente'}</span>
+    <span>${c.photo || 'Fotografía documental: PROMAX'}</span>
+    <span>${c.artwork || 'Obras, fotografías, textos curatoriales, marcas e identidad de exposición: derechos de sus respectivos autores, titulares e instituciones.'}</span>
+    <span>${c.note || 'PROMAX no reclama derechos sobre las obras o contenidos exhibidos; las imágenes se muestran únicamente como registro de su intervención técnica.'}</span>
+  `;
   document.getElementById('gmCounter').textContent = d.imgs.length + ' IMÁGENES · PROYECTO ' + (projectOrder.indexOf(key)+1) + ' / ' + projectOrder.length;
 
   const grid = document.getElementById('gmGrid');
   grid.innerHTML = '';
   viewerImgs = d.imgs;
-  viewerAlts = d.alts || d.imgs.map((_, i) => d.title + ' — imagen ' + (i+1));
+  viewerAlts = d.imgs.map((_, i) => safePortfolioAlt(d, i));
 
   d.imgs.forEach((src, i) => {
     const cls = d.layout[i] || 's4';
-    const altText = (d.alts && d.alts[i]) ? d.alts[i] : d.title + ' — imagen ' + (i+1);
+    const altText = safePortfolioAlt(d, i);
     const div = document.createElement('div');
     div.className = 'gm-img ' + cls;
     div.onclick = () => openViewer(i);
