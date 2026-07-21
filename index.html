@@ -727,11 +727,29 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
   .mat-block:hover { border-color:var(--border); }
   .mat-block:hover::after { transform:scaleY(0); }
 }
+
+@media(max-width:1100px){
+  nav { padding-left:20px; padding-right:20px; }
+  .nav-links {
+    gap:22px;
+    flex-wrap:wrap;
+    justify-content:center;
+    row-gap:10px;
+    max-width:calc(100vw - 96px);
+  }
+  .nav-links a {
+    font-size:12px;
+    letter-spacing:0.11em;
+    line-height:1.45;
+  }
+}
+
 @media(max-width:900px){
 
   /* NAV */
   nav { padding:12px 20px; }
   .nav-links { display:none; }
+  .nav-links a { font-size:12px; letter-spacing:0.12em; line-height:1.6; }
   .nav-sys { display:none; }
   .nav-hamburger { display:flex; position:absolute; right:20px; }
 
@@ -742,32 +760,42 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
   .hero-logo-img { height:36px; }
   .hero-title { font-size:clamp(52px, 14vw, 104px); line-height:0.92; letter-spacing:0; }
   .hero-bottom { grid-template-columns:1fr 1fr; gap:20px; margin-top:32px; padding-top:24px; }
+  .hero-stat-val { font-size:34px; line-height:1; }
+  .hero-stat-label { font-size:10px; letter-spacing:0.14em; line-height:1.5; }
   .hero-desc { display:none; }
 
   /* ABOUT */
   #about { grid-template-columns:1fr; gap:24px; padding:72px 20px; }
   .about-label { position:static; display:flex; align-items:center; gap:16px; }
   .about-label-code { margin-top:0; }
-  .about-body { margin-bottom:24px; }
+  .about-body { margin-bottom:24px; font-size:14px; line-height:1.85; }
+  .tag { font-size:10px; letter-spacing:0.13em; line-height:1.4; }
 
   /* SERVICIOS */
   #servicios { padding:72px 20px; }
   .section-header { margin-bottom:40px; }
+  .section-kicker { font-size:10px; letter-spacing:0.16em; line-height:1.5; }
   .section-num { display:none; }
   .exp-badge { flex-direction:column; }
   .exp-badge-num { border-right:none; border-bottom:1px solid var(--ink); padding:20px 24px; font-size:48px; }
   .exp-badge-text { padding:20px 24px; }
   .exp-badge-tag { margin-left:0; border-left:none; border-top:1px solid var(--ink); flex-direction:row; gap:16px; padding:16px 24px; justify-content:flex-start; min-width:auto; }
+  .exp-badge-sub { font-size:11px; letter-spacing:0.12em; line-height:1.55; }
   .servicios-grid { grid-template-columns:1fr; }
   .servicio-item { border-right:none; }
   .servicio-item.wide .serv-inner { grid-template-columns:1fr; gap:16px; }
   .serv-icon { display:none; }
+  .serv-num { font-size:10px; letter-spacing:0.14em; margin-bottom:18px; }
+  .serv-desc { font-size:13px; line-height:1.75; letter-spacing:0.04em; }
 
   /* PROCESO */
   #proceso { padding:72px 20px; }
   .proceso-diagram { grid-template-columns:1fr 1fr; gap:0; }
   .proceso-diagram::before { display:none; }
   .proc-step { padding:24px 16px 32px; }
+  .proc-num { font-size:9px; letter-spacing:0.16em; }
+  .proc-name { font-size:21px; line-height:1.05; letter-spacing:0.03em; }
+  .proc-desc { font-size:12px; line-height:1.65; }
 
   /* PORTAFOLIO */
   #portafolio { padding:72px 20px; }
@@ -775,12 +803,14 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
   .project-card { grid-column:auto!important; height:200px!important; }
   .project-name { font-size:18px; }
   .project-meta, .project-count { display:none; }
+  .portfolio-rights-note { font-size:11px; letter-spacing:0.04em; line-height:1.7; }
 
   /* GALLERY MODAL */
   .gm-header { padding:16px 20px; flex-direction:column; gap:10px; align-items:flex-start; }
   .gm-title { font-size:20px; }
   .gm-rights { font-size:8px; max-width:100%; }
   .portfolio-rights-note, .legal-note { padding-left:20px; padding-right:20px; }
+  .legal-note p { font-size:12px; line-height:1.75; }
   .gm-body { padding:12px 20px; }
   .gm-footer { padding:10px 20px; }
   .gm-img { grid-column:span 12!important; height:200px!important; }
@@ -788,10 +818,13 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
   /* MATERIALES */
   #materiales { grid-template-columns:1fr; gap:40px; padding:72px 20px; }
   .mat-right { grid-template-columns:1fr 1fr; }
+  .mat-spec, .proc-item-desc { font-size:12px; line-height:1.65; letter-spacing:0.04em; }
 
   /* CONTACTO */
   #contacto { grid-template-columns:1fr; gap:40px; padding:72px 20px; }
   .contact-h2 { font-size:clamp(34px,9vw,58px); line-height:0.96; letter-spacing:0; }
+  .ci-val, .form-input { font-size:14px; }
+  .form-label, .ci-label { font-size:10px; letter-spacing:0.14em; }
   #captchaField { overflow-x:auto; }
 
   /* FOOTER */
@@ -809,6 +842,14 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
 
   /* NAV */
   nav { padding:10px 16px; }
+  .nav-links {
+    gap:18px;
+    flex-wrap:wrap;
+    justify-content:center;
+    row-gap:10px;
+  }
+  .nav-links a { font-size:11px; letter-spacing:0.1em; line-height:1.5; }
+  .nav-mobile-menu a { font-size:clamp(38px,11vw,56px); letter-spacing:0.02em; }
 
   /* HERO */
   #hero { padding:64px 16px 40px; }
@@ -816,40 +857,55 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
   .hero-logo-img { height:30px; }
   .hero-title { font-size:clamp(44px,14.5vw,68px); line-height:0.95; letter-spacing:0; }
   .hero-bottom { grid-template-columns:1fr 1fr; gap:16px; margin-top:24px; }
-  .hero-stat-val { font-size:26px; }
+  .hero-stat-val { font-size:32px; }
+  .hero-stat-label { font-size:10px; letter-spacing:0.12em; line-height:1.45; }
 
   /* SECTIONS */
   #about, #servicios, #proceso, #portafolio, #materiales, #contacto { padding:56px 16px; }
+  .section-kicker { font-size:10px; letter-spacing:0.14em; }
+  .section-title { font-size:clamp(40px,12vw,58px); line-height:0.95; letter-spacing:0; }
+  .about-body, .seo-text { font-size:14px; line-height:1.8; }
 
   /* SERVICIOS */
   .exp-badge-num { font-size:40px; padding:16px 20px; }
   .exp-badge-text { padding:16px 20px; }
   .servicio-item { padding:28px 20px; }
-  .serv-name { font-size:22px; line-height:1.08; letter-spacing:0.02em; }
+  .serv-name { font-size:26px; line-height:1.06; letter-spacing:0.01em; }
+  .serv-desc { font-size:14px; line-height:1.78; letter-spacing:0.025em; }
+  .serv-num { font-size:10px; letter-spacing:0.12em; }
 
   /* PROCESO */
   .proceso-diagram { grid-template-columns:1fr; }
   .proc-step { border-right:none; border-bottom:1px solid rgba(245,245,243,0.08); padding:20px 16px; }
   .proc-step:last-child { border-bottom:none; }
+  .proc-name { font-size:24px; line-height:1.05; }
+  .proc-desc { font-size:13px; line-height:1.7; }
 
   /* PORTAFOLIO */
   .projects-grid { grid-template-columns:1fr; gap:2px; }
   .project-card { height:220px!important; }
   .project-name { font-size:24px; line-height:1.08; letter-spacing:0.02em; }
   .project-meta, .project-count { display:block; }
+  .project-meta { font-size:11px; letter-spacing:0.08em; line-height:1.4; }
+  .project-count { font-size:10px; letter-spacing:0.1em; }
+  .portfolio-rights-note { font-size:11px; text-transform:none; letter-spacing:0.02em; }
 
   /* MATERIALES */
   .mat-right { grid-template-columns:1fr; }
   .proc-item { gap:16px; }
+  .mat-name, .proc-item-name { font-size:22px; line-height:1.08; }
+  .mat-spec, .proc-item-desc, .legal-note p { font-size:13px; line-height:1.7; letter-spacing:0.02em; }
 
   /* CONTACTO */
   .contact-h2 { font-size:clamp(32px,10vw,48px); line-height:1; letter-spacing:0; }
   .form-submit { width:100%; justify-content:center; }
+  .form-submit { font-size:18px; letter-spacing:0.08em; }
   #captchaField { transform:scale(0.9); transform-origin:left top; }
 
   /* FOOTER */
   footer { padding:24px 16px; gap:20px; }
   .footer-links { gap:12px; font-size:8px; }
+  .footer-links a, .footer-right { font-size:10px; letter-spacing:0.1em; }
 
   /* GALLERY MODAL */
   .gm-header { padding:12px 16px; }
