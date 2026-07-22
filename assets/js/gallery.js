@@ -70,6 +70,7 @@ function openGallery(key) {
   });
 
   const modal = document.getElementById('galleryModal');
+  modal.inert = false;
   modal.classList.add('open');
   modal.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
@@ -82,6 +83,7 @@ function closeGallery() {
   gsap.to(m, { opacity:0, duration:.25, onComplete:() => {
     m.classList.remove('open');
     m.setAttribute('aria-hidden', 'true');
+    m.inert = true;
     m.style.opacity='';
     document.body.style.overflow='';
     if (galleryLastFocus && typeof galleryLastFocus.focus === 'function') galleryLastFocus.focus();
@@ -105,6 +107,7 @@ function openViewer(index) {
   document.getElementById('viewerInfo').textContent = (index+1) + ' / ' + viewerImgs.length;
   v.classList.add('open');
   v.setAttribute('aria-hidden', 'false');
+  v.inert = false;
   v.querySelector('.iv-close')?.focus();
   gsap.from('#viewerImg', { opacity:0, scale:.95, duration:.3, ease:'power2.out' });
 }
@@ -113,6 +116,7 @@ function closeViewer() {
   const v = document.getElementById('imgViewer');
   v.classList.remove('open');
   v.setAttribute('aria-hidden', 'true');
+  v.inert = true;
   if (viewerLastFocus && typeof viewerLastFocus.focus === 'function') viewerLastFocus.focus();
 }
 
