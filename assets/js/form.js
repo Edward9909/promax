@@ -59,6 +59,7 @@ emailjs.init('w2EzKh2wh_jMBFtp7');
     }
 
     if (!validateForm()) {
+      window.promaxTrack?.('formulario_contacto_error', { reason: 'validation' });
       lbl.textContent = 'REVISA LOS DATOS';
       setStatus('Hay campos pendientes antes de enviar el brief.', 'error');
       setTimeout(() => { lbl.textContent = 'ENVIAR BRIEF'; }, 2500);
@@ -100,6 +101,7 @@ emailjs.init('w2EzKh2wh_jMBFtp7');
 
     emailjs.sendForm('service_l1zeno9', 'template_52q16jo', '#contactForm')
       .then(() => {
+        window.promaxTrack?.('envio_formulario_contacto', { form_id: 'contactForm' });
         lbl.textContent = 'BRIEF ENVIADO';
         btn.style.opacity = '1';
         form.reset();
@@ -113,6 +115,7 @@ emailjs.init('w2EzKh2wh_jMBFtp7');
       })
       .catch((error) => {
         console.error('EmailJS error:', error);
+        window.promaxTrack?.('formulario_contacto_error', { reason: 'emailjs' });
         lbl.textContent = 'NO SE ENVIO';
         btn.disabled = false;
         btn.style.opacity = '1';
