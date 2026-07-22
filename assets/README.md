@@ -14,15 +14,16 @@ This site is intentionally static: GitHub Pages can serve every file without a b
 
 ## Service pages
 
-The files in `servicios/*.html` keep their own SEO metadata and body copy so search engines receive fully static pages.
+The public service URLs use clean directory routes: `servicios/<slug>/index.html` is served as `/servicios/<slug>/`.
+The legacy `servicios/*.html` files are lightweight compatibility redirects for old indexed or shared links.
 
 Shared service assets:
 
 - `assets/css/service-pages.css` contains the common design system and layout for all service landing pages.
-- `assets/css/service-production.css` contains the one override needed by `produccion-mobiliario-museografico.html`.
+- `assets/css/service-production.css` contains the one override needed by `produccion-mobiliario-museografico/`.
 - `assets/js/service-pages.js` contains shared cursor, reveal animation, process dots, and mobile menu behavior.
 
-When adding a service page, copy an existing `servicios/*.html`, update metadata, JSON-LD, hero/body copy, related links, and keep the shared CSS/JS includes.
+When adding a service page, copy an existing `servicios/<slug>/index.html`, update metadata, JSON-LD, hero/body copy, related links, and keep the shared CSS/JS includes. If a legacy `.html` URL exists, keep it as a redirect bridge to the clean route.
 
 ## Brand assets
 
@@ -35,6 +36,6 @@ Before pushing larger changes:
 
 1. Run `node --check` on JS files.
 2. Parse `assets/data/projects.json`.
-3. Parse all JSON-LD blocks in `index.html` and `servicios/*.html`.
+3. Parse all JSON-LD blocks in `index.html` and `servicios/*/index.html`.
 4. Serve the site locally over HTTP and request `/`, service pages, CSS, JS, JSON, and SVG assets.
 5. Run `git diff --check`.
