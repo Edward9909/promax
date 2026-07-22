@@ -1,5 +1,20 @@
 (function() {
+  var GA_MEASUREMENT_ID = 'G-75JGNRBT46';
+
   window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function() {
+    window.dataLayer.push(arguments);
+  };
+
+  window.gtag('js', new Date());
+  window.gtag('config', GA_MEASUREMENT_ID, {
+    anonymize_ip: true
+  });
+
+  var gaScript = document.createElement('script');
+  gaScript.async = true;
+  gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(GA_MEASUREMENT_ID);
+  document.head.appendChild(gaScript);
 
   function cleanText(value) {
     return (value || '').replace(/\s+/g, ' ').trim().slice(0, 120);
