@@ -722,8 +722,8 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
 .service-btn { display:inline-flex; align-items:center; gap:14px; background:var(--accent); color:var(--ink); padding:14px 24px; text-decoration:none; font-family:Impact,sans-serif; letter-spacing:.12em; text-transform:uppercase; font-size:15px; }
 .service-related { padding:100px 40px; border-bottom:1px solid var(--border); }
 .service-related-grid { max-width:1120px; margin:48px auto 0; display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
-.related-card { border:1px solid var(--border); padding:32px 26px; color:var(--ink); transition:background .25s; }
-.related-card:hover { background:rgba(244,219,9,.06); }
+.related-card { border:1px solid var(--border); padding:32px 26px; color:var(--ink); transition:background .25s; text-decoration:none; display:block; }
+.related-card:hover, .related-card:focus-visible { background:rgba(244,219,9,.06); outline:none; }
 .related-card span { color:var(--accent); font-size:9px; letter-spacing:.2em; text-transform:uppercase; display:block; margin-bottom:16px; }
 .related-card strong { font-family:Impact,sans-serif; font-size:24px; letter-spacing:.05em; text-transform:uppercase; line-height:1; display:block; margin-bottom:14px; }
 .related-card p { font-size:11px; line-height:1.8; color:var(--ink2); }
@@ -796,7 +796,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
     <li><a href="/index.html#contacto" data-code="SYS/06">Contacto</a></li>
   </ul>
   <div class="nav-sys">SERVICIO · PX-03</div>
-  <button class="nav-hamburger" id="navHamburger" aria-label="Menú">
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menú" aria-expanded="false" aria-controls="navMobileMenu">
     <span></span><span></span><span></span>
   </button>
 </nav>
@@ -804,8 +804,12 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
 <div class="nav-mobile-menu" id="navMobileMenu">
   <a href="/index.html#about" onclick="closeMobileMenu()">Estudio</a>
   <a href="/index.html#servicios" onclick="closeMobileMenu()">Servicios</a>
+  <a href="/index.html#proceso" onclick="closeMobileMenu()">Proceso</a>
   <a href="/index.html#portafolio" onclick="closeMobileMenu()">Portafolio</a>
+  <a href="/index.html#materiales" onclick="closeMobileMenu()">Materiales</a>
+  <a href="/index.html#derechos" onclick="closeMobileMenu()">Derechos</a>
   <a href="/index.html#contacto" onclick="closeMobileMenu()">Contacto</a>
+  <a href="https://wa.me/5215561809113?text=Hola%20PROMAX%2C%20quiero%20cotizar%20un%20proyecto%20museogr%C3%A1fico" target="_blank" rel="noopener" onclick="closeMobileMenu()">WhatsApp</a>
   <div class="nav-mobile-footer">SERVICIO · ENMARCADO</div>
 </div>
 
@@ -895,15 +899,15 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
     <div class="section-num reveal">04</div>
   </div>
   <div class="service-related-grid">
-    <div class="related-card reveal">
+    <a class="related-card reveal" href="/servicios/diseno-museografico.html" aria-label="Ver servicio Dise&ntilde;o Museogr&aacute;fico">
       <span>PX/01</span><strong>Diseño Museográfico</strong><p>Conceptualización de exposiciones, recorridos, sistemas expositivos y lenguaje visual para museos.</p>
-    </div>
-    <div class="related-card reveal">
+    </a>
+    <a class="related-card reveal" href="/servicios/produccion-mobiliario-museografico.html" aria-label="Ver servicio Producción y Mobiliario">
       <span>PX/02</span><strong>Producción y Mobiliario</strong><p>Fabricación de vitrinas, pedestales, bases, estructuras, soportes y mobiliario a medida.</p>
-    </div>
-    <div class="related-card reveal">
+    </a>
+    <a class="related-card reveal" href="/servicios/montaje-expositivo.html" aria-label="Ver servicio Montaje Expositivo">
       <span>PX/05</span><strong>Montaje Expositivo</strong><p>Instalación, supervisión, manejo de obra y entrega técnica de exposiciones temporales y permanentes.</p>
-    </div>
+    </a>
   </div>
 </section>
 
@@ -914,7 +918,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
     </div>
     <div class="reveal">
       <p>Cuéntanos qué tipo de obra, formato, acabado o sistema de montaje necesitas. Podemos ayudarte a definir una solución de enmarcado profesional para exposición, colección o traslado.</p>
-      <a class="service-btn" href="https://wa.me/5215561809113" target="_blank" rel="noopener">Contactar por WhatsApp →</a>
+      <a class="service-btn" href="https://wa.me/5215561809113?text=Hola%20PROMAX%2C%20quiero%20cotizar%20un%20proyecto%20museogr%C3%A1fico" target="_blank" rel="noopener">Contactar por WhatsApp &rarr;</a>
     </div>
   </div>
 </section>
@@ -934,7 +938,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
   <div class="footer-right">PROMAX · CDMX<br><span>Enmarcado Museográfico</span></div>
 </footer>
 
-<a class="wa-btn" href="https://wa.me/5215561809113" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
+<a class="wa-btn" href="https://wa.me/5215561809113?text=Hola%20PROMAX%2C%20quiero%20cotizar%20un%20proyecto%20museogr%C3%A1fico" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
   <svg viewBox="0 0 32 32"><path d="M16.04 3C9.4 3 4 8.4 4 15.04c0 2.12.56 4.18 1.62 6L4 29l8.16-1.58a12 12 0 0 0 5.88 1.5c6.64 0 12.04-5.4 12.04-12.04S22.68 3 16.04 3zm0 22.84c-1.86 0-3.68-.5-5.28-1.44l-.38-.22-4.84.94.96-4.72-.25-.4a10.78 10.78 0 0 1-1.65-5.72c0-5.96 4.84-10.8 10.8-10.8s10.8 4.84 10.8 10.8-4.84 10.8-10.8 10.8zm5.92-8.08c-.32-.16-1.9-.94-2.2-1.04-.3-.12-.52-.16-.74.16-.22.32-.84 1.04-1.04 1.26-.2.22-.38.24-.7.08-.32-.16-1.36-.5-2.6-1.6-.96-.86-1.6-1.92-1.8-2.24-.18-.32-.02-.5.14-.66.14-.14.32-.38.48-.56.16-.2.22-.32.32-.54.1-.22.05-.42-.03-.58-.08-.16-.74-1.78-1.02-2.44-.26-.64-.54-.56-.74-.56h-.64c-.22 0-.58.08-.88.42-.3.32-1.16 1.14-1.16 2.78s1.2 3.22 1.36 3.44c.16.22 2.36 3.6 5.72 5.04.8.34 1.42.54 1.9.7.8.26 1.52.22 2.1.14.64-.1 1.9-.78 2.16-1.54.26-.76.26-1.4.18-1.54-.08-.14-.3-.22-.62-.38z"/></svg>
 </a>
 
@@ -973,6 +977,7 @@ const mobileMenu = document.getElementById('navMobileMenu');
 function closeMobileMenu() {
   hamburger?.classList.remove('open');
   mobileMenu?.classList.remove('open');
+  hamburger?.setAttribute('aria-expanded', 'false');
   document.body.style.overflow = '';
 }
 if (hamburger && mobileMenu) {
@@ -982,6 +987,7 @@ if (hamburger && mobileMenu) {
     else {
       hamburger.classList.add('open');
       mobileMenu.classList.add('open');
+      hamburger.setAttribute('aria-expanded', 'true');
       document.body.style.overflow = 'hidden';
     }
   });
