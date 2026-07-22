@@ -10,6 +10,12 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-title" content="PROMAX" />
 <link rel="manifest" href="/site.webmanifest" />
+<link rel="dns-prefetch" href="//res.cloudinary.com">
+<link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
+<link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
@@ -125,6 +131,7 @@
 }
 </script>
 <!-- Preload LCP — primeras imágenes del portafolio -->
+<link rel="preload" as="video" href="https://res.cloudinary.com/dnruecqwm/video/upload/v1784617330/videohome_fixed_zoxxoi.mp4" type="video/mp4">
 <link rel="preload" as="image" href="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673832/wpp_1_hyutx4.jpg">
 <link rel="preload" as="image" href="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673822/FM_1_ljra8p.jpg">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -161,7 +168,8 @@
     <li><a href="#proceso"    data-code="SYS/03">Proceso</a></li>
     <li><a href="#portafolio" data-code="SYS/04">Portafolio</a></li>
     <li><a href="#materiales" data-code="SYS/05">Materiales</a></li>
-    <li><a href="#contacto"   data-code="SYS/06">Contacto</a></li>
+    <li><a href="#derechos"   data-code="SYS/06">Derechos</a></li>
+    <li><a href="#contacto"   data-code="SYS/07">Contacto</a></li>
   </ul>
   <div class="nav-sys">SYS · ACTIVO · PX-2025</div>
   <a class="nav-cta" href="#contacto">Cotizar</a>
@@ -233,7 +241,7 @@
     <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777967786/PROMAX_wmoxn8.svg"
          alt="PROMAX"
          class="hero-logo-img"
-         onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+         onerror="this.style.display='none';this.nextElementSibling.style.display='block'" decoding="async">
     <span class="hero-logo-fallback">PROMAX<span style="color:var(--accent)">.</span></span>
     <span class="hero-tag-label">MOD/SYS · 2025</span>
   </div>
@@ -427,7 +435,7 @@
   <div class="projects-grid">
     <!-- FILA 1 — 2 grandes: proyectos destacados 2026 -->
     <div class="project-card" role="button" tabindex="0" aria-label="Ver proyecto World Press Photo 2026" onclick="openGallery('wpp26')">
-      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1782254796/wpp_2026_recorrido_7_ixkdpg.jpg" alt="Documentación de producción e instalación gráfica realizada por PROMAX para World Press Photo 2026 en Museo Franz Mayer; fotografías exhibidas con derechos de sus respectivos autores y titulares" loading="eager" fetchpriority="high">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1782254796/wpp_2026_recorrido_7_ixkdpg.jpg" alt="Documentación de producción e instalación gráfica realizada por PROMAX para World Press Photo 2026 en Museo Franz Mayer; fotografías exhibidas con derechos de sus respectivos autores y titulares" loading="eager" fetchpriority="high" decoding="async">
       <div class="project-overlay">
         <div class="project-code">PX-07 · 2026</div>
         <div class="project-name">World Press<br>Photo 2026</div>
@@ -437,7 +445,7 @@
       <div class="project-cta">VER PROYECTO</div>
     </div>
     <div class="project-card" role="button" tabindex="0" aria-label="Ver proyecto Alemania Revoluciones" onclick="openGallery('alemania')">
-      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1782254800/alemania_titulo_franzmayer_1_uxufdm.jpg" alt="Documentación de producción e instalación gráfica realizada por PROMAX para Alemania: Revoluciones, Arte y Ciencia en Museo Franz Mayer; obras y contenidos con derechos de sus respectivos titulares" loading="eager" fetchpriority="high">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1782254800/alemania_titulo_franzmayer_1_uxufdm.jpg" alt="Documentación de producción e instalación gráfica realizada por PROMAX para Alemania: Revoluciones, Arte y Ciencia en Museo Franz Mayer; obras y contenidos con derechos de sus respectivos titulares" loading="eager" fetchpriority="high" decoding="async">
       <div class="project-overlay">
         <div class="project-code">PX-08 · 2026</div>
         <div class="project-name">Alemania:<br>Revoluciones</div>
@@ -448,7 +456,7 @@
     </div>
     <!-- FILA 2 — 4 medianas -->
     <div class="project-card" role="button" tabindex="0" aria-label="Ver proyecto Durero El Primer Artista Viral" onclick="openGallery('durero')">
-      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1782254799/durero_titulo_franzmayer_1_ibq1d9.jpg" alt="Documentación de producción e instalación gráfica realizada por PROMAX para Durero: El Primer Artista Viral en Museo Franz Mayer; obras y contenidos con derechos de sus respectivos titulares" loading="lazy">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1782254799/durero_titulo_franzmayer_1_ibq1d9.jpg" alt="Documentación de producción e instalación gráfica realizada por PROMAX para Durero: El Primer Artista Viral en Museo Franz Mayer; obras y contenidos con derechos de sus respectivos titulares" loading="lazy" decoding="async">
       <div class="project-overlay">
         <div class="project-code">PX-09 · 2026</div>
         <div class="project-name">Durero: El Primer<br>Artista Viral</div>
@@ -458,7 +466,7 @@
       <div class="project-cta">VER PROYECTO</div>
     </div>
     <div class="project-card" role="button" tabindex="0" aria-label="Ver proyecto La Silla a Través del Tiempo" onclick="openGallery('silla')">
-      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1782254794/silla_atraves_del_tiempo_titulo_franz_mayer_1_rwrjsk.jpg" alt="Documentación de producción gráfica y laminado en material rígido realizada por PROMAX para La Silla a Través del Tiempo en Museo Franz Mayer; obras y contenidos con derechos de sus respectivos titulares" loading="lazy">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1782254794/silla_atraves_del_tiempo_titulo_franz_mayer_1_rwrjsk.jpg" alt="Documentación de producción gráfica y laminado en material rígido realizada por PROMAX para La Silla a Través del Tiempo en Museo Franz Mayer; obras y contenidos con derechos de sus respectivos titulares" loading="lazy" decoding="async">
       <div class="project-overlay">
         <div class="project-code">PX-10 · 2026</div>
         <div class="project-name">La Silla a Través<br>del Tiempo</div>
@@ -468,7 +476,7 @@
       <div class="project-cta">VER PROYECTO</div>
     </div>
     <div class="project-card" role="button" tabindex="0" aria-label="Ver proyecto World Press Photo 2025" onclick="openGallery('wpp')">
-      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673832/wpp_1_hyutx4.jpg" alt="Documentación de montaje museográfico y sistema expositivo realizado por PROMAX para World Press Photo; fotografías exhibidas con derechos de sus respectivos autores y titulares" loading="lazy">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673832/wpp_1_hyutx4.jpg" alt="Documentación de montaje museográfico y sistema expositivo realizado por PROMAX para World Press Photo; fotografías exhibidas con derechos de sus respectivos autores y titulares" loading="lazy" decoding="async">
       <div class="project-overlay">
         <div class="project-code">PX-01 · 2025</div>
         <div class="project-name">World Press<br>Photo 2025</div>
@@ -478,7 +486,7 @@
       <div class="project-cta">VER PROYECTO</div>
     </div>
     <div class="project-card" role="button" tabindex="0" aria-label="Ver proyecto Museo Franz Mayer" onclick="openGallery('fm')">
-      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673822/FM_1_ljra8p.jpg" alt="Documentación de adecuación de espacio y montaje museográfico realizado por PROMAX en Museo Franz Mayer; obras exhibidas con derechos de sus respectivos titulares" loading="lazy">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673822/FM_1_ljra8p.jpg" alt="Documentación de adecuación de espacio y montaje museográfico realizado por PROMAX en Museo Franz Mayer; obras exhibidas con derechos de sus respectivos titulares" loading="lazy" decoding="async">
       <div class="project-overlay">
         <div class="project-code">PX-02 · 2025</div>
         <div class="project-name">Museo<br>Franz Mayer</div>
@@ -489,7 +497,7 @@
     </div>
     <!-- FILA 3 — 4 medianas -->
     <div class="project-card" role="button" tabindex="0" aria-label="Ver proyecto Museo Colegio Nacional" onclick="openGallery('cn')">
-      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673805/jp_1_jwqj46.jpg" alt="Documentación de montaje expositivo y producción museográfica realizada por PROMAX en el Colegio Nacional; obras y contenidos con derechos de sus respectivos titulares" loading="lazy">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673805/jp_1_jwqj46.jpg" alt="Documentación de montaje expositivo y producción museográfica realizada por PROMAX en el Colegio Nacional; obras y contenidos con derechos de sus respectivos titulares" loading="lazy" decoding="async">
       <div class="project-overlay">
         <div class="project-code">PX-03 · 2025</div>
         <div class="project-name">Museo Colegio<br>Nacional</div>
@@ -499,7 +507,7 @@
       <div class="project-cta">VER PROYECTO</div>
     </div>
     <div class="project-card" role="button" tabindex="0" aria-label="Ver proyecto De Casa a Hogar" onclick="openGallery('casa')">
-      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673794/Unacasa_5_sej4pf.jpg" alt="Documentación de montaje museográfico realizado por PROMAX para De Casa a Hogar en Museo Franz Mayer; obras y contenidos con derechos de sus respectivos titulares" loading="lazy">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673794/Unacasa_5_sej4pf.jpg" alt="Documentación de montaje museográfico realizado por PROMAX para De Casa a Hogar en Museo Franz Mayer; obras y contenidos con derechos de sus respectivos titulares" loading="lazy" decoding="async">
       <div class="project-overlay">
         <div class="project-code">PX-04 · 2025</div>
         <div class="project-name">De Casa<br>a Hogar</div>
@@ -509,7 +517,7 @@
       <div class="project-cta">VER PROYECTO</div>
     </div>
     <div class="project-card" role="button" tabindex="0" aria-label="Ver proyecto Exposición Dr. Atl" onclick="openGallery('atl')">
-      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673777/Dr.Atl_10_wqxc2l.jpg" alt="Producción y montaje museográfico de la exposición Dr. Atl en el Colegio Nacional" loading="lazy">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777673777/Dr.Atl_10_wqxc2l.jpg" alt="Producción y montaje museográfico de la exposición Dr. Atl en el Colegio Nacional" loading="lazy" decoding="async">
       <div class="project-overlay">
         <div class="project-code">PX-05 · 2025</div>
         <div class="project-name">Exposición<br>Dr. Atl</div>
@@ -519,7 +527,7 @@
       <div class="project-cta">VER PROYECTO</div>
     </div>
     <div class="project-card" role="button" tabindex="0" aria-label="Ver proyecto Homenaje a Salvador Elizondo" onclick="openGallery('elizondo')">
-      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1778171288/20260506_154226_dek35g.jpg" alt="Diseño y montaje museográfico de la exposición homenaje a Salvador Elizondo en el Colegio Nacional" loading="lazy">
+      <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1778171288/20260506_154226_dek35g.jpg" alt="Diseño y montaje museográfico de la exposición homenaje a Salvador Elizondo en el Colegio Nacional" loading="lazy" decoding="async">
       <div class="project-overlay">
         <div class="project-code">PX-06 · 2025</div>
         <div class="project-name">Homenaje<br>S. Elizondo</div>
@@ -555,7 +563,7 @@
 <div id="imgViewer">
   <button class="iv-close" onclick="closeViewer()">×</button>
   <button class="iv-nav iv-prev" onclick="viewerNav(-1)">‹</button>
-  <img id="viewerImg" src="" alt="">
+  <img id="viewerImg" src="" alt="" decoding="async">
   <button class="iv-nav iv-next" onclick="viewerNav(1)">›</button>
   <div class="iv-info" id="viewerInfo"></div>
 </div>
@@ -678,7 +686,7 @@
     <img src="https://res.cloudinary.com/dnruecqwm/image/upload/q_auto/f_auto/v1777967786/PROMAX_wmoxn8.svg"
          alt="PROMAX"
          class="footer-logo-img"
-         onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+         onerror="this.style.display='none';this.nextElementSibling.style.display='block'" decoding="async">
     <span class="footer-logo-fallback">PROMAX<span class="footer-logo-dot">.</span></span>
   </div>
   <nav class="footer-links">
