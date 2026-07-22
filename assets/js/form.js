@@ -52,6 +52,12 @@ emailjs.init('w2EzKh2wh_jMBFtp7');
     e.preventDefault();
     setStatus('', '');
 
+    const honeypot = document.getElementById('companyWebsite');
+    if (honeypot && honeypot.value.trim()) {
+      setStatus('No se pudo enviar. Intenta de nuevo o escribenos directo por WhatsApp.', 'error');
+      return;
+    }
+
     if (!validateForm()) {
       lbl.textContent = 'REVISA LOS DATOS';
       setStatus('Hay campos pendientes antes de enviar el brief.', 'error');
