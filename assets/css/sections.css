@@ -668,3 +668,13 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
   .gm-body { padding:10px 16px; }
   .iv-nav { font-size:32px; padding:8px; }
 }
+
+@media(max-width:900px), (hover:none) and (pointer:coarse) {
+  .nav-links,
+  .nav-sys {
+    display:none !important;
+  }
+  .nav-hamburger {
+    display:flex !important;
+  }
+}
