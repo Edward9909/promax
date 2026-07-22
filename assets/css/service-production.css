@@ -1,0 +1,11 @@
+#contacto.service-cta .service-cta-inner {
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  grid-template-columns: 0.8fr 1.6fr;
+  gap: 96px;
+}
+
+#contacto.service-cta p {
+  max-width: 900px;
+}
