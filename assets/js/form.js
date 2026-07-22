@@ -48,7 +48,7 @@ emailjs.init('w2EzKh2wh_jMBFtp7');
     input.addEventListener('input', () => setFieldError(field, ''));
   });
 
-  form.addEventListener('submit', function(e) {
+  form.addEventListener('submit', async function(e) {
     e.preventDefault();
     setStatus('', '');
 
@@ -65,12 +65,27 @@ emailjs.init('w2EzKh2wh_jMBFtp7');
       return;
     }
 
-    if (!window.grecaptcha || recaptchaWidgetId === undefined) {
+    if (!window.grecaptcha || window.recaptchaWidgetId === undefined) {
+      lbl.textContent = 'CARGANDO CAPTCHA';
+      setStatus('Cargando verificacion de seguridad...', '');
+
+      try {
+        if (typeof window.loadRecaptcha === 'function') {
+          await window.loadRecaptcha();
+        }
+      } catch (error) {
+        console.error('reCAPTCHA load error:', error);
+      }
+    }
+
+    if (!window.grecaptcha || window.recaptchaWidgetId === undefined) {
+      lbl.textContent = 'CAPTCHA NO CARGO';
       setStatus('No se pudo cargar el captcha. Intenta recargar la pagina o escribenos por WhatsApp.', 'error');
+      setTimeout(() => { lbl.textContent = 'ENVIAR BRIEF'; }, 3500);
       return;
     }
 
-    const captchaResponse = grecaptcha.getResponse(recaptchaWidgetId);
+    const captchaResponse = window.grecaptcha.getResponse(window.recaptchaWidgetId);
     if (!captchaResponse) {
       lbl.textContent = 'VERIFICA CAPTCHA';
       setStatus('Confirma el captcha para poder enviar el brief.', 'error');
@@ -89,7 +104,7 @@ emailjs.init('w2EzKh2wh_jMBFtp7');
         btn.style.opacity = '1';
         form.reset();
         fields.forEach(field => setFieldError(field, ''));
-        grecaptcha.reset(recaptchaWidgetId);
+        window.grecaptcha.reset(window.recaptchaWidgetId);
         setStatus('Solicitud enviada. Te contactaremos por correo o WhatsApp para revisar el proyecto.', 'success');
         setTimeout(() => {
           lbl.textContent = 'ENVIAR BRIEF';
@@ -101,7 +116,7 @@ emailjs.init('w2EzKh2wh_jMBFtp7');
         lbl.textContent = 'NO SE ENVIO';
         btn.disabled = false;
         btn.style.opacity = '1';
-        grecaptcha.reset(recaptchaWidgetId);
+        window.grecaptcha.reset(window.recaptchaWidgetId);
         setStatus('No se pudo enviar. Intenta de nuevo o escribenos directo por WhatsApp.', 'error');
         setTimeout(() => { lbl.textContent = 'ENVIAR BRIEF'; }, 5000);
       });
