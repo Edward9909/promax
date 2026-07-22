@@ -3,11 +3,6 @@
   const vidA = document.getElementById('vidA');
   const vidB = document.getElementById('vidB');
   if (!vidA || !vidB) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || (navigator.connection && navigator.connection.saveData)) {
-    vidA.innerHTML = '';
-    vidB.innerHTML = '';
-    return;
-  }
 
   const FADE_BEFORE = 1.8; // segundos antes del final para iniciar crossfade
   let active = vidA;
@@ -54,8 +49,11 @@
     }, 1900);
   }
 
-  // Inicia el primer video
-  vidA.addEventListener('canplaythrough', () => { vidA.play().catch(() => {}); }, { once: true });
+  // Inicia el primer video. En mobile, muted + playsinline + autoplay permite reproducir sin gesto.
+  vidA.muted = true;
+  vidA.playsInline = true;
+  vidA.play().catch(() => {});
+  vidA.addEventListener('canplay', () => { vidA.play().catch(() => {}); }, { once: true });
   vidA.load();
 
   // Monitorea el tiempo para iniciar el crossfade antes del final
