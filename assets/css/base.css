@@ -1,0 +1,43 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #f5f5f3; --ink: #111111; --ink2: #555555; --accent: #F4DB09;
+  --glass: rgba(245,245,243,0.72); --border: rgba(17,17,17,0.12);
+  --mono: 'Courier New', Courier, monospace;
+  --display: 'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+}
+html { scroll-behavior: smooth; -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.6;
+  cursor: none;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.hero-logo-fallback,
+.footer-logo-fallback,
+.nav-mobile-menu a,
+.hero-title,
+.hero-stat-val,
+.about-label-code,
+.about-h2,
+.section-title,
+.section-num,
+.exp-badge-num,
+.exp-badge-title,
+.serv-name,
+.proc-name,
+.project-name,
+.gm-title,
+.mat-name,
+.proc-item-name,
+.contact-h2,
+.form-submit {
+  font-family: var(--display) !important;
+  font-weight: 400;
+  font-synthesis: none;
+}
