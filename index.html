@@ -27,6 +27,18 @@
 <meta name="author" content="PROMAX">
 <meta name="robots" content="index, follow">     
 <link rel="canonical" href="https://promax-mx.com/">
+<script>
+(function(){
+  var legacyHash = '#abo' + 'ut';
+  var legacyPath = '/' + 'index' + '.html';
+  var cleanHash = window.location.hash === legacyHash ? '#estudio' : window.location.hash;
+  if (window.location.pathname.endsWith(legacyPath)) {
+    window.location.replace('/' + cleanHash);
+  } else if (cleanHash !== window.location.hash) {
+    history.replaceState(null, '', cleanHash);
+  }
+})();
+</script>
 <link rel="sitemap" type="application/xml" href="https://promax-mx.com/sitemap.xml">
 
 <!-- Geo tags — SEO local CDMX -->
@@ -161,9 +173,9 @@
 
 <!-- NAV -->
 <nav id="mainNav">
-  <a class="nav-brand" href="#hero" aria-label="PROMAX inicio">PROMAX<span>.</span></a>
+  <a class="nav-brand" href="/" aria-label="PROMAX inicio">PROMAX<span>.</span></a>
   <ul class="nav-links">
-    <li><a href="#about"      data-code="SYS/01">Estudio</a></li>
+    <li><a href="#estudio"      data-code="SYS/01">Estudio</a></li>
     <li><a href="#servicios"  data-code="SYS/02">Servicios</a></li>
     <li><a href="#proceso"    data-code="SYS/03">Proceso</a></li>
     <li><a href="#portafolio" data-code="SYS/04">Portafolio</a></li>
@@ -180,7 +192,7 @@
 
 <!-- MOBILE MENU -->
 <div class="nav-mobile-menu" id="navMobileMenu">
-  <a href="#about"      onclick="closeMobileMenu()">Estudio</a>
+  <a href="#estudio"      onclick="closeMobileMenu()">Estudio</a>
   <a href="#servicios"  onclick="closeMobileMenu()">Servicios</a>
   <a href="#proceso"    onclick="closeMobileMenu()">Proceso</a>
   <a href="#portafolio" onclick="closeMobileMenu()">Portafolio</a>
@@ -269,7 +281,7 @@
 </section>
 
 <!-- ABOUT -->
-<section id="about">
+<section id="estudio">
   <div class="about-label reveal-left">
     <span>SYS/01</span><span class="about-label-code">ESTUDIO</span>
   </div>
@@ -696,7 +708,7 @@
     <span class="footer-logo-fallback">PROMAX<span class="footer-logo-dot">.</span></span>
   </div>
   <nav class="footer-links">
-    <a href="#about">Estudio</a><a href="#servicios">Servicios</a><a href="#portafolio">Portafolio</a><a href="#derechos">Derechos</a><a href="#contacto">Contacto</a>
+    <a href="#estudio">Estudio</a><a href="#servicios">Servicios</a><a href="#portafolio">Portafolio</a><a href="#derechos">Derechos</a><a href="#contacto">Contacto</a>
   </nav>
   <div class="footer-right"><span>SYS/VERSION · 2025.1</span><br>Ciudad de México<br>Sistemas Museográficos<br><span>PROMAX ©2025</span></div>
 </footer>

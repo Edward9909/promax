@@ -63,7 +63,7 @@ section { position:relative; z-index:10; }
 .hero-panel-2 .p2-tag { color:var(--accent); font-size:8px; margin-bottom:8px; display:block; }
 
 /* ABOUT */
-#about { padding:120px 40px; display:grid; grid-template-columns:1fr 2fr; gap:80px; border-top:1px solid var(--border); }
+#estudio { padding:120px 40px; display:grid; grid-template-columns:1fr 2fr; gap:80px; border-top:1px solid var(--border); }
 .about-label { font-size:9px; letter-spacing:0.3em; text-transform:uppercase; color:var(--accent); position:sticky; top:100px; height:fit-content; }
 .about-label-code { display:block; font-size:22px; font-family:Impact,sans-serif; color:var(--ink); letter-spacing:0.05em; margin-top:8px; }
 .about-h2 { font-family:Impact,sans-serif; font-size:clamp(36px,5vw,64px); line-height:0.92; text-transform:uppercase; margin-bottom:32px; letter-spacing:-0.01em; }
@@ -517,7 +517,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
   .hero-desc { display:none; }
 
   /* ABOUT */
-  #about { grid-template-columns:1fr; gap:24px; padding:72px 20px; }
+  #estudio { grid-template-columns:1fr; gap:24px; padding:72px 20px; }
   .about-label { position:static; display:flex; align-items:center; gap:16px; }
   .about-label-code { margin-top:0; }
   .about-body { margin-bottom:24px; font-size:14px; line-height:1.85; }
@@ -617,7 +617,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
   .hero-stat-label { font-size:10px; letter-spacing:0.12em; line-height:1.45; }
 
   /* SECTIONS */
-  #about, #servicios, #proceso, #portafolio, #materiales, #contacto { padding:56px 16px; }
+  #estudio, #servicios, #proceso, #portafolio, #materiales, #contacto { padding:56px 16px; }
   .section-kicker { font-size:10px; letter-spacing:0.14em; }
   .section-title { font-size:clamp(40px,12vw,58px); line-height:0.95; letter-spacing:0; }
   .about-body, .seo-text { font-size:14px; line-height:1.8; }

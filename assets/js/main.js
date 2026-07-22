@@ -26,7 +26,7 @@ gsap.to('.hero-panel-2',  { y:-40, scrollTrigger:{ trigger:'#hero', start:'top t
 gsap.to('.hero-bg-lines', { y: 80, scrollTrigger:{ trigger:'#hero', start:'top top', end:'bottom top', scrub:true }});
 
 // SCROLL PROGRESS
-const secIds = ['hero','about','servicios','proceso','portafolio','materiales','contacto'];
+const secIds = ['hero','estudio','servicios','proceso','portafolio','materiales','contacto'];
 const spDots = document.querySelectorAll('.sp-dot');
 secIds.forEach((id,i) => {
   ScrollTrigger.create({ trigger:'#'+id, start:'top center', end:'bottom center',
