@@ -9,3 +9,16 @@
 #contacto.service-cta p {
   max-width: 900px;
 }
+
+@media(max-width:900px) {
+  #contacto.service-cta .service-cta-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+@media(max-width:560px) {
+  #contacto.service-cta .service-cta-inner {
+    gap: 32px;
+  }
+}
