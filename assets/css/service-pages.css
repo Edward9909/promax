@@ -672,7 +672,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
 .service-faq-item h3 { font-family:Impact,sans-serif; font-size:24px; line-height:1.05; letter-spacing:.04em; text-transform:uppercase; margin-bottom:14px; }
 .service-faq-item p { font-size:12px; line-height:1.85; color:var(--ink2); }
 @media(max-width:900px){ .service-hero{padding:92px 20px 56px; min-height:78vh;} .service-meta-grid{grid-template-columns:1fr 1fr;} .service-meta-item:nth-child(2){border-right:none;} .service-meta-item{border-bottom:1px solid var(--border);} .service-content{padding:72px 20px;} .service-content-inner{grid-template-columns:1fr; gap:40px;} .service-list{grid-template-columns:1fr;} .service-cta{padding:72px 20px;} .service-cta-inner{grid-template-columns:1fr;} .service-related{padding:72px 20px;} .service-related-grid{grid-template-columns:1fr;} .service-seo-focus{padding:72px 20px;} .service-seo-columns{grid-template-columns:1fr; gap:20px;} .service-faq{padding:72px 20px;} .service-faq-grid{grid-template-columns:1fr;} }
-@media(max-width:560px){ .service-title{font-size:clamp(44px,13.2vw,60px); line-height:.94; max-width:100%; overflow-wrap:break-word;} .service-title .accent{display:inline-block; max-width:100%;} .service-meta-grid{grid-template-columns:1fr;} .service-meta-item{border-right:none;} }
+@media(max-width:560px){ .service-title{font-size:clamp(40px,11.7vw,54px); line-height:.98; letter-spacing:0; max-width:100%; overflow-wrap:break-word;} .service-title .accent{display:inline-block; max-width:100%;} .service-meta-grid{grid-template-columns:1fr;} .service-meta-item{border-right:none;} }
 
 /* FIX CTA SECUNDARIA — evita que #contacto herede el grid del formulario principal */
 #contacto.service-cta {
