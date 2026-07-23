@@ -77,8 +77,11 @@
 
     if (projectCard && !event.target.closest('a')) {
       var projectTitle = projectCard.querySelector('.project-name');
-      window.promaxTrack('apertura_galeria_proyecto', {
-        project_name: cleanText(projectTitle ? projectTitle.textContent : '')
+      var projectUrl = projectCard.dataset.projectUrl || '';
+      window.promaxTrack('click_pagina_proyecto', {
+        project_slug: projectSlugFromUrl(projectUrl),
+        project_name: cleanText(projectTitle ? projectTitle.textContent : ''),
+        link_url: projectUrl
       });
     }
   }, { passive: true });
