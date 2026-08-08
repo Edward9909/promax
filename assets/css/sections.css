@@ -385,7 +385,10 @@ section { position:relative; z-index:10; }
 #contacto { padding:120px 40px; border-top:1px solid var(--border); display:grid; grid-template-columns:1fr 1fr; gap:80px; }
 .contact-h2 { font-family:Impact,sans-serif; font-size:clamp(40px,6vw,80px); text-transform:uppercase; line-height:0.9; letter-spacing:-0.01em; margin-bottom:32px; }
 .contact-h2 em { font-style:normal; color:var(--accent); }
-.contact-info { margin-top:48px; }
+.contact-wa-cta { margin-top:32px; display:inline-flex; align-items:center; gap:12px; padding:18px 28px; background:var(--ink); color:var(--bg); text-decoration:none; font-family:var(--mono); font-size:12px; letter-spacing:0.1em; text-transform:uppercase; border:1px solid var(--ink); transition:background 0.2s,color 0.2s,border-color 0.2s; }
+.contact-wa-cta:hover { background:var(--accent); color:var(--ink); border-color:var(--accent); }
+.contact-wa-cta svg { flex-shrink:0; }
+.contact-info { margin-top:32px; }
 .contact-info-item { padding:16px 0; border-bottom:1px solid var(--border); display:flex; gap:24px; }
 .ci-label { font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink2); min-width:80px; }
 .ci-val { font-size:12px; letter-spacing:0.05em; }
@@ -664,6 +667,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
   .mat-spec, .proc-item-desc, .legal-note p { font-size:13px; line-height:1.7; letter-spacing:0.02em; }
   /* CONTACTO */
   .contact-h2 { font-size:clamp(32px,10vw,48px); line-height:1; letter-spacing:0; }
+  .contact-wa-cta { width:100%; justify-content:center; margin-top:24px; }
   .contact-info { margin-top:34px; margin-bottom:34px; }
   .contact-info-item { align-items:flex-start; gap:18px; padding:18px 0; }
   .ci-label { min-width:90px; }
