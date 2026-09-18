@@ -1,0 +1,63 @@
+{
+  "pieces": [
+    {
+      "slug": "estructura-abierta",
+      "code": "MB-01",
+      "name": "Base de estructura abierta",
+      "type": "Base de exhibición",
+      "summary": "Bastidor a la vista, con patas y travesaño inferior abiertos. Deja el piso libre por debajo y muestra la estructura en lugar de forrarla.",
+      "model": "/assets/models/estructura-abierta.glb",
+      "dimensions": { "largo_mm": 2500, "fondo_mm": 500, "alto_mm": 1387 },
+      "specs": [
+        { "label": "Configuración", "value": "Patas y bastidor inferior abiertos" },
+        { "label": "Estructura", "value": "Perfil tubular de 2\" × 1\"" },
+        { "label": "Capelo", "value": "9 mm de espesor" }
+      ]
+    },
+    {
+      "slug": "cuerpo-completo",
+      "code": "MB-02",
+      "name": "Base de cuerpo completo",
+      "type": "Base de exhibición",
+      "summary": "Volumen cerrado de piso a cubierta. Oculta por completo la estructura y cierra el espacio bajo el objeto.",
+      "model": "/assets/models/cuerpo-completo.glb",
+      "dimensions": { "largo_mm": 2500, "fondo_mm": 500, "alto_mm": 1400 },
+      "specs": [
+        { "label": "Configuración", "value": "Volumen cerrado de piso a cubierta" },
+        { "label": "Construcción", "value": "Esqueleto interno con recubrimiento de 12 mm" },
+        { "label": "Capelo", "value": "9 mm de espesor" }
+      ]
+    },
+    {
+      "slug": "vitrina-4",
+      "code": "MB-04",
+      "name": "Vitrina horizontal #4",
+      "type": "Vitrina de mesa",
+      "summary": "Vitrina de lectura horizontal para documento y objeto pequeño. El capelo se inserta 200 mm respecto a los testeros, que quedan libres para montar la cédula sobre separadores.",
+      "model": "/assets/models/vitrina-4.glb",
+      "dimensions": { "largo_mm": 2600, "fondo_mm": 500, "alto_mm": 1270 },
+      "specs": [
+        { "label": "Cuerpo", "value": "Volumen cerrado de 2500 × 500 × 950 mm" },
+        { "label": "Capelo", "value": "2100 × 300 mm, 9 mm de espesor" },
+        { "label": "Cédulas", "value": "Portacédulas de 6 mm sobre separadores" },
+        { "label": "Nivelación", "value": "8 nivelantes ocultos en la base" }
+      ]
+    },
+    {
+      "slug": "vitrina-5",
+      "code": "MB-05",
+      "name": "Vitrina vertical #5 con atril",
+      "type": "Vitrina vertical",
+      "summary": "Vitrina vertical de cuerpo completo, con base y remate macizos y un respaldo que cierra el fondo. Se presenta con su atril de lectura, colocado al frente para sostener cédula extendida o material de consulta.",
+      "model": "/assets/models/vitrina-5.glb",
+      "dimensions": { "largo_mm": 1000, "fondo_mm": 1290, "alto_mm": 1900 },
+      "specs": [
+        { "label": "Cuerpo", "value": "1000 × 500 × 1500 mm" },
+        { "label": "Base y remate", "value": "200 mm cada uno" },
+        { "label": "Respaldo", "value": "Panel de 6 mm" },
+        { "label": "Atril", "value": "Tablero de 600 × 331 mm, lectura de 816 a 1050 mm" },
+        { "label": "Implantación", "value": "Atril a 460 mm del frente de la vitrina" }
+      ]
+    }
+  ]
+}

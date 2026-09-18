@@ -25,6 +25,73 @@ Shared service assets:
 
 When adding a service page, copy an existing `servicios/<slug>/index.html`, update metadata, JSON-LD, hero/body copy, related links, and keep the shared CSS/JS includes. If a legacy `.html` URL exists, keep it as a redirect bridge to the clean route.
 
+## Portafolio de mobiliario (3D)
+
+`portafolio/mobiliario/` muestra las piezas de mobiliario en un visor 3D. A diferencia de
+`presentaciones/bases/`, que lleva three.js y la geometria embebidos en un solo HTML de 2.4 MB,
+aqui todo esta separado y cacheable:
+
+- `assets/data/furniture.json` es la fuente de datos: una entrada por pieza con su ficha tecnica.
+- `assets/models/*.glb` es la geometria, un archivo por pieza (glTF 2.0 binario, metros, Y arriba,
+  centrado en X/Z y con el piso en Y=0).
+- `assets/js/furniture-viewer.js` es el visor: un solo contexto WebGL que intercambia modelos.
+- `assets/css/furniture-portfolio.css` es el catalogo y la ficha.
+- three.js se carga por CDN con un `importmap` en el `<head>` de la pagina, igual que GSAP.
+
+Para agregar una pieza, partiendo de su FBX:
+
+0. Si la pieza NO viene de un FBX sino de la presentacion de bases, se regenera con
+   `node tools/bases2glb.js`, que lee la geometria incrustada en `presentaciones/bases/index.html`.
+1. Declara la pieza en `RULES`, dentro de `tools/fbx2glb.py`. Ahi se dice como se asignan
+   sus materiales (`by_material` si el FBX ya los trae bien, `by_object` si viene todo con
+   un solo material) y, si el FBX contiene varios muebles, cuales cuerpos entran (`include`).
+2. Convierte:
+   `blender -b -noaudio --python tools/fbx2glb.py -- <pieza> "<entrada.fbx>" assets/models/<pieza>.glb`
+3. Agrega su entrada a `furniture.json` y sumala al `ItemList` del JSON-LD de la pagina,
+   subiendo `numberOfItems`.
+
+No hay que tocar el visor. Conviene verificar el GLB antes de publicarlo: que la altura de
+cada parte sea la esperada (los FBX suelen venir Y arriba y salen invertidos si la rotacion
+va al reves) y que el piso quede en 0.
+
+Es un muestrario, no una familia: cada pieza se presenta sola y no se asume que comparta
+medidas, materiales ni acabado con las demas.
+
+Las fichas publicadas NO nombran materiales ni acabados, a proposito: se definen en cada
+proyecto. Al escribir una entrada en `furniture.json`, los `specs` se limitan a geometria,
+configuracion y medidas. La aclaracion vive en dos lugares de la pagina, la nota bajo la
+ficha y la nota de cierre; si se agrega una pieza, no hace falta repetirla.
+
+Los modelos tampoco comprometen acabado: se ven neutros y solo distinguen `opaco` de
+`translucido`, que es lo unico que el visor necesita para que un capelo no se lea como tapa
+maciza. La paleta esta declarada en `tools/fbx2glb.py` (`LIBRARY`) y repetida en
+`tools/bases2glb.js` (`MATERIALS`); si se cambia, hay que cambiarla en los dos y regenerar.
+
+El visor va sobre negro (`#111111`, la tinta del sitio), asi que el gris de los modelos es
+claro: sobre fondo claro se lavaba, sobre negro tiene que destacar. Las dos cosas van juntas,
+cambiar una obliga a revisar la otra. La exposicion del render es 0.95 y no mas: por encima de
+eso un gris medio se quema.
+
+El piso no es un `ShadowMaterial` sino un plano apenas mas claro que el fondo (`#1c1c1c`):
+sobre negro, una sombra oscura seria negro sobre negro y la pieza quedaria flotando sin apoyo.
+
+El distintivo PROMAX es una banda amarilla de fondo, en el amarillo de marca (`#F4DB09`),
+detras de la pieza. El visor la genera a partir del bounding box de cada modelo, asi que una
+pieza nueva la trae sin configurar nada. Tres decisiones que no son obvias:
+
+- No esta fija en la escena: se mantiene siempre opuesta a la camara. El visor gira solo, y una
+  mampara fija se veria de canto y despues por detras.
+- Sangra a lo ancho pero solo ocupa una franja de alto (34% de la pieza). Como campo completo
+  el amarillo dejaba de ser acento; como banda acompaña sin competir con el mueble.
+- Su material es `MeshBasicMaterial` con `toneMapped: false`: sin iluminar y fuera del tone
+  mapping rinde el amarillo de marca exacto. Iluminada salia apagada, tirando a mostaza.
+
+El texto de la pista de uso va sobre ese negro, no sobre el papel, por eso su color esta fijado
+aparte en el CSS y no usa `--ink2` (que sobre negro daba 2.5:1).
+
+El campo `type` de cada entrada es una etiqueta suelta ("Base de exhibicion", "Vitrina de mesa"),
+no una taxonomia cerrada: se puede escribir lo que corresponda a la pieza.
+
 ## Brand assets
 
 - `assets/brand/promax.svg` is the local logo used by the home and service footers.

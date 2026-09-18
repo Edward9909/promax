@@ -1,0 +1,117 @@
+/* PROMAX — Portafolio de mobiliario. Usa los tokens de service-pages.css; sólo agrega el catálogo y el visor. */
+
+/* Estas páginas no cargan base.css, así que no existe --display: el display es Impact,
+   igual que .service-copy h2 y .portfolio-title. */
+.mb-section, .mb-catalog { --mb-display: Impact, 'Arial Narrow', sans-serif; }
+
+.mb-section { padding: 0 6vw 120px; }
+
+.mb-head { max-width: 780px; margin: 0 auto 48px; text-align: center; }
+.mb-head .mb-eyebrow { margin-bottom: 18px; }
+.mb-head p { font-family: var(--mono); font-size: 14px; line-height: 1.75; color: var(--ink2); margin: 0; }
+
+.mb-eyebrow {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .28em;
+  text-transform: uppercase; color: var(--ink2); margin: 0;
+}
+
+/* CATÁLOGO — visor a la izquierda, ficha a la derecha */
+.mb-catalog {
+  display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 0;
+  border: 1px solid var(--border); background: var(--bg);
+}
+
+.mb-stage {
+  position: relative; grid-column: 1; grid-row: 1;
+  height: 620px; border-right: 1px solid var(--border);
+  background: #111111;            /* mismo negro que la escena, tambien sin WebGL */
+}
+/* El canvas va fuera del flujo: si midiera el contenedor, cada resize lo haría crecer sin tope. */
+.mb-stage canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+.mb-stage.is-unavailable { display: grid; place-items: center; padding: 40px; }
+.mb-stage.is-unavailable .mb-status { position: static; max-width: 40ch; text-align: center; }
+
+.mb-status {
+  position: absolute; left: 20px; bottom: 18px; margin: 0;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .12em;
+  text-transform: uppercase; pointer-events: none;
+  color: rgba(245, 245, 243, .62);   /* va sobre el negro del visor, no sobre el papel */
+}
+
+/* FICHA TÉCNICA */
+.mb-info {
+  grid-column: 2; grid-row: 1; height: 620px; overflow-y: auto;
+  padding: 40px 32px; display: flex; flex-direction: column; gap: 26px;
+}
+.mb-info h2 {
+  font-family: var(--mb-display); font-size: 38px; line-height: 1.04;
+  margin: 10px 0 0; text-transform: uppercase;
+}
+.mb-info h2::after {
+  content: ''; display: block; width: 56px; height: 5px;
+  margin-top: 16px; background: var(--accent);
+}
+.mb-summary { font-family: var(--mono); font-size: 13px; line-height: 1.8; color: var(--ink2); margin: 0; }
+
+.mb-dims-block { border-top: 1px solid var(--border); padding-top: 18px; }
+.mb-dims { font-family: var(--mb-display); font-size: 21px; margin: 8px 0 0; letter-spacing: .01em; }
+.mb-dims-note { font-family: var(--mono); font-size: 10px; color: var(--ink2); margin: 6px 0 0; }
+
+.mb-specs { margin: 0; border-top: 1px solid var(--border); }
+.mb-spec-row {
+  display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 16px;
+  padding: 13px 0; border-bottom: 1px solid var(--border);
+}
+.mb-spec-row dt {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--ink2); padding-top: 3px;
+}
+.mb-spec-row dd { font-family: var(--mono); font-size: 13px; line-height: 1.6; margin: 0; }
+
+/* SELECTOR DE PIEZAS */
+.mb-list {
+  grid-column: 1 / -1;                 /* el selector cruza visor y ficha */
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  border-top: 1px solid var(--border);
+}
+.mb-tile {
+  display: flex; flex-direction: column; gap: 5px; align-items: flex-start;
+  padding: 20px 22px; background: none; border: 0;
+  border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  text-align: left; cursor: pointer; color: var(--ink); font-family: var(--mono);
+  transition: background .25s ease;
+}
+.mb-tile:last-child { border-right: 0; }
+.mb-tile:hover { background: rgba(17, 17, 17, .04); }
+.mb-tile:focus-visible { outline: 2px solid var(--accent); outline-offset: -4px; }
+.mb-tile.is-active { background: var(--ink); color: var(--bg); }
+.mb-tile.is-active .mb-tile-code,
+.mb-tile.is-active .mb-tile-meta { color: rgba(245, 245, 243, .66); }
+
+.mb-tile-code { font-family: var(--mono); font-size: 9px; letter-spacing: .22em; color: var(--ink2); }
+.mb-tile-name { font-family: var(--mb-display); font-size: 19px; line-height: 1.15; text-transform: uppercase; }
+.mb-tile-meta { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; color: var(--ink2); }
+
+/* CIERRE */
+.mb-note {
+  max-width: 720px; margin: 64px auto 0; text-align: center;
+  font-family: var(--mono); font-size: 13px; line-height: 1.8; color: var(--ink2);
+}
+
+@media (max-width: 1080px) {
+  .mb-catalog { grid-template-columns: 1fr; }
+  .mb-stage { grid-column: 1; height: 460px; border-right: 0; border-bottom: 1px solid var(--border); }
+  .mb-info { grid-column: 1; grid-row: 2; height: auto; overflow: visible; padding: 32px 24px; }
+}
+
+@media (max-width: 640px) {
+  .mb-section { padding: 0 20px 80px; }
+  .mb-stage { height: 360px; }
+  .mb-info h2 { font-size: 30px; }
+  .mb-spec-row { grid-template-columns: 1fr; gap: 4px; }
+  .mb-tile { border-right: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mb-tile { transition: none; }
+}
