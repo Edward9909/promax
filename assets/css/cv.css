@@ -319,7 +319,7 @@ table.proj tbody tr:last-child td { border-bottom: none; }
   /* Las secciones de cierre no abren pagina: encadenadas llenan la hoja, y por
      separado dejaban tres paginas a medio ocupar. Su cabeza viaja junto al primer
      bloque dentro de `.keep`, para que ningun titulo se quede solo al pie. */
-  section.flow { break-before: auto; padding-top: 6mm; }
+  section.flow { break-before: auto; padding-top: 4mm; }
   .sec-head { break-after: avoid; padding-top: 5mm; margin-bottom: 8mm; }
   h2.sec-title { font-size: 21pt; }
   .sec-lead { font-size: 9.2pt; line-height: 1.6; }
