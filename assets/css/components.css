@@ -13,6 +13,15 @@ nav {
   border-bottom:1px solid var(--border);
   isolation:isolate;
 }
+/* El pie del home usa <nav class="footer-links"> como landmark, asi que tambien
+   entraba por el selector `nav` de arriba: quedaba fijo en top:0 con el mismo fondo
+   y, al ir despues en el DOM, se pintaba encima del menu principal y lo tapaba por
+   completo. Este reset lo devuelve al flujo del documento. */
+footer .footer-links {
+  position:static; z-index:auto; min-height:0;
+  padding:0; background:none; border-bottom:0;
+}
+
 .nav-brand { position:absolute; left:40px; z-index:2; color:var(--ink); text-decoration:none; font-family:var(--display); font-size:24px; letter-spacing:0.04em; line-height:1; }
 .nav-brand span { color:var(--accent); }
 .nav-links { display:flex; gap:28px; list-style:none; position:relative; z-index:2; }
