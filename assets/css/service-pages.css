@@ -476,7 +476,7 @@ footer { padding:40px; border-top:1px solid var(--border); display:grid; grid-te
   .mat-block:hover { border-color:var(--border); }
   .mat-block:hover::after { transform:scaleY(0); }
 }
-@media(max-width:1100px){
+@media(max-width:1180px){
   nav { min-height:56px; padding:12px 20px; }
   .nav-links,
   .nav-sys {
