@@ -1,684 +1,202 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="color-scheme" content="light">
 
-<link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="shortcut icon" href="/favicon.ico">
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<meta name="apple-mobile-web-app-title" content="PROMAX">
-<link rel="manifest" href="/site.webmanifest">
-<link rel="preload" as="image" href="/assets/brand/promax.svg" type="image/svg+xml" fetchpriority="high">
-<link rel="dns-prefetch" href="//res.cloudinary.com">
-<link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Anton&display=swap">
-<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-<noscript><link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet"></noscript>
-
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<meta content="light" name="color-scheme"/>
+<link href="/favicon.ico" rel="icon" sizes="any"/>
+<link href="/favicon.svg" rel="icon" type="image/svg+xml"/>
+<link href="/favicon.ico" rel="shortcut icon"/>
+<link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+<meta content="PROMAX" name="apple-mobile-web-app-title"/>
+<link href="/site.webmanifest" rel="manifest"/>
+<link as="image" fetchpriority="high" href="/assets/brand/promax.svg" rel="preload" type="image/svg+xml"/>
+<link href="//res.cloudinary.com" rel="dns-prefetch"/>
+<link crossorigin="" href="https://res.cloudinary.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?family=Anton&amp;display=swap" rel="preload"/>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;display=swap" media="print" onload="this.media='all'" rel="stylesheet"/>
+<noscript><link href="https://fonts.googleapis.com/css2?family=Anton&amp;display=swap" rel="stylesheet"/></noscript>
 <title>PROMAX | CV Empresarial</title>
-<meta name="description" content="CV empresarial de PROMAX: diseño, producción y montaje de exposiciones desde Ciudad de México. Equipo, capacidades de taller, proceso de trabajo y proyectos ejecutados para museos e instituciones culturales.">
-<meta name="author" content="PROMAX">
+<meta content="CV empresarial de PROMAX: diseño, producción y montaje de exposiciones desde Ciudad de México. Equipo, capacidades de taller, proceso de trabajo y proyectos ejecutados para museos e instituciones culturales." name="description"/>
+<meta content="PROMAX" name="author"/>
 <!-- Documento de presentacion: se comparte por enlace directo, no compite en buscadores
      con el home ni con las paginas de servicio, que cubren el mismo contenido. -->
-<meta name="robots" content="noindex, follow">
-<link rel="canonical" href="https://promax-mx.com/presentaciones/cv/">
-
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="PROMAX">
-<meta property="og:title" content="PROMAX | CV Empresarial">
-<meta property="og:description" content="Diseño, producción y montaje de exposiciones desde Ciudad de México. Activo desde 2014 y más de 40 proyectos ejecutados.">
-<meta property="og:url" content="https://promax-mx.com/presentaciones/cv/">
-<meta property="og:image" content="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_1200/v1777673822/FM_1_ljra8p.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:locale" content="es_MX">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="PROMAX | CV Empresarial">
-<meta name="twitter:description" content="Diseño, producción y montaje de exposiciones desde Ciudad de México. Equipo, taller, proceso y proyectos ejecutados.">
-<meta name="twitter:image" content="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_1200/v1777673822/FM_1_ljra8p.jpg">
-
-<link rel="stylesheet" href="/assets/css/cv.css">
-</head>
-<body>
-
-<div id="cursor" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><line x1="12" y1="0" x2="12" y2="24" stroke="#111" stroke-width="1"/><line x1="0" y1="12" x2="24" y2="12" stroke="#111" stroke-width="1"/><rect x="9" y="9" width="6" height="6" stroke="#111" stroke-width="1" fill="none"/></svg></div>
-<div id="cursor-dot" aria-hidden="true"></div>
-<div class="grid-overlay" aria-hidden="true"></div>
-
-<div class="doc-bar">
-  <div class="doc-bar-id">CV empresarial · Septiembre 2026</div>
-  <div class="doc-bar-actions">
-    <a href="/">Sitio</a>
-    <a href="/portafolio/">Portafolio</a>
-    <button type="button" id="printBtn" class="is-primary">Descargar PDF</button>
-  </div>
-</div>
-
-<main class="sheet">
-<div class="sheet-inner">
-
-  <!-- ═══ PORTADA ═══ -->
-  <header class="cover">
-    <img class="cover-logo" src="/assets/brand/promax.svg" alt="PROMAX" width="634" height="150" fetchpriority="high">
-    <p class="cover-kicker">CV empresarial · Ciudad de México</p>
-    <h1 class="cover-title">DISEÑO<br>PRODUCCIÓN<br><span class="accent">MUSEOGRAFÍA</span></h1>
-    <p class="cover-sub">
-      Desarrollamos y materializamos proyectos para espacios culturales, expositivos e institucionales.
-      Del concepto al montaje, en un mismo proceso.<br>
-      <span class="quiet">Estudio activo desde 2014, con taller de producción en Ciudad de México.</span>
-    </p>
-
-    <div class="stats mt-l">
-      <div class="stat">
-        <p class="stat-label">Sede</p>
-        <p class="stat-val sm">Ciudad<br>de México</p>
-      </div>
-      <div class="stat">
-        <p class="stat-label">Activo desde</p>
-        <p class="stat-val">2014</p>
-      </div>
-      <div class="stat">
-        <p class="stat-label">Proyectos ejecutados</p>
-        <p class="stat-val">+40</p>
-      </div>
-      <div class="stat">
-        <p class="stat-label">Manejo y producción de obra</p>
-        <p class="stat-val">+10 años</p>
-      </div>
-    </div>
-
-    <div class="band mt-l">
-      <figure class="plate wide span-12">
-        <img src="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_1400/v1777673822/FM_1_ljra8p.jpg"
-             alt="Sala con muro rosa rotulado y pieza cartográfica de gran formato enmarcada sobre muro naranja, en el Museo Franz Mayer"
-             width="1400" height="788" fetchpriority="high" decoding="async">
-        <figcaption><b>Museo Franz Mayer · 2025</b> — Adecuación de espacio, gráfica de muro y montaje de pieza enmarcada de gran formato.</figcaption>
-      </figure>
-    </div>
-  </header>
-
-  <!-- ═══ QUIÉNES SOMOS ═══ -->
-  <section id="estudio">
-    <div class="sec-head">
-      <h2 class="sec-title">UN EQUIPO<br><span class="accent">MULTIDISCIPLINARIO</span></h2>
-      <div class="sec-intro">
-        <p class="sec-lead">
-          PROMAX reúne profesionales provenientes de la arquitectura, el diseño industrial y las artes.
-          Esa integración nos permite abordar cada proyecto considerando al mismo tiempo el espacio, el objeto,
-          la narrativa expositiva, los materiales y los procesos de fabricación.
-        </p>
-        <p class="sec-lead">
-          Operamos desde Ciudad de México con <strong>taller de producción</strong>. Más de una década de experiencia
-          en manejo y producción de obra, y más de 40 proyectos ejecutados para museos, galerías e instituciones
-          culturales.
-        </p>
-      </div>
-    </div>
-
-    <div class="cards">
-      <article class="card">
-        <h3 class="card-title">Arquitectura</h3>
-        <p class="card-text">Espacio, circulación e implantación. Lectura del inmueble y del recorrido antes de proponer cualquier pieza.</p>
-      </article>
-      <article class="card">
-        <h3 class="card-title">Diseño industrial</h3>
-        <p class="card-text">Mobiliario, detalle, materiales y fabricación. El objeto se diseña ya pensado en cómo se produce y se ensambla.</p>
-      </article>
-      <article class="card">
-        <h3 class="card-title">Artes</h3>
-        <p class="card-text">Objeto, lenguaje visual y sensibilidad expositiva. Criterio sobre cómo se presenta y se protege la obra.</p>
-      </article>
-      <article class="card">
-        <h3 class="card-title">Producción</h3>
-        <p class="card-text">Procesos, proveedores, montaje y resolución en sitio. Lo que sostiene que el proyecto se entregue en fecha.</p>
-      </article>
-    </div>
-
-    <div class="band mt-l">
-      <figure class="plate span-7">
-        <img src="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_900/v1777673822/FM_3_icx1mx.jpg"
-             alt="Sala de exposición con muros rojos, recorrido marcado en vinil de piso y elementos suspendidos del techo"
-             width="900" height="675" loading="lazy" decoding="async">
-        <figcaption><b>Museo Franz Mayer · 2025</b> — Adecuación de espacio: gráfica de muro y recorrido en vinil de piso.</figcaption>
-      </figure>
-      <figure class="plate span-5 match">
-        <img src="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_700/v1784832162/7b7d1393-bf34-4b1f-8238-bd8f64b7d051_ec9pea.jpg"
-             alt="Dos integrantes del equipo levantando e instalando una mampara expositiva en sitio"
-             width="700" height="747" loading="lazy" decoding="async">
-        <figcaption><b>2026</b> — Instalación de mampara en sitio, durante el montaje.</figcaption>
-      </figure>
-    </div>
-
-    <blockquote class="pull mt-l">
-      No ofrecemos experiencias. Ofrecemos sistemas: estructuras físicas que comunican, permanecen y funcionan.
-    </blockquote>
-  </section>
-
-  <!-- ═══ QUÉ HACEMOS ═══ -->
-  <section id="servicios">
-    <div class="sec-head">
-      <h2 class="sec-title">QUÉ <span class="accent">HACEMOS</span></h2>
-      <div class="sec-intro">
-        <p class="sec-lead">
-          Ocho capacidades. Se contratan por separado o como proyecto integral, según lo que el encargo
-          necesite resolver.
-        </p>
-      </div>
-    </div>
-
-    <div class="cards">
-      <article class="card">
-        <h3 class="card-title">Diseño museográfico</h3>
-        <p class="card-text">Diseño de exposiciones para museos, galerías e instituciones culturales: recorrido, narrativa espacial, soportes, gráfica y sistemas expositivos, desde el concepto hasta la instalación.</p>
-      </article>
-      <article class="card">
-        <h3 class="card-title">Producción y mobiliario</h3>
-        <p class="card-text">Vitrinas, pedestales, mesas de consulta, anaqueles y estructuras producidas en taller. Carpintería técnica, herrería, metalurgia, corte CNC y láser con control dimensional en cada pieza.</p>
-      </article>
-      <article class="card">
-        <h3 class="card-title">Diseño y producción gráfica</h3>
-        <p class="card-text">Cédulas, viniles, señalética, gráficos de muro, gigantografías e impresión en cama plana sobre materiales rígidos, con control cromático documentado por proyecto.</p>
-      </article>
-      <article class="card">
-        <h3 class="card-title">Impresión 3D y prototipo</h3>
-        <p class="card-text">Maquetas, soportes especiales y piezas únicas. Materializamos geometrías complejas y soluciones que no existen en catálogo.</p>
-      </article>
-      <article class="card">
-        <h3 class="card-title">Instalación y montaje</h3>
-        <p class="card-text">Montaje de exposiciones e instalación en sitio: manejo de obra, gráfica, mobiliario, ajuste dimensional, supervisión técnica y entrega documentada.</p>
-      </article>
-      <article class="card">
-        <h3 class="card-title">Enmarcado</h3>
-        <p class="card-text">Producción de marcos y bastidores para obra artística. Materiales seleccionados por proyecto, acabados de nivel museográfico y manejo profesional de piezas.</p>
-      </article>
-      <article class="card">
-        <h3 class="card-title">Traslado de obra</h3>
-        <p class="card-text">Logística y transporte especializado de obra artística: embalaje técnico, manejo cuidadoso y coordinación de entrega en destino con protocolo de seguridad.</p>
-      </article>
-      <article class="card">
-        <h3 class="card-title">Conservación preventiva</h3>
-        <p class="card-text">Encapsulado y prensado de obra en acrílico, sellado de vitrinas y reparación de capelos, cuando el proyecto exige intervención directa sobre documento y pieza frágil.</p>
-      </article>
-    </div>
-
-    <div class="band mt-l">
-      <figure class="plate span-4">
-        <img src="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_650/v1782254799/durero_titulo_franzmayer_1_ibq1d9.jpg"
-             alt="Muro de título amarillo con la tipografía de la exposición Durero, el primer artista viral"
-             width="650" height="488" loading="lazy" decoding="async">
-        <figcaption><b>Gráfica</b> — Muro de título producido e instalado. Durero: El Primer Artista Viral, 2026.</figcaption>
-      </figure>
-      <figure class="plate span-4">
-        <img src="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_650/v1777673822/FM_2_krzhsk.jpg"
-             alt="Pieza cartográfica de gran formato enmarcada y montada sobre muro naranja en sala de exposición"
-             width="650" height="488" loading="lazy" decoding="async">
-        <figcaption><b>Enmarcado</b> — Marco y montaje de pieza de gran formato. Museo Franz Mayer, 2025.</figcaption>
-      </figure>
-      <figure class="plate span-4">
-        <img src="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_650/v1782254799/wpp_2026_recorrido_16_arqbdy.jpg"
-             alt="Señalética circular de piso en vinil rojo indicando la continuación del recorrido de la exposición"
-             width="650" height="488" loading="lazy" decoding="async">
-        <figcaption><b>Señalética</b> — Vinil de piso para el recorrido. World Press Photo 2026.</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <!-- ═══ CÓMO TRABAJAMOS ═══ -->
-  <section id="proceso">
-    <div class="sec-head">
-      <h2 class="sec-title">CÓMO <span class="accent">TRABAJAMOS</span></h2>
-      <div class="sec-intro">
-        <p class="sec-lead">
-          Cinco fases con entregable verificable en cada una. El control dimensional no se revisa al final:
-          ocurre dentro de la producción.
-        </p>
-      </div>
-    </div>
-
-    <div class="steps">
-      <div class="step">
-        <p class="step-num">01</p>
-        <h3 class="step-name">Brief técnico</h3>
-        <p class="step-text">Levantamiento en sitio y definición de requerimientos: necesidades curatoriales y de conservación, materiales, escala, plazos y presupuesto.</p>
-      </div>
-      <div class="step">
-        <p class="step-num">02</p>
-        <h3 class="step-name">Diseño y planos</h3>
-        <p class="step-text">Desarrollo conceptual y documentación técnica: recorrido, jerarquía expositiva, lenguaje material, renders, planos acotados, despieces y especificación de acabados.</p>
-      </div>
-      <div class="step">
-        <p class="step-num">03</p>
-        <h3 class="step-name">Producción</h3>
-        <p class="step-text">Fabricación en taller con control de calidad en proceso y tolerancias verificadas en cada elemento.</p>
-      </div>
-      <div class="step">
-        <p class="step-num">04</p>
-        <h3 class="step-name">Acabados y control</h3>
-        <p class="step-text">Pintura, ensamble y verificación dimensional. Revisión completa antes de que la pieza salga del taller.</p>
-      </div>
-      <div class="step">
-        <p class="step-num">05</p>
-        <h3 class="step-name">Instalación en sitio</h3>
-        <p class="step-text">Montaje supervisado, ajuste final y entrega con documentación técnica completa.</p>
-      </div>
-    </div>
-
-    <div class="band mt-l">
-      <figure class="plate wide span-12">
-        <img src="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_1400/v1777673822/FM_9_i8nb1i.jpg"
-             alt="Sala en obra con andamios, escaleras y paneles a medio instalar, con personal trabajando"
-             width="1400" height="788" loading="lazy" decoding="async">
-        <figcaption><b>Museo Franz Mayer · 2025</b> — Adecuación de espacio en proceso: estructura, carpintería y herrería antes del acabado.</figcaption>
-      </figure>
-    </div>
-
-    <blockquote class="pull mt-l">
-      Un proyecto puede entrar en cualquiera de las primeras fases: podemos recibir un proyecto expositivo
-      ya definido y llevarlo a producción, o partir de un espacio vacío y desarrollar la propuesta completa.
-    </blockquote>
-  </section>
-
-  <!-- ═══ PROYECTOS ═══ -->
-  <section id="proyectos">
-    <div class="sec-head">
-      <h2 class="sec-title">ALGUNOS DE NUESTROS <span class="accent">PROYECTOS</span></h2>
-      <div class="sec-intro">
-        <p class="sec-lead">
-          Selección de trabajos documentados en nuestro portafolio, entre 2025 y 2026. Forman parte de más de
-          40 proyectos ejecutados desde 2014.
-        </p>
-      </div>
-    </div>
-
-    <div class="client-block">
-      <div class="client-head">
-        <h3 class="client-name">Museo Franz Mayer</h3>
-        <p class="client-meta">Ciudad de México · 2025–2026 · Colaboración continua</p>
-      </div>
-      <p class="client-note">
-        La relación institucional más extensa del estudio: seis intervenciones documentadas en dos años,
-        entre exposición temporal, exposición permanente y adecuación de espacio.
-      </p>
-      <table class="proj">
-        <thead>
-          <tr><th class="c-title">Exposición / intervención</th><th class="c-year">Año</th><th class="c-scope">Alcance PROMAX</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="c-title">World Press Photo 2026</td><td class="c-year">2026</td>
-            <td class="c-scope">Producción e instalación de gigantografías, textos y gráfica expositiva</td>
-          </tr>
-          <tr>
-            <td class="c-title">Alemania: Revoluciones, Arte y Ciencia</td><td class="c-year">2026</td>
-            <td class="c-scope">Producción e instalación de textos, cédulas y gráfica expositiva</td>
-          </tr>
-          <tr>
-            <td class="c-title">Durero: El Primer Artista Viral</td><td class="c-year">2026</td>
-            <td class="c-scope">Producción e instalación de textos, cédulas y gráfica expositiva</td>
-          </tr>
-          <tr>
-            <td class="c-title">La Silla a Través del Tiempo</td><td class="c-year">2026</td>
-            <td class="c-scope">Exposición permanente. Producción gráfica, laminado en material rígido e instalación de contenidos</td>
-          </tr>
-          <tr>
-            <td class="c-title">De Casa a Hogar</td><td class="c-year">2025</td>
-            <td class="c-scope">Montaje expositivo, instalación y apoyo de producción</td>
-          </tr>
-          <tr>
-            <td class="c-title">Adecuación de espacio</td><td class="c-year">2025</td>
-            <td class="c-scope">Montaje y adecuación de espacio, herrería, carpintería y soluciones constructivas</td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="band">
-        <figure class="plate span-6">
-          <img src="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_900/v1782254800/alemania_titulo_franzmayer_1_uxufdm.jpg"
-               alt="Muro de título naranja de la exposición Alemania, revoluciones de arte y ciencia, con una motocicleta en primer plano"
-               width="900" height="675" loading="lazy" decoding="async">
-          <figcaption><b>Alemania: Revoluciones, Arte y Ciencia · 2026</b> — Muro de título y gráfica de sala.</figcaption>
-        </figure>
-        <figure class="plate span-6">
-          <img src="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_900/v1782254794/silla_atraves_del_tiempo_titulo_franz_mayer_1_rwrjsk.jpg"
-               alt="Muro de título de la exposición La silla a través del tiempo con una silla histórica exhibida sobre base"
-               width="900" height="675" loading="lazy" decoding="async">
-          <figcaption><b>La Silla a Través del Tiempo · 2026</b> — Gráfica de sala de la exposición permanente.</figcaption>
-        </figure>
-      </div>
-    </div>
-
-    <div class="client-block">
-      <div class="client-head">
-        <h3 class="client-name">El Colegio Nacional</h3>
-        <p class="client-meta">Ciudad de México · 2025</p>
-      </div>
-      <p class="client-note">
-        Tres proyectos en un mismo año, de la producción y el montaje completo de una sala al sistema modular
-        de una exhibición permanente.
-      </p>
-      <table class="proj">
-        <thead>
-          <tr><th class="c-title">Exposición / intervención</th><th class="c-year">Año</th><th class="c-scope">Alcance PROMAX</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="c-title">Exposición Dr. Atl</td><td class="c-year">2025</td>
-            <td class="c-scope">Producción y montaje en acrílico, metal y madera, con acabados técnicos</td>
-          </tr>
-          <tr>
-            <td class="c-title">Homenaje a Salvador Elizondo</td><td class="c-year">2025</td>
-            <td class="c-scope">Producción, montaje e instalación en sitio</td>
-          </tr>
-          <tr>
-            <td class="c-title">Museo y biblioteca · exposición permanente</td><td class="c-year">2025</td>
-            <td class="c-scope">Producción e instalación de sistema modular, mobiliario y soluciones expositivas</td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="band">
-        <figure class="plate span-6">
-          <img src="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_900/v1778171289/20260506_154314_xpfyr0.jpg"
-               alt="Tres mamparas expositivas azul grisáceo con fotografías enmarcadas, instaladas bajo una arcada de piedra"
-               width="900" height="675" loading="lazy" decoding="async">
-          <figcaption><b>Homenaje a Salvador Elizondo · 2025</b> — Sistema de mamparas producido e instalado, con obra enmarcada montada.</figcaption>
-        </figure>
-        <figure class="plate span-6">
-          <img src="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_900/v1777705172/WhatsApp_Image_2026-05-02_at_12.55.51_AM_1_fxiseh.jpg"
-               alt="Dos personas nivelando y colgando una pintura enmarcada en un muro de sala"
-               width="900" height="675" loading="lazy" decoding="async">
-          <figcaption><b>El Colegio Nacional · 2025</b> — Manejo y montaje de obra enmarcada.</figcaption>
-        </figure>
-      </div>
-    </div>
-
-    <div class="client-block">
-      <div class="client-head">
-        <h3 class="client-name">Otros proyectos expositivos</h3>
-        <p class="client-meta">2025–2026</p>
-      </div>
-      <p class="client-note">
-        World Press Photo llega a México en ediciones consecutivas: 2025 con el sistema expositivo completo,
-        2026 con producción gráfica de gran formato en el Museo Franz Mayer.
-      </p>
-      <table class="proj">
-        <thead>
-          <tr><th class="c-title">Exposición / intervención</th><th class="c-year">Año</th><th class="c-scope">Alcance PROMAX</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="c-title">Miguel León-Portilla: Una vida sin final</td><td class="c-year">2026</td>
-            <td class="c-scope">Encapsulado de obra para conservación, prensado en acrílico, enmarcado de documentos, montaje y distribución en sitio, producción e instalación de gráfica y cédulas, sellado de vitrinas y reparación de capelos</td>
-          </tr>
-          <tr>
-            <td class="c-title">World Press Photo 2025</td><td class="c-year">2025</td>
-            <td class="c-scope">Producción, impresión, instalación y montaje del sistema expositivo</td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="band">
-        <figure class="plate span-6">
-          <img src="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_900/v1784832132/4e27401f-177b-4296-9847-23549d1f455a_ohtjzw.jpg"
-               alt="Dos personas instalando en sitio un panel expositivo oscuro con texto"
-               width="900" height="675" loading="lazy" decoding="async">
-          <figcaption><b>Miguel León-Portilla: Una vida sin final · 2026</b> — Instalación de panel con contenidos en sitio.</figcaption>
-        </figure>
-        <figure class="plate span-6">
-          <img src="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_900/v1784831792/20260720_175532-editada_riiy2g.png"
-               alt="Conjunto de documentos históricos encapsulados y enmarcados, montados sobre panel oscuro"
-               width="900" height="675" loading="lazy" decoding="async">
-          <figcaption><b>Miguel León-Portilla: Una vida sin final · 2026</b> — Documentos encapsulados y enmarcados, montados en sala.</figcaption>
-        </figure>
-      </div>
-    </div>
-
-    <p class="note mt-l">
-      <strong>Nota sobre derechos:</strong> las obras artísticas, fotografías, textos curatoriales, identidades
-      de exposición, marcas y nombres de museos e instituciones pertenecen a sus respectivos autores, titulares
-      y entidades. Fotografía documental: PROMAX. Las imágenes de este documento registran únicamente los
-      trabajos de diseño, producción, mobiliario, gráfica, conservación y montaje realizados por PROMAX.
-      Los nombres de exposiciones e instituciones se citan únicamente para describir ese trabajo, sin
-      implicar patrocinio ni representación. El expediente completo, con más imágenes por proyecto, está en
-      <a href="https://promax-mx.com/portafolio/">promax-mx.com/portafolio</a>.
-    </p>
-  </section>
-
-  <!-- ═══ TALLER ═══ -->
-  <section id="taller">
-    <div class="sec-head">
-      <h2 class="sec-title">TALLER</h2>
-    </div>
-
-    <div class="stats three">
-      <div class="stat">
-        <p class="stat-label">Tolerancias verificadas</p>
-        <p class="stat-val">hasta 0.1 mm</p>
-      </div>
-      <div class="stat">
-        <p class="stat-label">Control dimensional</p>
-        <p class="stat-val">pieza por pieza</p>
-      </div>
-      <div class="stat">
-        <p class="stat-label">Procesos en taller</p>
-        <p class="stat-val">06</p>
-      </div>
-    </div>
-
-    <div class="cards three mt-m">
-      <article class="card">
-        <h3 class="card-title">CNC y corte láser</h3>
-        <p class="card-text">Fresado y corte de alta precisión en madera, MDF, acrílico y aluminio. Tolerancias hasta 0.1 mm, sin rebaba.</p>
-      </article>
-      <article class="card">
-        <h3 class="card-title">Carpintería y herrería</h3>
-        <p class="card-text">Fabricación estructural en madera y metal. Soldadura TIG, doblez, ensambles y acabados industriales de nivel museográfico.</p>
-      </article>
-      <article class="card">
-        <h3 class="card-title">Impresión 3D</h3>
-        <p class="card-text">FDM y resina, para piezas funcionales, maquetas y soportes especiales que no existen en catálogo.</p>
-      </article>
-      <article class="card">
-        <h3 class="card-title">Producción gráfica</h3>
-        <p class="card-text">Gigantografías, cédulas, vinil y cama plana sobre materiales rígidos, con control cromático documentado por proyecto.</p>
-      </article>
-      <article class="card">
-        <h3 class="card-title">Enmarcado y traslado</h3>
-        <p class="card-text">Producción de marcos y logística especializada de obra: embalaje técnico y protocolo de manejo seguro.</p>
-      </article>
-      <article class="card">
-        <h3 class="card-title">Modelado y documentación</h3>
-        <p class="card-text">Modelado 3D, planos acotados, despieces y especificación de materiales y acabados: cada pieza se produce contra documento.</p>
-      </article>
-    </div>
-
-    <div class="band mt-l">
-      <figure class="plate span-7">
-        <img src="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_900/v1777673777/Dr.Atl_6_lcotmt.jpg"
-             alt="Vitrina de mesa con documentos exhibidos y panel de texto montado en el muro de la sala"
-             width="900" height="675" loading="lazy" decoding="async">
-        <figcaption><b>Exposición Dr. Atl · 2025</b> — Vitrina de mesa producida en taller, con documentos montados y cédula de muro.</figcaption>
-      </figure>
-      <figure class="plate span-5 match">
-        <img src="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_700/v1778171289/20260506_154326_ip4ant.jpg"
-             alt="Vitrina con capelo transparente sobre base blanca de geometría facetada, con objetos exhibidos en su interior"
-             width="700" height="747" loading="lazy" decoding="async">
-        <figcaption><b>Homenaje a Salvador Elizondo · 2025</b> — Vitrina con capelo y base facetada, producida en taller.</figcaption>
-      </figure>
-    </div>
-
-  </section>
-
-  <!-- ═══ SISTEMA MATERIAL ═══ -->
-  <section id="materiales">
-    <div class="keep">
-    <div class="sec-head">
-      <h2 class="sec-title">SISTEMA <span class="accent">MATERIAL</span></h2>
-      <div class="sec-intro">
-        <p class="sec-lead">
-          Cada proyecto define su propio sistema constructivo. Estos son los materiales con los que
-          trabajamos y lo que resuelve cada uno.
-        </p>
-      </div>
-    </div>
-    <div class="cards three">
-      <article class="card">
-        <h3 class="card-title">Acrílico</h3>
-        <p class="card-text">Transparente, opaco y espejo. Calibres 3–20 mm. Corte láser y CNC.</p>
-      </article>
-      <article class="card">
-        <h3 class="card-title">Madera</h3>
-        <p class="card-text">MDF, triplay y madera sólida. Múltiples acabados. Fresado 3D.</p>
-      </article>
-      <article class="card">
-        <h3 class="card-title">Metal</h3>
-        <p class="card-text">Acero, aluminio e inoxidable. Doblez, soldadura TIG y corte plasma.</p>
-      </article>
-      <article class="card">
-        <h3 class="card-title">PVC espumado</h3>
-        <p class="card-text">Láminas rígidas y ligeras 3–10 mm. Impresión directa, CNC y láser. Paneles y cartelas.</p>
-      </article>
-      <article class="card">
-        <h3 class="card-title">Otros materiales rígidos</h3>
-        <p class="card-text">Dibond, policarbonato, cartón pluma, forex y compuestos, seleccionados por requerimiento técnico, estético y de durabilidad.</p>
-      </article>
-      <article class="card">
-        <h3 class="card-title">Criterio</h3>
-        <p class="card-text">La selección material responde a función, durabilidad y estética. Función primero, estética siempre.</p>
-      </article>
-    </div>
-    </div>
-
-    <div class="band mt-l">
-      <figure class="plate span-6">
-        <img src="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_900/v1777673777/Dr.Atl_10_wqxc2l.jpg"
-             alt="Panel verde con cédula y gráfica impresa, montado dentro de un nicho abovedado de la sala"
-             width="900" height="675" loading="lazy" decoding="async">
-        <figcaption><b>Exposición Dr. Atl · 2025</b> — Panel de sala con cédula y gráfica, montado en nicho.</figcaption>
-      </figure>
-      <figure class="plate span-6">
-        <img src="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_900/v1777673821/FM_6_ddwmdi.jpg"
-             alt="Gráfica de gran formato rotulada sobre superficie continua de piso y muro en sala de exposición"
-             width="900" height="675" loading="lazy" decoding="async">
-        <figcaption><b>Museo Franz Mayer · 2025</b> — Gráfica de gran formato aplicada en piso y muro.</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <!-- ═══ INSTITUCIONES ═══ -->
-  <section id="instituciones" class="flow">
-    <div class="keep">
-    <div class="sec-head">
-      <h2 class="sec-title">CON QUIÉN <span class="accent">TRABAJAMOS</span></h2>
-      <div class="sec-intro">
-        <p class="sec-lead">
-          Museos, colegios e instituciones culturales en Ciudad de México, además de exposiciones itinerantes
-          de circulación internacional en su paso por México.
-        </p>
-      </div>
-    </div>
-
-    <div class="cards">
-      <article class="card">
-        <h3 class="card-title">Museo Franz Mayer</h3>
-      </article>
-      <article class="card">
-        <h3 class="card-title">El Colegio Nacional</h3>
-      </article>
-      <article class="card">
-        <h3 class="card-title">World Press Photo</h3>
-      </article>
-      <article class="card">
-        <h3 class="card-title">Casa Botero</h3>
-      </article>
-    </div>
-    </div>
-
-  </section>
-
-  <!-- ═══ CONTACTO ═══ -->
-  <section id="contacto" class="flow">
-    <div class="keep">
-    <div class="sec-head">
-      <h2 class="sec-title">HABLEMOS DE <span class="accent">TU PROYECTO</span></h2>
-      <div class="sec-intro">
-        <p class="sec-lead">
-          Cada proyecto comienza con un brief técnico. Cuéntanos qué necesitas construir y en qué fase está.
-        </p>
-      </div>
-    </div>
-
-    <blockquote class="pull">
-      Del concepto al montaje, integramos diseño, producción y ejecución en un mismo proceso.
-    </blockquote>
-    </div>
-
-    <div class="cards contact mt-l">
-      <article class="card">
-        <p class="stat-label">WhatsApp</p>
-        <p class="contact-val"><a href="https://wa.me/5215561809113?text=Hola%20PROMAX%2C%20vi%20su%20CV%20empresarial%20y%20quiero%20cotizar%20un%20proyecto" target="_blank" rel="noopener">+52 1 55 6180 9113</a></p>
-      </article>
-      <article class="card">
-        <p class="stat-label">Email</p>
-        <p class="contact-val"><a href="mailto:atencion.promax@gmail.com">atencion.promax@gmail.com</a></p>
-      </article>
-      <article class="card">
-        <p class="stat-label">Sitio</p>
-        <p class="contact-val"><a href="https://promax-mx.com/">promax-mx.com</a></p>
-      </article>
-      <article class="card">
-        <p class="stat-label">Sede</p>
-        <p class="contact-val">Ciudad de México, MX<br>Recibiendo proyectos</p>
-      </article>
-    </div>
-
-    <div class="band mt-l">
-      <figure class="plate wide span-12">
-        <img src="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_1400/v1782254794/durero_recorrido_franzmayer_6_fcegai.jpg"
-             alt="Muro de sala con piezas enmarcadas montadas y gráfica amarilla de gran formato"
-             width="1400" height="788" loading="lazy" decoding="async">
-        <figcaption><b>Durero: El Primer Artista Viral · 2026</b> — Gráfica de muro y montaje de obra enmarcada.</figcaption>
-      </figure>
-    </div>
-  </section>
-
-</div>
-</main>
-
-<footer class="doc-foot">
-  <div class="doc-foot-inner">
-    <a href="/" aria-label="PROMAX inicio"><img class="doc-foot-logo" src="/assets/brand/promax.svg" alt="PROMAX" width="634" height="150" decoding="async"></a>
-    <div>PROMAX · CDMX · Diseño y producción museográfica</div>
-    <div>promax-mx.com · Septiembre 2026</div>
-  </div>
-</footer>
-
-<script>
-(function () {
-  var cursor = document.getElementById('cursor');
-  var dot = document.getElementById('cursor-dot');
-  var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-
-  if (cursor && dot && fine) {
-    document.documentElement.classList.add('has-cursor');
-    var x = 0, y = 0, cx = 0, cy = 0, raf = null;
-    document.addEventListener('mousemove', function (e) {
-      x = e.clientX; y = e.clientY;
-      dot.style.transform = 'translate(' + x + 'px,' + y + 'px) translate(-50%,-50%)';
-      if (!raf) raf = requestAnimationFrame(follow);
-    });
-    function follow() {
-      cx += (x - cx) * 0.22; cy += (y - cy) * 0.22;
-      cursor.style.transform = 'translate(' + (cx - 12) + 'px,' + (cy - 12) + 'px)';
-      raf = (Math.abs(x - cx) > 0.5 || Math.abs(y - cy) > 0.5) ? requestAnimationFrame(follow) : null;
-    }
-  }
-
-  var btn = document.getElementById('printBtn');
-  if (btn) btn.addEventListener('click', function () { window.print(); });
-})();
-</script>
-</body>
-</html>
+<meta content="noindex, follow" name="robots"/>
+<link href="https://promax-mx.com/presentaciones/cv/" rel="canonical"/>
+<meta content="website" property="og:type"/>
+<meta content="PROMAX" property="og:site_name"/>
+<meta content="PROMAX | CV Empresarial" property="og:title"/>
+<meta content="Diseño, producción y montaje de exposiciones desde Ciudad de México. Activo desde 2014 y más de 40 proyectos ejecutados." property="og:description"/>
+<meta content="https://promax-mx.com/presentaciones/cv/" property="og:url"/>
+<meta content="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_1200/v1777673822/FM_1_ljra8p.jpg" property="og:image"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="es_MX" property="og:locale"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="PROMAX | CV Empresarial" name="twitter:title"/>
+<meta content="Diseño, producción y montaje de exposiciones desde Ciudad de México. Equipo, taller, proceso y proyectos ejecutados." name="twitter:description"/>
+<meta content="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_1200/v1777673822/FM_1_ljra8p.jpg" name="twitter:image"/>
+<link href="/assets/css/cv.css" rel="stylesheet"/>
+</head><body><nav aria-label="Documento" class="doc-bar"><a href="/">PROMAX</a><div><a href="#nosotros">Nosotros</a><a href="#perfil">Perfil</a><a href="#proyectos">Proyectos</a><button id="printBtn" type="button">Imprimir / PDF</button></div></nav><main><section class="page cover" id="portada"><div class="page-body"><div class="cover-copy"><img alt="PROMAX" class="brand" src="/assets/brand/promax.svg"/><p class="kicker">CV empresarial · Septiembre 2026</p><h1>Diseño.<br/>Producción.<br/><em>Montaje.</em></h1><p class="lead">Soluciones para espacios culturales,<br/>expositivos e institucionales.</p><div class="cover-facts"><span>Desde <b>2014</b></span><span><b>+40</b> proyectos ejecutados</span><span>Ciudad de México</span></div></div><div class="cover-visual"><figure class="photo">
+<img alt="Sala con muro rosa rotulado y pieza cartográfica de gran formato enmarcada sobre muro naranja, en el Museo Franz Mayer" decoding="async" fetchpriority="high" src="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_1400/v1777673822/FM_1_ljra8p.jpg"/>
+<figcaption><b>Museo Franz Mayer · 2025</b> — Adecuación de espacio, gráfica de muro y montaje de pieza enmarcada de gran formato.</figcaption>
+</figure></div></div><footer class="page-foot"><span>Ciudad de México · promax-mx.com</span><img alt="PROMAX" src="/assets/brand/promax.svg"/><span>01</span></footer></section><section class="page" id="nosotros"><header class="page-head"><h2>Nosotros</h2><span>PROMAX / CV empresarial</span></header><div class="page-body"><div class="split institutional"><div class="statement-list"><article><h3>Nosotros</h3><p>PROMAX es un estudio mexicano con sede en Ciudad de México, activo desde 2014. Reunimos arquitectura, diseño industrial, artes y producción para resolver las necesidades de espacios culturales y expositivos.</p><p>Nuestra experiencia reúne más de 40 proyectos para museos, galerías e instituciones: fabricación de mobiliario, producción gráfica, enmarcado, manejo de obra e instalación en sitio.</p></article><article><h3>Misión</h3><p>Materializar proyectos expositivos mediante soluciones de diseño, fabricación y montaje que respondan al espacio, a la obra y a las necesidades de cada cliente. Integrar criterio material, precisión técnica y cuidado en la ejecución, desde la definición del encargo hasta su instalación.</p></article><article><h3>Visión</h3><p>Consolidar a PROMAX como un colaborador de referencia para el sector cultural, reconocido por la calidad de su producción, la claridad de sus procesos y su capacidad para resolver cada proyecto junto con clientes y equipos de trabajo.</p></article></div><div class="photo-stack"><figure class="photo">
+<img alt="Sala de exposición con muros rojos, recorrido marcado en vinil de piso y elementos suspendidos del techo" decoding="async" src="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_900/v1777673822/FM_3_icx1mx.jpg"/>
+<figcaption><b>Museo Franz Mayer · 2025</b> — Adecuación de espacio: gráfica de muro y recorrido en vinil de piso.</figcaption>
+</figure><figure class="photo">
+<img alt="Dos integrantes del equipo levantando e instalando una mampara expositiva en sitio" decoding="async" src="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_700/v1784832162/7b7d1393-bf34-4b1f-8238-bd8f64b7d051_ec9pea.jpg"/>
+<figcaption><b>2026</b> — Instalación de mampara en sitio, durante el montaje.</figcaption>
+</figure></div></div></div><footer class="page-foot"><span>Ciudad de México · promax-mx.com</span><img alt="PROMAX" src="/assets/brand/promax.svg"/><span>02</span></footer></section><section class="page" id="perfil"><header class="page-head"><h2>Perfil profesional</h2><span>PROMAX / CV empresarial</span></header><div class="page-body"><div class="split"><div><p class="lead">Un equipo multidisciplinario.<br/>Una respuesta a la medida de cada proyecto.</p><p>Analizamos cada encargo a partir del espacio disponible, las características de las piezas, los materiales, el presupuesto y los tiempos de entrega. Esta lectura permite definir soluciones viables y coordinar su producción e instalación.</p><p>Acompañamos a nuestros clientes con asesoría técnica, documentación de fabricación y seguimiento en sitio. Podemos incorporarnos a un proyecto ya definido o participar en su desarrollo, acordando el alcance y los entregables desde el inicio.</p><div class="cards two disciplines"><article class="card">
+<h3 class="card-title">Arquitectura</h3>
+<p class="card-text">Espacio, circulación e implantación. Lectura del inmueble y del recorrido antes de proponer cualquier pieza.</p>
+</article><article class="card">
+<h3 class="card-title">Diseño industrial</h3>
+<p class="card-text">Mobiliario, detalle, materiales y fabricación. El objeto se diseña ya pensado en cómo se produce y se ensambla.</p>
+</article><article class="card">
+<h3 class="card-title">Artes</h3>
+<p class="card-text">Objeto, lenguaje visual y sensibilidad expositiva. Criterio sobre cómo se presenta y se protege la obra.</p>
+</article><article class="card">
+<h3 class="card-title">Producción</h3>
+<p class="card-text">Procesos, proveedores, montaje y resolución en sitio. Lo que sostiene que el proyecto se entregue en fecha.</p>
+</article></div></div><div class="profile-photo"><figure class="photo">
+<img alt="Sala en obra con andamios, escaleras y paneles a medio instalar, con personal trabajando" decoding="async" src="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_1400/v1777673822/FM_9_i8nb1i.jpg"/>
+<figcaption><b>Museo Franz Mayer · 2025</b> — Adecuación de espacio en proceso: estructura, carpintería y herrería antes del acabado.</figcaption>
+</figure></div></div></div><footer class="page-foot"><span>Ciudad de México · promax-mx.com</span><img alt="PROMAX" src="/assets/brand/promax.svg"/><span>03</span></footer></section><section class="page" id="servicios"><header class="page-head"><h2>Capacidades</h2><span>PROMAX / CV empresarial</span></header><div class="page-body"><p class="intro">Servicios que se integran según las necesidades del encargo, desde la definición técnica hasta la instalación.</p><div class="cards services"><article class="card">
+<h3 class="card-title">Diseño museográfico</h3>
+<p class="card-text">Diseño de exposiciones para museos, galerías e instituciones culturales: recorrido, narrativa espacial, soportes, gráfica y sistemas expositivos, desde el concepto hasta la instalación.</p>
+</article><article class="card">
+<h3 class="card-title">Producción y mobiliario</h3>
+<p class="card-text">Vitrinas, pedestales, mesas de consulta, anaqueles y estructuras producidas en taller. Carpintería técnica, herrería, metalurgia, corte CNC y láser con control dimensional en cada pieza.</p>
+</article><article class="card">
+<h3 class="card-title">Diseño y producción gráfica</h3>
+<p class="card-text">Cédulas, viniles, señalética, gráficos de muro, gigantografías e impresión en cama plana sobre materiales rígidos, con control cromático documentado por proyecto.</p>
+</article><article class="card">
+<h3 class="card-title">Impresión 3D y prototipo</h3>
+<p class="card-text">Maquetas, soportes especiales y piezas únicas. Materializamos geometrías complejas y soluciones que no existen en catálogo.</p>
+</article><article class="card">
+<h3 class="card-title">Instalación y montaje</h3>
+<p class="card-text">Montaje de exposiciones e instalación en sitio: manejo de obra, gráfica, mobiliario, ajuste dimensional, supervisión técnica y entrega documentada.</p>
+</article><article class="card">
+<h3 class="card-title">Enmarcado</h3>
+<p class="card-text">Producción de marcos y bastidores para obra artística. Materiales seleccionados por proyecto, acabados de nivel museográfico y manejo profesional de piezas.</p>
+</article><article class="card">
+<h3 class="card-title">Traslado de obra</h3>
+<p class="card-text">Logística y transporte especializado de obra artística: embalaje técnico, manejo cuidadoso y coordinación de entrega en destino con protocolo de seguridad.</p>
+</article><article class="card">
+<h3 class="card-title">Conservación preventiva</h3>
+<p class="card-text">Encapsulado y prensado de obra en acrílico, sellado de vitrinas y reparación de capelos, cuando el proyecto exige intervención directa sobre documento y pieza frágil.</p>
+</article></div><div class="photo-strip"><figure class="photo">
+<img alt="Muro de título amarillo con la tipografía de la exposición Durero, el primer artista viral" decoding="async" src="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_650/v1782254799/durero_titulo_franzmayer_1_ibq1d9.jpg"/>
+<figcaption><b>Gráfica</b> — Muro de título producido e instalado. Durero: El Primer Artista Viral, 2026.</figcaption>
+</figure><figure class="photo">
+<img alt="Pieza cartográfica de gran formato enmarcada y montada sobre muro naranja en sala de exposición" decoding="async" src="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_650/v1777673822/FM_2_krzhsk.jpg"/>
+<figcaption><b>Enmarcado</b> — Marco y montaje de pieza de gran formato. Museo Franz Mayer, 2025.</figcaption>
+</figure><figure class="photo">
+<img alt="Señalética circular de piso en vinil rojo indicando la continuación del recorrido de la exposición" decoding="async" src="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_650/v1782254799/wpp_2026_recorrido_16_arqbdy.jpg"/>
+<figcaption><b>Señalética</b> — Vinil de piso para el recorrido. World Press Photo 2026.</figcaption>
+</figure></div></div><footer class="page-foot"><span>Ciudad de México · promax-mx.com</span><img alt="PROMAX" src="/assets/brand/promax.svg"/><span>04</span></footer></section><section class="page" id="taller"><header class="page-head"><h2>Taller y proceso</h2><span>PROMAX / CV empresarial</span></header><div class="page-body"><div class="split workshop"><div><p class="intro">Coordinamos materiales, fabricación y montaje como partes de un mismo proceso.</p><div class="process"><article class="process-item"><h3>Brief técnico</h3><p>Levantamiento en sitio y definición de requerimientos: necesidades curatoriales y de conservación, materiales, escala, plazos y presupuesto.</p></article><article class="process-item"><h3>Diseño y planos</h3><p>Desarrollo conceptual y documentación técnica: recorrido, jerarquía expositiva, lenguaje material, renders, planos acotados, despieces y especificación de acabados.</p></article><article class="process-item"><h3>Producción</h3><p>Fabricación en taller con control de calidad en proceso y tolerancias verificadas en cada elemento.</p></article><article class="process-item"><h3>Acabados y control</h3><p>Pintura, ensamble y verificación dimensional. Revisión completa antes de que la pieza salga del taller.</p></article><article class="process-item"><h3>Instalación en sitio</h3><p>Montaje supervisado, ajuste final y entrega con documentación técnica completa.</p></article></div></div><div class="workshop-right"><div class="material-note"><h3>Materiales y fabricación</h3><p>Trabajamos con madera, acrílico, metal y materiales rígidos para gráfica. Combinamos carpintería, herrería, corte CNC, láser e impresión 3D según las especificaciones de cada pieza.</p><p>La selección de materiales y acabados responde a la función, las condiciones de exhibición y el presupuesto. Verificamos dimensiones, ensambles y terminaciones antes del montaje.</p></div><figure class="photo">
+<img alt="Vitrina de mesa con documentos exhibidos y panel de texto montado en el muro de la sala" decoding="async" src="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_900/v1777673777/Dr.Atl_6_lcotmt.jpg"/>
+<figcaption><b>Exposición Dr. Atl · 2025</b> — Vitrina de mesa producida en taller, con documentos montados y cédula de muro.</figcaption>
+</figure></div></div></div><footer class="page-foot"><span>Ciudad de México · promax-mx.com</span><img alt="PROMAX" src="/assets/brand/promax.svg"/><span>05</span></footer></section><section class="page projects" id="proyectos"><header class="page-head"><h2>Proyectos</h2><span>PROMAX / CV empresarial</span></header><div class="page-body"><div class="project-heading"><h3>Museo Franz Mayer</h3><span>Ciudad de México · 2025–2026 · Colaboración continua</span></div><div class="split project-layout"><div><p class="intro">Producción e instalación de gráfica, adecuación de espacios y montaje para exposiciones temporales y permanentes.</p><table class="proj">
+<thead>
+<tr><th class="c-title">Exposición / intervención</th><th class="c-year">Año</th><th class="c-scope">Alcance PROMAX</th></tr>
+</thead>
+<tbody>
+<tr>
+<td class="c-title">World Press Photo 2026</td><td class="c-year">2026</td>
+<td class="c-scope">Producción e instalación de gigantografías, textos y gráfica expositiva</td>
+</tr>
+<tr>
+<td class="c-title">Alemania: Revoluciones, Arte y Ciencia</td><td class="c-year">2026</td>
+<td class="c-scope">Producción e instalación de textos, cédulas y gráfica expositiva</td>
+</tr>
+<tr>
+<td class="c-title">Durero: El Primer Artista Viral</td><td class="c-year">2026</td>
+<td class="c-scope">Producción e instalación de textos, cédulas y gráfica expositiva</td>
+</tr>
+<tr>
+<td class="c-title">La Silla a Través del Tiempo</td><td class="c-year">2026</td>
+<td class="c-scope">Exposición permanente. Producción gráfica, laminado en material rígido e instalación de contenidos</td>
+</tr>
+<tr>
+<td class="c-title">De Casa a Hogar</td><td class="c-year">2025</td>
+<td class="c-scope">Montaje expositivo, instalación y apoyo de producción</td>
+</tr>
+<tr>
+<td class="c-title">Adecuación de espacio</td><td class="c-year">2025</td>
+<td class="c-scope">Montaje y adecuación de espacio, herrería, carpintería y soluciones constructivas</td>
+</tr>
+</tbody>
+</table><p class="small project-link">Más documentación en <a href="https://promax-mx.com/portafolio/">promax-mx.com/portafolio</a></p></div><div class="project-photos"><figure class="photo">
+<img alt="Muro de título naranja de la exposición Alemania, revoluciones de arte y ciencia, con una motocicleta en primer plano" decoding="async" height="675" src="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_900/v1782254800/alemania_titulo_franzmayer_1_uxufdm.jpg" width="900"/>
+<figcaption><b>Alemania: Revoluciones, Arte y Ciencia · 2026</b> — Muro de título y gráfica de sala.</figcaption>
+</figure><figure class="photo">
+<img alt="Muro de título de la exposición La silla a través del tiempo con una silla histórica exhibida sobre base" decoding="async" height="675" src="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_900/v1782254794/silla_atraves_del_tiempo_titulo_franz_mayer_1_rwrjsk.jpg" width="900"/>
+<figcaption><b>La Silla a Través del Tiempo · 2026</b> — Gráfica de sala de la exposición permanente.</figcaption>
+</figure></div></div></div><footer class="page-foot"><span>Ciudad de México · promax-mx.com</span><img alt="PROMAX" src="/assets/brand/promax.svg"/><span>06</span></footer></section><section class="page projects project-gallery" id="proyectos-2"><header class="page-head"><h2>Proyectos</h2><span>PROMAX / CV empresarial</span></header><div class="page-body"><div class="project-heading"><h3>El Colegio Nacional</h3><span>Ciudad de México · 2025</span></div><div class="split project-layout"><div><p class="intro">Producción de mobiliario, sistemas expositivos y montaje en espacios de El Colegio Nacional.</p><table class="proj">
+<thead>
+<tr><th class="c-title">Exposición / intervención</th><th class="c-year">Año</th><th class="c-scope">Alcance PROMAX</th></tr>
+</thead>
+<tbody>
+<tr>
+<td class="c-title">Exposición Dr. Atl</td><td class="c-year">2025</td>
+<td class="c-scope">Producción y montaje en acrílico, metal y madera, con acabados técnicos</td>
+</tr>
+<tr>
+<td class="c-title">Homenaje a Salvador Elizondo</td><td class="c-year">2025</td>
+<td class="c-scope">Producción, montaje e instalación en sitio</td>
+</tr>
+<tr>
+<td class="c-title">Museo y biblioteca · exposición permanente</td><td class="c-year">2025</td>
+<td class="c-scope">Producción e instalación de sistema modular, mobiliario y soluciones expositivas</td>
+</tr>
+</tbody>
+</table><p class="small project-link">Más documentación en <a href="https://promax-mx.com/portafolio/">promax-mx.com/portafolio</a></p></div><div class="project-photos"><figure class="photo">
+<img alt="Tres mamparas expositivas azul grisáceo con fotografías enmarcadas, instaladas bajo una arcada de piedra" decoding="async" height="675" src="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_900/v1778171289/20260506_154314_xpfyr0.jpg" width="900"/>
+<figcaption><b>Homenaje a Salvador Elizondo · 2025</b> — Sistema de mamparas producido e instalado, con obra enmarcada montada.</figcaption>
+</figure><figure class="photo">
+<img alt="Dos personas nivelando y colgando una pintura enmarcada en un muro de sala" decoding="async" height="675" src="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_900/v1777705172/WhatsApp_Image_2026-05-02_at_12.55.51_AM_1_fxiseh.jpg" width="900"/>
+<figcaption><b>El Colegio Nacional · 2025</b> — Manejo y montaje de obra enmarcada.</figcaption>
+</figure></div></div></div><footer class="page-foot"><span>Ciudad de México · promax-mx.com</span><img alt="PROMAX" src="/assets/brand/promax.svg"/><span>07</span></footer></section><section class="page projects project-gallery" id="proyectos-3"><header class="page-head"><h2>Proyectos</h2><span>PROMAX / CV empresarial</span></header><div class="page-body"><div class="project-heading"><h3>Otros proyectos expositivos</h3><span>2025–2026</span></div><div class="split project-layout"><div><p class="intro">Intervenciones de producción, enmarcado, conservación preventiva e instalación en proyectos expositivos.</p><table class="proj">
+<thead>
+<tr><th class="c-title">Exposición / intervención</th><th class="c-year">Año</th><th class="c-scope">Alcance PROMAX</th></tr>
+</thead>
+<tbody>
+<tr>
+<td class="c-title">Miguel León-Portilla: Una vida sin final</td><td class="c-year">2026</td>
+<td class="c-scope">Encapsulado de obra para conservación, prensado en acrílico, enmarcado de documentos, montaje y distribución en sitio, producción e instalación de gráfica y cédulas, sellado de vitrinas y reparación de capelos</td>
+</tr>
+<tr>
+<td class="c-title">World Press Photo 2025</td><td class="c-year">2025</td>
+<td class="c-scope">Producción, impresión, instalación y montaje del sistema expositivo</td>
+</tr>
+</tbody>
+</table><p class="small project-link">Más documentación en <a href="https://promax-mx.com/portafolio/">promax-mx.com/portafolio</a></p></div><div class="project-photos"><figure class="photo">
+<img alt="Dos personas instalando en sitio un panel expositivo oscuro con texto" decoding="async" height="675" src="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_900/v1784832132/4e27401f-177b-4296-9847-23549d1f455a_ohtjzw.jpg" width="900"/>
+<figcaption><b>Miguel León-Portilla: Una vida sin final · 2026</b> — Instalación de panel con contenidos en sitio.</figcaption>
+</figure><figure class="photo">
+<img alt="Conjunto de documentos históricos encapsulados y enmarcados, montados sobre panel oscuro" decoding="async" height="675" src="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_900/v1784831792/20260720_175532-editada_riiy2g.png" width="900"/>
+<figcaption><b>Miguel León-Portilla: Una vida sin final · 2026</b> — Documentos encapsulados y enmarcados, montados en sala.</figcaption>
+</figure></div></div></div><footer class="page-foot"><span>Ciudad de México · promax-mx.com</span><img alt="PROMAX" src="/assets/brand/promax.svg"/><span>08</span></footer></section><section class="page" id="contacto"><header class="page-head"><h2>Clientes y contacto</h2><span>PROMAX / CV empresarial</span></header><div class="page-body"><div class="split closing"><div><h3>Con quién trabajamos</h3><p>La experiencia de PROMAX incluye trabajos para instituciones culturales y proyectos expositivos como:</p><ul class="clients"><li>Museo Franz Mayer</li><li>El Colegio Nacional</li><li>World Press Photo</li><li>Casa Botero</li></ul><h3 class="contact-title">Hablemos de tu proyecto</h3><p>Cuéntanos qué necesitas producir o instalar y en qué etapa se encuentra el proyecto.</p><div class="contact-grid"><article class="card">
+<p class="stat-label">WhatsApp</p>
+<p class="contact-val"><a href="https://wa.me/5215561809113?text=Hola%20PROMAX%2C%20vi%20su%20CV%20empresarial%20y%20quiero%20cotizar%20un%20proyecto" rel="noopener" target="_blank">+52 1 55 6180 9113</a></p>
+</article><article class="card">
+<p class="stat-label">Email</p>
+<p class="contact-val"><a href="mailto:atencion.promax@gmail.com">atencion.promax@gmail.com</a></p>
+</article><article class="card">
+<p class="stat-label">Sitio</p>
+<p class="contact-val"><a href="https://promax-mx.com/">promax-mx.com</a></p>
+</article><article class="card">
+<p class="stat-label">Sede</p>
+<p class="contact-val">Ciudad de México, MX<br/>Recibiendo proyectos</p>
+</article></div></div><div class="closing-photo"><figure class="photo">
+<img alt="Muro de sala con piezas enmarcadas montadas y gráfica amarilla de gran formato" decoding="async" src="https://res.cloudinary.com/dnruecqwm/image/upload/f_auto,q_auto,c_limit,w_1400/v1782254794/durero_recorrido_franzmayer_6_fcegai.jpg"/>
+<figcaption><b>Durero: El Primer Artista Viral · 2026</b> — Gráfica de muro y montaje de obra enmarcada.</figcaption>
+</figure><p class="rights">Fotografía documental: PROMAX. Las obras, textos e identidades de exposición pertenecen a sus respectivos titulares. Las imágenes documentan los trabajos de producción e instalación de PROMAX; la mención de instituciones no implica patrocinio ni representación.</p></div></div></div><footer class="page-foot"><span>Ciudad de México · promax-mx.com</span><img alt="PROMAX" src="/assets/brand/promax.svg"/><span>09</span></footer></section></main><script>
+document.getElementById('printBtn').addEventListener('click',async function(){
+  this.disabled=true;
+  try { await document.fonts.ready; await Promise.all(Array.from(document.images).map(i=>i.decode().catch(()=>{}))); window.print(); }
+  finally { this.disabled=false; }
+});
+</script></body></html>
