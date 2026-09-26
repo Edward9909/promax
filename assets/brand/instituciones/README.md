@@ -10,4 +10,4 @@ Las marcas pertenecen a sus respectivos titulares.
 | colegio-nacional.png | https://colnal.mx/wp-content/uploads/2020/07/logo-colegio-nacional@2x.png |
 | world-press-photo.svg | https://www.worldpressphoto.org/Frontend/images/logo.svg |
 
-Casa Botero conserva su nombre en texto hasta disponer de una fuente confirmada para su logo.
+Casa Botero: sitio confirmado por el usuario; logo obtenido el 26 de septiembre de 2026 de https://casabotero.com/wp-content/uploads/2026/05/LOGO-01.png.
