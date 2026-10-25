@@ -1,0 +1,13 @@
+/* Extend the shared service components without changing other service pages. */
+.service-eyebrow { color:var(--ink2); }
+.service-title .accent { color:var(--ink); background:var(--accent); padding:0 .04em; }
+.service-intro { margin-bottom:24px; }
+.service-btn { max-width:100%; white-space:normal; }
+.service-copy { max-width:1120px; margin-inline:auto; }
+.service-btn:focus-visible, .service-cta a:focus-visible { outline:2px solid var(--ink); outline-offset:5px; }
+@media(max-width:560px) {
+  #hero.service-hero { min-height:0; padding:128px 20px 72px; }
+  .service-title { font-size:clamp(36px,11.7vw,54px); }
+  .service-btn { font-size:13px; letter-spacing:.08em; padding:16px; }
+  .service-cta .service-btn { margin-bottom:24px; }
+}
