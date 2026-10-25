@@ -1,5 +1,6 @@
 /* Extend the shared service components without changing other service pages. */
 .service-eyebrow { color:var(--ink2); }
+.service-title { font-size:clamp(64px,9vw,132px); line-height:1.02; }
 .service-title .accent { color:var(--ink); background:var(--accent); padding:0 .04em; }
 .service-intro { margin-bottom:24px; }
 .service-btn { max-width:100%; white-space:normal; }
