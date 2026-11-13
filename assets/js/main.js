@@ -57,29 +57,6 @@ document.querySelectorAll('.proc-item').forEach(item => {
 // CARD STAGGER
 // Portfolio cards — sin animación de entrada, visibles desde el inicio para máxima estabilidad
 
-// ---- COUNTER ANIMATION ----
-function animateCounter(el, target, prefix, suffix, duration) {
-  let start = 0;
-  const step = target / (duration / 16);
-  const timer = setInterval(() => {
-    start = Math.min(start + step, target);
-    el.textContent = prefix + Math.floor(start) + suffix;
-    if (start >= target) clearInterval(timer);
-  }, 16);
-}
-
-ScrollTrigger.create({
-  trigger: '#hero',
-  start: 'top 80%',
-  once: true,
-  onEnter: () => {
-    setTimeout(() => {
-      animateCounter(document.getElementById('statCount1'), 40, '+', '', 1200);
-      animateCounter(document.getElementById('statCount2'),  5,  '', '', 900);
-    }, 600);
-  }
-});
-
 // ---- TYPEWRITER — hero tag ----
 const heroTagEl = document.querySelector('.hero-tag-label');
 if (heroTagEl) {
